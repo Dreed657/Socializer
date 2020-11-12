@@ -4,11 +4,10 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Socializer.Common;
-    using Socializer.Data.Models;
-
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+    using Socializer.Common;
+    using Socializer.Data.Models;
 
     internal class RolesSeeder : ISeeder
     {

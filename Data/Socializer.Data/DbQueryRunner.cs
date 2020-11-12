@@ -3,9 +3,8 @@
     using System;
     using System.Threading.Tasks;
 
-    using Socializer.Data.Common;
-
     using Microsoft.EntityFrameworkCore;
+    using Socializer.Data.Common;
 
     public class DbQueryRunner : IDbQueryRunner
     {

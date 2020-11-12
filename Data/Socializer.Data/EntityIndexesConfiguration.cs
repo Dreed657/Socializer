@@ -2,9 +2,8 @@
 {
     using System.Linq;
 
-    using Socializer.Data.Common.Models;
-
     using Microsoft.EntityFrameworkCore;
+    using Socializer.Data.Common.Models;
 
     internal static class EntityIndexesConfiguration
     {

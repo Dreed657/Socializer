@@ -4,9 +4,8 @@ namespace Socializer.Data.Models
     using System;
     using System.Collections.Generic;
 
-    using Socializer.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+    using Socializer.Data.Common.Models;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -16,7 +15,11 @@ namespace Socializer.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+
+            this.Posts = new HashSet<Post>();
         }
+
+        public virtual ICollection<Post> Posts { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }

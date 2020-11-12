@@ -1,11 +1,9 @@
-﻿// ReSharper disable VirtualMemberCallInConstructor
-namespace Socializer.Data.Models
+﻿namespace Socializer.Data.Models
 {
     using System;
 
-    using Socializer.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+    using Socializer.Data.Common.Models;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {

@@ -2,9 +2,8 @@
 {
     using System.Diagnostics;
 
-    using Socializer.Web.ViewModels;
-
     using Microsoft.AspNetCore.Mvc;
+    using Socializer.Web.ViewModels.Common;
 
     public class HomeController : BaseController
     {

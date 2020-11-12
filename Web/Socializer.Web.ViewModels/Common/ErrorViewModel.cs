@@ -1,4 +1,4 @@
-﻿namespace Socializer.Web.ViewModels
+﻿namespace Socializer.Web.ViewModels.Common
 {
     public class ErrorViewModel
     {

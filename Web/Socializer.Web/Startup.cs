@@ -2,17 +2,6 @@
 {
     using System.Reflection;
 
-    using Socializer.Data;
-    using Socializer.Data.Common;
-    using Socializer.Data.Common.Repositories;
-    using Socializer.Data.Models;
-    using Socializer.Data.Repositories;
-    using Socializer.Data.Seeding;
-    using Socializer.Services.Data;
-    using Socializer.Services.Mapping;
-    using Socializer.Services.Messaging;
-    using Socializer.Web.ViewModels;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -21,6 +10,16 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Socializer.Data;
+    using Socializer.Data.Common;
+    using Socializer.Data.Common.Repositories;
+    using Socializer.Data.Models;
+    using Socializer.Data.Repositories;
+    using Socializer.Data.Seeding;
+    using Socializer.Services.Data.Posts;
+    using Socializer.Services.Mapping;
+    using Socializer.Services.Messaging;
+    using Socializer.Web.ViewModels.Common;
 
     public class Startup
     {
@@ -31,7 +30,6 @@
             this.configuration = configuration;
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(
@@ -56,22 +54,18 @@
 
             services.AddSingleton(this.configuration);
 
-            // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
-            // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<IPostsService, PostsService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
-            // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();

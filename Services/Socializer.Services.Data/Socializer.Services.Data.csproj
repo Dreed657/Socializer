@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Socializer.Data.Common\Socializer.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\Socializer.Data.Models\Socializer.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\Socializer.Web.ViewModels\Socializer.Web.ViewModels.csproj" />
     <ProjectReference Include="..\Socializer.Services.Mapping\Socializer.Services.Mapping.csproj" />
   </ItemGroup>
 
