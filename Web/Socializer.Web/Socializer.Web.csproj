@@ -42,4 +42,10 @@
     <ProjectReference Include="..\Socializer.Web.Infrastructure\Socializer.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\Socializer.Web.ViewModels\Socializer.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\images\auth-page.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

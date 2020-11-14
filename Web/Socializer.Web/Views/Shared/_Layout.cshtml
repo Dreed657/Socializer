@@ -22,10 +22,10 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1 justify-content-center">
                         <li class="nav-item px-2">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Posts" asp-action="Index">Feed</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Index">Feed</a>
                         </li>
                     </ul>
                 </div>
@@ -33,12 +33,10 @@
         </nav>
     </header>
     
-    <div class="container">
-        <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
-            @this.RenderBody()
-        </main>
-    </div>
+    <partial name="_CookieConsentPartial" />
+    <main role="main" class="pb-3">
+        @this.RenderBody()
+    </main>
     
     <footer class="border-top footer text-muted">
         <div class="container">

@@ -25,7 +25,7 @@
         public async Task<IActionResult> Index()
         {
             var models = await this.postsService.GetAllAsync<PostViewModel>();
-            return this.View(models);
+            return this.View(models.OrderByDescending(x => x.CreatedOn));
         }
 
         [HttpPost]
@@ -33,12 +33,7 @@
         {
             var user = await this.userManager.GetUserAsync(this.User);
 
-            if (await this.postsService.CreateAsync(model, user.Id) is null)
-            {
-                return this.Redirect("Error");
-            }
-
-            return this.Redirect(returnUrl);
+            return this.Redirect(await this.postsService.CreateAsync(model, user.Id) is null ? "Error" : returnUrl);
         }
 
         public async Task<IActionResult> Delete(int postId, string returnUrl)

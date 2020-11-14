@@ -19,6 +19,11 @@ namespace Socializer.Data.Models
             this.Posts = new HashSet<Post>();
         }
 
+        // Custom Info
+        public string Description { get; set; }
+
+        public DateTime Birthdate { get; set; }
+
         public virtual ICollection<Post> Posts { get; set; }
 
         // Audit info

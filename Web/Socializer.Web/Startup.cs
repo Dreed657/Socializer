@@ -1,4 +1,6 @@
-﻿namespace Socializer.Web
+﻿using Socializer.Services.Data.Profiles;
+
+namespace Socializer.Web
 {
     using System.Reflection;
 
@@ -60,6 +62,7 @@
 
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IPostsService, PostsService>();
+            services.AddTransient<IProfilesService, ProfilesService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
