@@ -14,6 +14,6 @@
 
         public DateTime CreatedOn { get; set; }
 
-        public ShortUserViewModel Author { get; set; }
+        public ApplicationUser Creator { get; set; }
     }
 }

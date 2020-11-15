@@ -1,4 +1,7 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
+
+using Socializer.Data.Models.Enums;
+
 namespace Socializer.Data.Models
 {
     using System;
@@ -20,9 +23,15 @@ namespace Socializer.Data.Models
         }
 
         // Custom Info
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
         public string Description { get; set; }
 
         public DateTime Birthdate { get; set; }
+
+        public Gender Gender { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
 

@@ -1,4 +1,5 @@
 ﻿@page
+@using Socializer.Data.Models.Enums
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
@@ -7,30 +8,52 @@
 <div class="sidenav">
     <div class="login-main-text">
         <h2>Application<br> Login Page</h2>
-        <p>Login from here to access.</p>
+        <p>Register from here to access.</p>
     </div>
 </div>
 <div class="main">
     <div class="col-md-6 col-sm-12">
         <div class="login-form rounded border p-4">
             <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                <h4>Create a new account.</h4>
-                <hr/>
+                <h2>Sing Up</h2>
+                <h5>It's quick and easy.</h5>
+                <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group m-2">
-                    <label asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="form-control"/>
+                <div class="row my-3">
+                    <div class="col">
+                        <input asp-for="Input.FirstName" class="form-control" placeholder="First name" />
+                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <input asp-for="Input.LastName" class="form-control" placeholder="Last name" />
+                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group my-3">
+                    <input asp-for="Input.Email" class="form-control" placeholder="Email" />
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
-                <div class="form-group m-2">
-                    <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control"/>
+                <div class="form-group my-3">
+                    <input asp-for="Input.Password" class="form-control" placeholder="Password" />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
-                <div class="form-group m-2">
-                    <label asp-for="Input.ConfirmPassword"></label>
-                    <input asp-for="Input.ConfirmPassword" class="form-control"/>
+                <div class="form-group my-3">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Comfirm Password" />
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group my-3">
+                    <label asp-for="Input.Birthdate"></label>
+                    <input asp-for="Input.Birthdate" class="form-control" />
+                    <span asp-validation-for="Input.Birthdate" class="text-danger"></span>
+                </div>
+                <div class="row my-3">
+                    @foreach( var c in System.Enum.GetValues(typeof(Gender)) )
+                    {
+                        <div class="col p-2 mx-2 border rounded text-center">
+                            <label asp-for="Input.Gender" >@c</label>
+                            <input type="radio" asp-for="Input.Gender" value="@((int)c)" />
+                        </div>
+                    }
                 </div>
                 <div class="form-group m-4 mb-0">
                     <div class="row offset-1">
@@ -38,7 +61,7 @@
                             <button type="submit" class="btn btn-primary">Register</button>
                         </div>
                         <div class="col offset-2">
-                            <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-primary">Are you have an account?</a>
+                            <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-primary">Login?</a>
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,7 @@
 
 <div class="card my-3">
     <div class="card-body">
-        <h3 class="card-title">@Model.CreatedOn</h3>
+        <h3 class="card-title">@Model.Creator.FirstName @Model.Creator.LastName On @Model.CreatedOn.ToLocalTime()</h3>
         <p class="card-text">@Model.Content</p>
         <a href="#" class="btn btn-primary">Card link</a>
         <a asp-controller="Posts" asp-action="Delete" asp-route-postId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value" class="btn btn-danger">Delete</a>
