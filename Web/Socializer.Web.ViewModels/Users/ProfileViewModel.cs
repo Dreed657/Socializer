@@ -1,4 +1,6 @@
-﻿namespace Socializer.Web.ViewModels.Users
+﻿using Socializer.Data.Models.Enums;
+
+namespace Socializer.Web.ViewModels.Users
 {
     using System;
     using System.Collections.Generic;
@@ -18,6 +20,10 @@
         public string Description { get; set; }
 
         public DateTime Birthdate { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        public Gender Gender { get; set; }
 
         public ICollection<PostViewModel> Posts { get; set; }
     }

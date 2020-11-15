@@ -21,6 +21,10 @@
       ]
     },
     {
+      "library": "popper.js@1.16.1",
+      "destination": "wwwroot/lib/popper"
+    },
+    {
       "library": "jquery-validation@1.19.2",
       "destination": "wwwroot/lib/jquery-validation/",
       "files": [

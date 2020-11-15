@@ -32,12 +32,12 @@
             </div>
         </nav>
     </header>
-    
+
     <partial name="_CookieConsentPartial" />
     <main role="main" class="pb-3">
         @this.RenderBody()
     </main>
-    
+
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -49,6 +49,7 @@
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script src="~/lib/popper/dist/umd/popper.min.js"></script>
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -96,7 +96,7 @@
                 {
                     FirstName = this.Input.FirstName,
                     LastName = this.Input.LastName,
-                    UserName = this.Input.Email,
+                    UserName = $"{this.Input.FirstName.ToLower()}.{this.Input.LastName.ToLower()}",
                     Email = this.Input.Email,
                     Gender = this.Input.Gender,
                     Birthdate = this.Input.Birthdate,
