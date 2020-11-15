@@ -4,68 +4,80 @@
 @{
     ViewData["Title"] = "Register";
 }
-
-<div class="sidenav">
-    <div class="login-main-text">
-        <h2>Application<br> Login Page</h2>
-        <p>Register from here to access.</p>
-    </div>
-</div>
-<div class="main">
-    <div class="col-md-6 col-sm-12">
-        <div class="login-form rounded border p-4">
-            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                <h2>Sing Up</h2>
-                <h5>It's quick and easy.</h5>
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="row my-3">
-                    <div class="col">
-                        <input asp-for="Input.FirstName" class="form-control" placeholder="First name" />
-                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-                    </div>
-                    <div class="col">
-                        <input asp-for="Input.LastName" class="form-control" placeholder="Last name" />
-                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
-                    </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-4 offset-md-1">
+            <div class="register-form">
+                <div class="mb-5">
+                    <h1>Register</h1>
+                    <p class="lead">Create an account to start playing.</p>
                 </div>
-                <div class="form-group my-3">
-                    <input asp-for="Input.Email" class="form-control" placeholder="Email" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group my-3">
-                    <input asp-for="Input.Password" class="form-control" placeholder="Password" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group my-3">
-                    <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Comfirm Password" />
-                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                </div>
-                <div class="form-group my-3">
-                    <label asp-for="Input.Birthdate"></label>
-                    <input asp-for="Input.Birthdate" class="form-control" />
-                    <span asp-validation-for="Input.Birthdate" class="text-danger"></span>
-                </div>
-                <div class="row my-3">
-                    @foreach( var c in System.Enum.GetValues(typeof(Gender)) )
-                    {
-                        <div class="col p-2 mx-2 border rounded text-center">
-                            <label asp-for="Input.Gender" >@c</label>
-                            <input type="radio" asp-for="Input.Gender" value="@((int)c)" />
-                        </div>
-                    }
-                </div>
-                <div class="form-group m-4 mb-0">
-                    <div class="row offset-1">
+                <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="row my-3">
                         <div class="col">
-                            <button type="submit" class="btn btn-primary">Register</button>
+                            <input asp-for="Input.FirstName" class="form-control" placeholder="First name" />
+                            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                         </div>
-                        <div class="col offset-2">
-                            <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-primary">Login?</a>
+                        <div class="col">
+                            <input asp-for="Input.LastName" class="form-control" placeholder="Last name" />
+                            <span asp-validation-for="Input.LastName" class="text-danger"></span>
                         </div>
                     </div>
-                </div>
-            </form>
+                    <div class="form-group my-3">
+                        <input asp-for="Input.Email" class="form-control" placeholder="Email" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group my-3">
+                        <input asp-for="Input.Password" class="form-control" placeholder="Password" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group my-3">
+                        <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Comfirm Password" />
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <div class="form-group my-3">
+                        <label asp-for="Input.Birthdate"></label>
+                        <input asp-for="Input.Birthdate" class="form-control" />
+                        <span asp-validation-for="Input.Birthdate" class="text-danger"></span>
+                    </div>
+                    <div class="row my-3 text-center">
+                        <div class="col">
+                            <label for="male" class="btn btn-outline-dark">
+                                @Gender.Male
+                                <input type="radio" asp-for="Input.Gender" id="male" autocomplete="off" value="@((int) Gender.Male)" />
+                            </label>
+                        </div>
+                        <div class="col">
+                            <label for="female" class="btn btn-outline-dark">
+                                @Gender.Female
+                                <input type="radio" asp-for="Input.Gender" id="female" autocomplete="off" value="@((int) Gender.Female)" />
+                            </label>
+                        </div>
+                        <div class="col">
+                            <label for="other" class="btn btn-outline-dark">
+                                @Gender.Other
+                                <input type="radio" asp-for="Input.Gender" id="other" autocomplete="off" value="@((int) Gender.Other)" />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group m-4 mb-0">
+                        <div class="row text-center">
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary">Register</button>
+                            </div>
+                            <div class="col">
+                                <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-primary">Login?</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 offset-md-1 d-flex">
+            <div class="full-picture flex-grow-1">
+            </div>
         </div>
     </div>
 </div>

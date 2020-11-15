@@ -96,11 +96,12 @@
                 {
                     FirstName = this.Input.FirstName,
                     LastName = this.Input.LastName,
-                    UserName = this.Input.Email,
+                    UserName = $"{this.Input.FirstName.ToLower()}.{this.Input.LastName.ToLower()}",
                     Email = this.Input.Email,
                     Gender = this.Input.Gender,
                     Birthdate = this.Input.Birthdate,
                 };
+                user.Posts.Add(new Post() { Content = $"Born on {user.Birthdate.ToShortDateString()}" });
                 var result = await this._userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
                 {

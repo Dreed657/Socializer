@@ -4,15 +4,29 @@
 }
 
 <div class="container">
-    <div class="col">
-        <h3>@Model.FirstName @Model.LastName</h3>
-        <h3>@Model.Description</h3>
-        <h3>@Model.Birthdate</h3>
-    </div>
-    <div class="col">
-        @foreach (var post in Model.Posts)
-        {
-            <partial name="_PostPartial" model="post"/>
-        }
+    <div class="row">
+        <div class="text-center col-2 mx-2 border-left border-right">
+            <div class="row">
+                <img class="rounded-circle img-thumbnail mx-auto p-1 w-75" src="https://via.placeholder.com/150"/>
+            </div>
+            <div class="row my-2">
+                <h3>@Model.FirstName @Model.LastName</h3>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.Description))
+            {
+                <h3>@Model.Description</h3>
+            }
+            <div class="row">
+                <p><i class="fas fa-genderless"></i> @Model.Gender.ToString()</p>
+                <p><i class="far fa-clock"></i> Joined in @Model.CreatedOn.ToString("M")</p>
+                <p><i class="fas fa-birthday-cake"></i> Born on @Model.Birthdate.ToShortDateString()</p>
+            </div>
+        </div>
+        <div class="col-8 mx-auto">
+            @foreach (var post in Model.Posts.OrderByDescending(x => x.CreatedOn))
+            {
+                <partial name="_PostPartial" model="post"/>
+            }
+        </div>
     </div>
 </div>
