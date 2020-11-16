@@ -9,7 +9,7 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using Socializer.Data.Common.Models;
-    using Socializer.Data.Models;
+    using Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -26,6 +26,10 @@
         public DbSet<Post> Posts { get; set; }
 
         public DbSet<PostLike> PostsLikes { get; set; }
+
+        public DbSet<Friend> Friends { get; set; }
+
+        public DbSet<FriendRequest> FriendRequests { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -54,6 +58,10 @@
             this.ConfigureUserIdentityRelations(builder);
 
             EntityIndexesConfiguration.Configure(builder);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(x => x.Friends)
+                .WithOne(x => x.Receiver);
 
             var entityTypes = builder.Model.GetEntityTypes().ToList();
 

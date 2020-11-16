@@ -1,4 +1,5 @@
 ﻿using Socializer.Services.Data.Profiles;
+using Socializer.Services.Data.User;
 
 namespace Socializer.Web
 {
@@ -63,6 +64,7 @@ namespace Socializer.Web
             services.AddTransient<IEmailSender, SendGridEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddTransient<IPostsService, PostsService>();
             services.AddTransient<IProfilesService, ProfilesService>();
+            services.AddTransient<IUserService, UserService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

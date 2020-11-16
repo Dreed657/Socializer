@@ -1,4 +1,6 @@
 ﻿@model ProfileViewModel
+@inject IUserService UserService
+@inject UserManager<ApplicationUser> UserManager
 @{
     this.ViewData["Title"] = Model.UserName;
 }
@@ -12,6 +14,21 @@
             <div class="row my-2">
                 <h3>@Model.FirstName @Model.LastName</h3>
             </div>
+            @if (this.UserManager.GetUserId(this.User) != Model.Id)
+            {
+                <div class="row">
+                    <div class="col">
+                        @if (await this.UserService.CheckFriendStatus(this.UserManager.GetUserId(this.User), Model.Id))
+                        {
+                            <a class="btn btn-outline-info my-2 disabled">Request Pending</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-outline-info my-2" asp-controller="Profile" asp-action="AddFriend" asp-route-userId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value">Add Friend</a>
+                        }
+                    </div>
+                </div>
+            }
             @if (!string.IsNullOrEmpty(Model.Description))
             {
                 <h3>@Model.Description</h3>

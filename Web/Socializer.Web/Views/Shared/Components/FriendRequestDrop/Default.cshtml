@@ -1,0 +1,32 @@
+﻿@model IEnumerable<FriendRequestViewModel>
+
+<h3 class="text-center">Friend Requests</h3>
+
+@if (!Model.Any())
+{
+    <h5 class="text-center">You don't have any waiting friend requests.</h5>
+}
+else
+{
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h5 class="card-title">@item.Sender.FirstName @item.Sender.LastName</h5>
+                </div>
+                <div class="row">
+                    <h6 class="card-subtitle mb-2 text-muted">@item.CreatedOn.ToShortDateString()</h6>
+                </div>
+                <div class="row text-center">
+                    <div class="col">
+                        <a asp-controller="Profile" asp-action="ApproveRequest" asp-route-requestId="@item.Id" asp-route-returnUrl="@this.Context.Request.Path.Value" class="btn btn-outline-success">Approve</a>
+                    </div>
+                    <div class="col">
+                        <a asp-controller="Profile" asp-action="DeclineRequest" asp-route-requestId="@item.Id" asp-route-returnUrl="@this.Context.Request.Path.Value" class="btn btn-outline-danger">Decline</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

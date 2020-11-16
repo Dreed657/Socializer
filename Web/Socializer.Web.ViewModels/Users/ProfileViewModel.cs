@@ -11,6 +11,8 @@ namespace Socializer.Web.ViewModels.Users
 
     public class ProfileViewModel : IMapFrom<ApplicationUser>
     {
+        public string Id { get; set; }
+
         public string UserName { get; set; }
 
         public string FirstName { get; set; }

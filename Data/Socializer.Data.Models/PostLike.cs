@@ -1,8 +1,8 @@
-﻿using Socializer.Data.Common.Models;
-
-namespace Socializer.Data.Models
+﻿namespace Socializer.Data.Models
 {
-    public class PostLike : BaseDeletableModel<int>
+    using Socializer.Data.Common.Models;
+
+    public class PostLike : BaseModel<int>
     {
         public int PostId { get; set; }
 

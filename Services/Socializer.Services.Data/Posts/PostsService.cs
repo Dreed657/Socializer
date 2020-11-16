@@ -15,9 +15,9 @@
     public class PostsService : IPostsService
     {
         private readonly IDeletableEntityRepository<Post> postsRepo;
-        private readonly IDeletableEntityRepository<PostLike> likeRepo;
+        private readonly IRepository<PostLike> likeRepo;
 
-        public PostsService(IDeletableEntityRepository<Post> postsRepo, IDeletableEntityRepository<PostLike> likesRepo)
+        public PostsService(IDeletableEntityRepository<Post> postsRepo, IRepository<PostLike> likesRepo)
         {
             this.postsRepo = postsRepo;
             this.likeRepo = likesRepo;

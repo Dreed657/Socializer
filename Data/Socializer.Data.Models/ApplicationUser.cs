@@ -1,7 +1,4 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
-
-using Socializer.Data.Models.Enums;
-
 namespace Socializer.Data.Models
 {
     using System;
@@ -9,6 +6,7 @@ namespace Socializer.Data.Models
 
     using Microsoft.AspNetCore.Identity;
     using Socializer.Data.Common.Models;
+    using Socializer.Data.Models.Enums;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -21,6 +19,7 @@ namespace Socializer.Data.Models
 
             this.Posts = new HashSet<Post>();
             this.Likes = new HashSet<PostLike>();
+            this.Friends = new HashSet<Friend>();
         }
 
         // Custom Info
@@ -38,6 +37,8 @@ namespace Socializer.Data.Models
 
         public virtual ICollection<PostLike> Likes { get; set; }
 
+        public virtual ICollection<Friend> Friends { get; set; }
+
         // Audit info
         public DateTime CreatedOn { get; set; }
 
@@ -48,6 +49,7 @@ namespace Socializer.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
+        // Identity info
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }

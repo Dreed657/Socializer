@@ -62,9 +62,11 @@ body {
 }
 body.auth-body {
     overflow: hidden;
-    background-color: #f2e6ff;
+    background-color: #ccebff;
 }
-
+.friendRequestNotifications {
+    width: 300px;
+}
 .dropdown-toggle:after {
     display: none;
 }

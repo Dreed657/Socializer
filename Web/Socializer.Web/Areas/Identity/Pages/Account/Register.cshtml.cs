@@ -88,8 +88,9 @@
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= this.Url.Content("~/");
             this.ExternalLogins = (await this._signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (this.ModelState.IsValid)
             {
                 var user = new ApplicationUser
@@ -101,8 +102,10 @@
                     Gender = this.Input.Gender,
                     Birthdate = this.Input.Birthdate,
                 };
+
                 user.Posts.Add(new Post() { Content = $"Born on {user.Birthdate.ToShortDateString()}" });
                 var result = await this._userManager.CreateAsync(user, this.Input.Password);
+
                 if (result.Succeeded)
                 {
                     this._logger.LogInformation("User created a new account with password.");
@@ -113,13 +116,13 @@
                         "/Account/ConfirmEmail",
                         pageHandler: null,
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
+                        protocol: this.Request.Scheme);
 
-                    await this._emailSender.SendEmailAsync(Input.Email, "Confirm your email", $"<h1>Hello {this.Input.FirstName} thank you for your time!</h1><h3>Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.</h3>");
+                    await this._emailSender.SendEmailAsync(this.Input.Email, "Confirm your email", $"<h1>Hello {this.Input.FirstName} thank you for your time!</h1><h3>Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.</h3>");
 
                     if (this._userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return this.RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        return this.RedirectToPage("RegisterConfirmation", new { email = this.Input.Email, returnUrl = returnUrl });
                     }
                     else
                     {
@@ -127,6 +130,7 @@
                         return this.LocalRedirect(returnUrl);
                     }
                 }
+
                 foreach (var error in result.Errors)
                 {
                     this.ModelState.AddModelError(string.Empty, error.Description);
