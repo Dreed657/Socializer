@@ -25,6 +25,8 @@
 
         public DbSet<Post> Posts { get; set; }
 
+        public DbSet<PostLike> PostsLikes { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

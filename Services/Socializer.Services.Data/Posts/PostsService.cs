@@ -15,10 +15,12 @@
     public class PostsService : IPostsService
     {
         private readonly IDeletableEntityRepository<Post> postsRepo;
+        private readonly IDeletableEntityRepository<PostLike> likeRepo;
 
-        public PostsService(IDeletableEntityRepository<Post> postsRepo)
+        public PostsService(IDeletableEntityRepository<Post> postsRepo, IDeletableEntityRepository<PostLike> likesRepo)
         {
             this.postsRepo = postsRepo;
+            this.likeRepo = likesRepo;
         }
 
         public async Task<int?> CreateAsync(PostsInputModel model, string userId)
@@ -57,6 +59,51 @@
                 .Include(x => x.Creator)
                 .To<T>()
                 .ToListAsync();
+        }
+
+        public async Task Like(int postId, string userId)
+        {
+            var entity = await this.likeRepo
+                .All()
+                .FirstOrDefaultAsync(x => x.PostId == postId && x.UserId == userId);
+
+            if (entity == null)
+            {
+                entity = new PostLike()
+                {
+                    PostId = postId,
+                    UserId = userId,
+                    IsLiked = true,
+                };
+
+                await this.likeRepo.AddAsync(entity);
+            }
+            else
+            {
+                entity.IsLiked = true;
+            }
+
+            await this.likeRepo.SaveChangesAsync();
+        }
+
+        public async Task UnLike(int postId, string userId)
+        {
+            var entity = await this.likeRepo
+                .All()
+                .FirstOrDefaultAsync(x => x.PostId == postId && x.UserId == userId);
+
+            entity.IsLiked = false;
+
+            await this.likeRepo.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsLiked(int postId, string userId)
+        {
+            var entity = await this.likeRepo
+                .All()
+                .FirstOrDefaultAsync(x => x.PostId == postId && x.UserId == userId);
+
+            return entity?.IsLiked ?? false;
         }
     }
 }

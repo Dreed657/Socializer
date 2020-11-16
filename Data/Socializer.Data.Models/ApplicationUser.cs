@@ -20,6 +20,7 @@ namespace Socializer.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
 
             this.Posts = new HashSet<Post>();
+            this.Likes = new HashSet<PostLike>();
         }
 
         // Custom Info
@@ -34,6 +35,8 @@ namespace Socializer.Data.Models
         public Gender Gender { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
+
+        public virtual ICollection<PostLike> Likes { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }

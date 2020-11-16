@@ -14,5 +14,11 @@
         Task<bool> DeleteAsync(int id);
 
         Task<IEnumerable<T>> GetAllAsync<T>();
+
+        Task Like(int postId, string userId);
+
+        Task UnLike(int postId, string userId);
+
+        Task<bool> IsLiked(int postId, string userId);
     }
 }
