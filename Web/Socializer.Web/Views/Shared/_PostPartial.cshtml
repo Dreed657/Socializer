@@ -1,4 +1,6 @@
 ﻿@model PostViewModel
+@inject IPostsService PostService
+@inject UserManager<ApplicationUser> UserManager
 
 <div class="card my-3">
     <div class="card-body">
@@ -29,16 +31,21 @@
 
         <div class="row text-center mt-2 py-2 border-top border-bottom">
             <div class="col">
-                <i class="fas fa-thumbs-up"></i>
-                Like
+                @if (!await this.PostService.IsLiked(Model.Id, this.UserManager.GetUserId(this.User)))
+                {
+
+                    <a asp-controller="Posts" asp-action="Like" asp-route-postId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value" class="btn btn-outline-dark"><i class="far fa-thumbs-up"></i> Like</a>
+                }
+                else
+                {
+                    <a asp-controller="Posts" asp-action="UnLike" asp-route-postId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value" class="btn btn-outline-dark"><i class="fas fa-thumbs-up"></i> Like</a>
+                }
             </div>
             <div class="col">
-                <i class="far fa-comment-alt"></i>
-                Comment
+                <a href="#" class="btn btn-outline-success"><i class="far fa-comment-alt"></i> Comment</a>
             </div>
             <div class="col">
-                <i class="fas fa-share"></i>
-                Share
+                <a href="#" class="btn btn-outline-success"><i class="fas fa-share"></i> Share</a>
             </div>
         </div>
     </div>
