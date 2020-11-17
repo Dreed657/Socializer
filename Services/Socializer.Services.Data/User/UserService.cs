@@ -94,12 +94,16 @@
             return true;
         }
 
-        public async Task<bool> CheckFriendStatus(string senderId, string receiverId)
+        public bool CheckFriendStatus(string senderId, string receiverId)
         {
-            var entity = await this.friendsRepo.All()
-                .FirstOrDefaultAsync(x => x.ReceiverId == receiverId && x.SenderId == senderId);
+            return this.friendsRepo.All()
+                .Any(x => (x.ReceiverId == receiverId && x.SenderId == senderId) || (x.ReceiverId == senderId && x.SenderId == receiverId) && x.IsFriend);
+        }
 
-            return entity?.IsFriend ?? false;
+        public bool CheckRequestStatus(string senderId, string receiverId)
+        {
+            return this.friendRequestRepo.All()
+                .Any(x => (x.ReceiverId == receiverId && x.SenderId == senderId) || (x.ReceiverId == senderId && x.SenderId == receiverId) && x.Status == FriendStatus.Pending);
         }
 
         private async Task AddFriend(FriendRequest request)

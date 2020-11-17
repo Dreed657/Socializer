@@ -17,6 +17,8 @@
 
         Task<bool> DeclineRequestFriendAsync(int requestId);
 
-        Task<bool> CheckFriendStatus(string senderId, string receiverId);
+        bool CheckFriendStatus(string senderId, string receiverId);
+
+        bool CheckRequestStatus(string senderId, string receiverId);
     }
 }
