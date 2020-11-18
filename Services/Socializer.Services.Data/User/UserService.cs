@@ -28,6 +28,11 @@
             return await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public Task<int> GetUserCount()
+        {
+            return this.userRepo.All().CountAsync();
+        }
+
         public async Task<IEnumerable<T>> GetAllFriendRequestsAsync<T>(string receiverId)
         {
             return await this.friendRequestRepo

@@ -24,6 +24,12 @@ namespace Socializer.Web.Controllers
         public async Task<IActionResult> Index(string username)
         {
             var model = await this.profilesService.GetProfileByUsername(username);
+
+            if (model == null)
+            {
+                return this.Redirect("/error");
+            }
+
             return this.View(model);
         }
 

@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Services\Socializer.Services.Data\Socializer.Services.Data.csproj" />
     <ProjectReference Include="..\..\Socializer.Common\Socializer.Common.csproj" />
     <ProjectReference Include="..\Socializer.Data.Common\Socializer.Data.Common.csproj" />
     <ProjectReference Include="..\Socializer.Data.Models\Socializer.Data.Models.csproj" />

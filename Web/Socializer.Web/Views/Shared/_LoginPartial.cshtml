@@ -25,11 +25,10 @@
                             </div>
                             <div class="modal-body m-2">
                                 <div asp-validation-summary="All"></div>
-                                <div class="form-group my-2">
-                                    <textarea class="form-control" name="Content" placeholder="Content"></textarea>
-                                    <sub>No content posts can be added change input model</sub>
+                                <div class="form-group mb-4">
+                                    <textarea class="form-control" name="Content" placeholder="Content" style="height: 100px"></textarea>
                                 </div>
-                                <div class="form-group my-2">
+                                <div class="form-group mb-2">
                                     <select class="form-control">
                                         <option selected>Open this select menu</option>
                                         <option value="1">One</option>
@@ -37,7 +36,7 @@
                                         <option value="3">Three</option>
                                     </select>
                                 </div>
-                                <div class="form-group my-2">
+                                <div class="form-group mb-2">
                                     <label for="image" aria-describedby="image">Choose file</label>
                                     <input type="file" class="form-control" id="image">
                                 </div>
