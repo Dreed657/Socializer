@@ -56,6 +56,9 @@ body {
     height: 60px;
     line-height: 60px; /* Vertically center the text there */
 }
+.dropdown-toggle:after {
+    display: none;
+}
 
 body {
     font-family: "Lato", sans-serif;
@@ -64,12 +67,11 @@ body.auth-body {
     overflow: hidden;
     background-color: #ccebff;
 }
+
 .friendRequestNotifications {
     width: 300px;
 }
-.dropdown-toggle:after {
-    display: none;
-}
+
 .main-head {
     height: 150px;
 }
@@ -85,6 +87,20 @@ body.auth-body {
     background-size: 100%;
     background-color: #000;
 }
+
+ul.feed-sidenav > li.nav-item > a {
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+}
+ul.feed-sidenav > li.nav-item:hover > a {
+    background-color: #cccccc;
+    border-radius: 5px;
+}
+ul.feed-sizenav > li.nav-item > a {
+    font-size: 15px !important;
+}
+
 .main {
     padding: 0px 10px;
 }

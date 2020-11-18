@@ -17,6 +17,12 @@
 
         public string CreatorId { get; set; }
 
+        public bool? InGroup { get; set; }
+
+        public int? GroupId { get; set; }
+
+        public Group Group { get; set; }
+
         public virtual ApplicationUser Creator { get; set; }
 
         public virtual ICollection<PostLike> Likes { get; set; }

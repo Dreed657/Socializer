@@ -34,11 +34,11 @@
                 @if (!await this.PostService.IsLiked(Model.Id, this.UserManager.GetUserId(this.User)))
                 {
 
-                    <a asp-controller="Posts" asp-action="Like" asp-route-postId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value" class="btn btn-outline-dark"><i class="far fa-thumbs-up"></i> Like</a>
+                    <a asp-controller="Posts" asp-action="Like" asp-route-postId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value" class="btn btn-outline-success"><i class="far fa-thumbs-up"></i> Like</a>
                 }
                 else
                 {
-                    <a asp-controller="Posts" asp-action="UnLike" asp-route-postId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value" class="btn btn-outline-dark"><i class="fas fa-thumbs-up"></i> Like</a>
+                    <a asp-controller="Posts" asp-action="UnLike" asp-route-postId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value" class="btn btn-outline-danger"><i class="fas fa-thumbs-up"></i> Like</a>
                 }
             </div>
             <div class="col">

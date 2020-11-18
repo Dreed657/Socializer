@@ -13,7 +13,7 @@ else
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <h5 class="card-title">@item.Sender.FirstName @item.Sender.LastName</h5>
+                    <h5 class="card-title"><a asp-controller="Profile" asp-action="Index" asp-route-username="@item.Sender.UserName">@item.Sender.FirstName @item.Sender.LastName</a></h5>
                 </div>
                 <div class="row">
                     <h6 class="card-subtitle mb-2 text-muted">@item.CreatedOn.ToShortDateString()</h6>

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Socializer.Data;
 
 namespace Socializer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201117154516_GroupModelChange")]
+    partial class GroupModelChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -404,9 +406,6 @@ namespace Socializer.Data.Migrations
                     b.Property<int?>("GroupId")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("InGroup")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -563,13 +562,11 @@ namespace Socializer.Data.Migrations
                         .WithMany("Posts")
                         .HasForeignKey("CreatorId");
 
-                    b.HasOne("Socializer.Data.Models.Group", "Group")
+                    b.HasOne("Socializer.Data.Models.Group", null)
                         .WithMany("Posts")
                         .HasForeignKey("GroupId");
 
                     b.Navigation("Creator");
-
-                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("Socializer.Data.Models.PostLike", b =>

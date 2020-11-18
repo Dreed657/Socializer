@@ -81,6 +81,11 @@ namespace Socializer.Web.Areas.Identity.Pages.Account
             if (this.ModelState.IsValid)
             {
                 var user = await this._userManager.FindByEmailAsync(this.Input.Email);
+                if (user == null)
+                {
+                    this.ModelState.AddModelError(string.Empty, "Invalid login credentials.");
+                    return this.Page();
+                }
 
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
@@ -90,13 +95,15 @@ namespace Socializer.Web.Areas.Identity.Pages.Account
                     this._logger.LogInformation("User logged in.");
                     return this.Redirect("/");
                 }
+
                 if (result.RequiresTwoFactor)
                 {
                     return this.RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = this.Input.RememberMe });
                 }
+
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
+                    this._logger.LogWarning("User account locked out.");
                     return this.RedirectToPage("./Lockout");
                 }
                 else

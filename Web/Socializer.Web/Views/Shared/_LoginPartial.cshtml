@@ -10,7 +10,48 @@
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Index" asp-route-username="@this.UserManager.GetUserName(this.User)" title="Manage">Hello @this.UserManager.GetUserAsync(this.User).GetAwaiter().GetResult().FirstName!</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item mx-2">
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
+           
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content p-2">
+                        <form asp-controller="Posts" asp-action="Create" method="post">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Create</h5>
+                                <button type="button" class="btn btn-black" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body m-2">
+                                <div asp-validation-summary="All"></div>
+                                <div class="form-group my-2">
+                                    <textarea class="form-control" name="Content" placeholder="Content"></textarea>
+                                    <sub>No content posts can be added change input model</sub>
+                                </div>
+                                <div class="form-group my-2">
+                                    <select class="form-control">
+                                        <option selected>Open this select menu</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                <div class="form-group my-2">
+                                    <label for="image" aria-describedby="image">Choose file</label>
+                                    <input type="file" class="form-control" id="image">
+                                </div>
+                                <input type="text" name="returnUrl" value="@this.Context.Request.Path.Value" hidden/>
+                            </div>
+                            <div class="modal-footer">
+                                <input class="btn btn-success m-2" type="submit" value="Create"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item mx-2">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-friends"></i></button>
                 <div class="dropdown-menu friendRequestNotifications" aria-labelledby="dropdownMenuButton">
@@ -18,7 +59,7 @@
                 </div>
             </div>
         </li>
-        <li class="nav-item">
+        <li class="nav-item mx-2">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-sort-down"></i></button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

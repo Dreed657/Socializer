@@ -1,22 +1,29 @@
-﻿@model IEnumerable<PostViewModel>
+﻿@using System.Linq
+@model IEnumerable<PostViewModel>
 @{
     this.ViewData["Title"] = "Feed";
 }
 
-<div class="container">
-    @if (this.User.Identity.IsAuthenticated)
-    {
-        <form asp-controller="Posts" asp-action="Create" method="post">
-            <div class="form-group">
-                <input class="form-control m-2" type="text" name="Content" />
-            </div>
-            <input class="btn btn-success m-2" type="submit" value="Create" />
-            <input type="text" name="returnUrl" value="@this.Context.Request.Path.Value" hidden />
-        </form>
-    }
+<div class="row mw-100">
+    <div class="col mr-5">
+        <ul class="nav flex-column text-left mx-2 border-bottom feed-sidenav">
+            <li class="nav-item">
+                <a class="btn" href="#"><i class="fas fa-users"></i> Groups</a>
+            </li>
+            <li class="nav-item mb-2">
+                <a class="btn" href="#"><i class="fas fa-user-friends"></i> Friends</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-6 mx-lg-5">
+        <div class="container">
+            @foreach (var post in Model)
+            {
+                <partial name="_PostPartial" model="post"/>
+            }
+        </div>
+    </div>
+    <div class="col ml-5">
 
-    @foreach (var post in Model)
-    {
-        <partial name="_PostPartial" model="post"/>
-    }
+    </div>
 </div>

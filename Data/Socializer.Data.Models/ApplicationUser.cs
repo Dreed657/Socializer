@@ -20,6 +20,7 @@ namespace Socializer.Data.Models
             this.Posts = new HashSet<Post>();
             this.Likes = new HashSet<PostLike>();
             this.Friends = new HashSet<Friend>();
+            this.Groups = new HashSet<GroupMember>();
         }
 
         // Custom Info
@@ -38,6 +39,8 @@ namespace Socializer.Data.Models
         public virtual ICollection<PostLike> Likes { get; set; }
 
         public virtual ICollection<Friend> Friends { get; set; }
+
+        public virtual ICollection<GroupMember> Groups { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }

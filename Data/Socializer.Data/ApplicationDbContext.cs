@@ -27,6 +27,10 @@
 
         public DbSet<PostLike> PostsLikes { get; set; }
 
+        public DbSet<Group> Groups { get; set; }
+
+        public DbSet<GroupMember> GroupMembers { get; set; }
+
         public DbSet<Friend> Friends { get; set; }
 
         public DbSet<FriendRequest> FriendRequests { get; set; }

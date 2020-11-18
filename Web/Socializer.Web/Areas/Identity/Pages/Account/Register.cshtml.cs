@@ -103,7 +103,7 @@
                     Birthdate = this.Input.Birthdate,
                 };
 
-                user.Posts.Add(new Post() { Content = $"Born on {user.Birthdate.ToShortDateString()}" });
+                user.Posts.Add(new Post() { Content = $"Born on {user.Birthdate.ToShortDateString()}"});
                 var result = await this._userManager.CreateAsync(user, this.Input.Password);
 
                 if (result.Succeeded)
