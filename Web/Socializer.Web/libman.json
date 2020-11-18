@@ -11,6 +11,14 @@
       ]
     },
     {
+      "library": "jquery.easing@1.4.1",
+      "destination": "wwwroot/lib/jquert-easing"
+    },
+    {
+      "library": "chart.js@2.9.4",
+      "destination": "wwwroot/lib/charts"
+    },
+    {
       "library": "bootstrap@5.0.0-alpha3",
       "destination": "wwwroot/lib/bootstrap/",
       "files": [
