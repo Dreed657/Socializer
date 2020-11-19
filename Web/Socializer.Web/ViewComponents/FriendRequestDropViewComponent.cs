@@ -4,7 +4,7 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    using Socializer.Services.Data.User;
+    using Socializer.Services.Data.Users;
     using Socializer.Web.ViewModels.Users;
 
     public class FriendRequestDropViewComponent : ViewComponent

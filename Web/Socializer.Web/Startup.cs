@@ -1,5 +1,5 @@
-﻿using Socializer.Services.Data.Profiles;
-using Socializer.Services.Data.User;
+﻿using Socializer.Services.Data.Groups;
+using Socializer.Web.Areas.Admin.Services;
 
 namespace Socializer.Web
 {
@@ -20,6 +20,8 @@ namespace Socializer.Web
     using Socializer.Data.Repositories;
     using Socializer.Data.Seeding;
     using Socializer.Services.Data.Posts;
+    using Socializer.Services.Data.Profiles;
+    using Socializer.Services.Data.Users;
     using Socializer.Services.Mapping;
     using Socializer.Services.Messaging;
     using Socializer.Web.ViewModels.Common;
@@ -65,6 +67,8 @@ namespace Socializer.Web
             services.AddTransient<IPostsService, PostsService>();
             services.AddTransient<IProfilesService, ProfilesService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IGroupService, GroupService>();
+            services.AddTransient<IDashboardService, DashboardService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

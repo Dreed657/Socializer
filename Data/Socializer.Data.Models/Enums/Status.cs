@@ -1,6 +1,6 @@
 ﻿namespace Socializer.Data.Models.Enums
 {
-    public enum FriendStatus
+    public enum Status
     {
         Pending,
         Approved,

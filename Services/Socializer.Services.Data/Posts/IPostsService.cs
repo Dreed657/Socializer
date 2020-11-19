@@ -15,6 +15,8 @@
 
         Task<IEnumerable<T>> GetAllAsync<T>();
 
+        Task<int> GetPostsCount();
+
         Task Like(int postId, string userId);
 
         Task UnLike(int postId, string userId);

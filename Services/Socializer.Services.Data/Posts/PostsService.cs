@@ -61,6 +61,11 @@
                 .ToListAsync();
         }
 
+        public async Task<int> GetPostsCount()
+        {
+            return await this.postsRepo.All().CountAsync();
+        }
+
         public async Task Like(int postId, string userId)
         {
             var entity = await this.likeRepo

@@ -1,4 +1,4 @@
-﻿namespace Socializer.Services.Data.User
+﻿namespace Socializer.Services.Data.Users
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;

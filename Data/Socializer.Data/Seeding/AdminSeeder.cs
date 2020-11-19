@@ -1,16 +1,14 @@
-﻿using Socializer.Services.Data.User;
-
-namespace Socializer.Data.Seeding
+﻿namespace Socializer.Data.Seeding
 {
     using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
-
-    using Models;
     using Socializer.Common;
+    using Socializer.Data.Models;
     using Socializer.Data.Models.Enums;
+    using Socializer.Services.Data.Users;
 
     public class AdminSeeder : ISeeder
     {

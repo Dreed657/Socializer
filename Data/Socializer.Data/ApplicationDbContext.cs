@@ -31,6 +31,8 @@
 
         public DbSet<GroupMember> GroupMembers { get; set; }
 
+        public DbSet<GroupCreateRequest> GroupCreateRequests { get; set; }
+
         public DbSet<Friend> Friends { get; set; }
 
         public DbSet<FriendRequest> FriendRequests { get; set; }

@@ -1,12 +1,13 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Socializer.Data.Models;
-using Socializer.Services.Data.Profiles;
-using Socializer.Services.Data.User;
-
-namespace Socializer.Web.Controllers
+﻿namespace Socializer.Web.Controllers
 {
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Socializer.Data.Models;
+    using Socializer.Services.Data.Profiles;
+    using Socializer.Services.Data.Users;
+
     public class ProfileController : BaseController
     {
         private readonly IProfilesService profilesService;

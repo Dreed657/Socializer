@@ -19,6 +19,6 @@
         /// </summary>
         public ApplicationUser Receiver { get; set; }
 
-        public FriendStatus Status { get; set; }
+        public Status Status { get; set; }
     }
 }

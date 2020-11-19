@@ -1,4 +1,4 @@
-﻿namespace Socializer.Services.Data.User
+﻿namespace Socializer.Services.Data.Users
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -38,7 +38,7 @@
             return await this.friendRequestRepo
                 .All()
                 .Where(x => x.ReceiverId == receiverId)
-                .Where(x => x.Status == FriendStatus.Pending)
+                .Where(x => x.Status == Status.Pending)
                 .To<T>()
                 .ToListAsync();
         }
@@ -55,7 +55,7 @@
                 {
                     SenderId = senderId,
                     ReceiverId = receiverId,
-                    Status = FriendStatus.Pending,
+                    Status = Status.Pending,
                 };
 
                 await this.friendRequestRepo.AddAsync(request);
@@ -79,7 +79,7 @@
             }
 
             await this.AddFriend(entity);
-            entity.Status = FriendStatus.Approved;
+            entity.Status = Status.Approved;
             await this.friendRequestRepo.SaveChangesAsync();
 
             return true;
@@ -94,7 +94,7 @@
                 return false;
             }
 
-            entity.Status = FriendStatus.Decline;
+            entity.Status = Status.Decline;
             await this.friendRequestRepo.SaveChangesAsync();
             return true;
         }
@@ -108,7 +108,7 @@
         public bool CheckRequestStatus(string senderId, string receiverId)
         {
             return this.friendRequestRepo.All()
-                .Any(x => (x.ReceiverId == receiverId && x.SenderId == senderId) || (x.ReceiverId == senderId && x.SenderId == receiverId) && x.Status == FriendStatus.Pending);
+                .Any(x => (x.ReceiverId == receiverId && x.SenderId == senderId) || (x.ReceiverId == senderId && x.SenderId == receiverId) && x.Status == Status.Pending);
         }
 
         private async Task AddFriend(FriendRequest request)
