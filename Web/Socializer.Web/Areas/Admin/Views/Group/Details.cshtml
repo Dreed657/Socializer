@@ -1,0 +1,12 @@
+﻿@model Socializer.Web.ViewModels.Groups.Dashboard.DashboardGroupViewModel
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <h6 class="card-subtitle mb-2 text-muted">@Model.Id</h6>
+        <p class="card-text">@Model.Description</p>
+        <sub class="card-subtitle mb-2 text-muted">@Model.Status</sub>
+        <a asp-area="Admin" asp-controller="Group" asp-action="ApproveRequest" asp-route-requestId="@Model.Id" class="btn btn-success">Approve</a>
+        <a asp-area="Admin" asp-controller="Group" asp-action="DeclineRequest" asp-route-requestId="@Model.Id" class="btn btn-danger">Decline</a>
+    </div>
+</div>

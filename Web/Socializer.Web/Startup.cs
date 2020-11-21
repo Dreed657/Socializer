@@ -1,7 +1,4 @@
-﻿using Socializer.Services.Data.Groups;
-using Socializer.Web.Areas.Admin.Services;
-
-namespace Socializer.Web
+﻿namespace Socializer.Web
 {
     using System.Reflection;
 
@@ -19,11 +16,13 @@ namespace Socializer.Web
     using Socializer.Data.Models;
     using Socializer.Data.Repositories;
     using Socializer.Data.Seeding;
+    using Socializer.Services.Data.Groups;
     using Socializer.Services.Data.Posts;
     using Socializer.Services.Data.Profiles;
     using Socializer.Services.Data.Users;
     using Socializer.Services.Mapping;
     using Socializer.Services.Messaging;
+    using Socializer.Web.Areas.Admin.Services;
     using Socializer.Web.ViewModels.Common;
 
     public class Startup
@@ -42,6 +41,8 @@ namespace Socializer.Web
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.Configure<CookiePolicyOptions>(
                 options =>
@@ -85,7 +86,7 @@ namespace Socializer.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {

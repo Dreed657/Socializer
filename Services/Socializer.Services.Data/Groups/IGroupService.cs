@@ -8,12 +8,20 @@
 
     public interface IGroupService
     {
-        Task<bool> CreateGroupRequest(GroupRequestInputModel model, ApplicationUser creator);
+        Task<T> GetById<T>(int id);
 
-        Task<IEnumerable<T>> GetAllRequests<T>();
+        Task<IEnumerable<T>> GetAll<T>();
+
+        Task<bool> CreateGroupRequest(GroupRequestInputModel model, ApplicationUser creator);
 
         Task<int> GetRequestsCount();
 
-        Task<IEnumerable<T>> GetAll<T>();
+        Task<IEnumerable<T>> GetAllRequests<T>();
+
+        Task<T> GetRequestById<T>(int id);
+
+        Task ApproveRequest(int requestId);
+
+        Task DeclineRequest(int requestId);
     }
 }

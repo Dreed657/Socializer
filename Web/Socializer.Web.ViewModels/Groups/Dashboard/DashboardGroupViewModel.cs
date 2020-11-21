@@ -3,20 +3,18 @@
     using System;
 
     using Socializer.Data.Models;
-    using Socializer.Services.Mapping;
     using Socializer.Data.Models.Enums;
+    using Socializer.Services.Mapping;
 
-    public class GroupCreateRequestViewModel : IMapFrom<GroupCreateRequest>
+    public class DashboardGroupViewModel : IMapFrom<GroupCreateRequest>
     {
         public int Id { get; set; }
 
-        public ApplicationUser Creator { get; set; }
-
         public string Name { get; set; }
 
-        public Status Status { get; set; }
-
         public string Description { get; set; }
+
+        public Status Status { get; set; }
 
         public DateTime CreatedOn { get; set; }
     }
