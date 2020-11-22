@@ -31,7 +31,7 @@ else
                     <td><a asp-controller="Profile" asp-action="Index" asp-route-username="@request.Creator.UserName">@request.Creator.UserName</a></td>
                     <td>@request.CreatedOn.ToShortDateString()</td>
                     <td>@request.Status</td>
-                    <td><a asp-area="Admin" asp-controller="Group" asp-action="Details" asp-route-id="@request.Id" class="btn btn-success">View</a></td>
+                    <td><a asp-area="Admin" asp-controller="Groups" asp-action="Details" asp-route-id="@request.Id" class="btn btn-success">View</a></td>
                 </tr>
             }
         </tbody>

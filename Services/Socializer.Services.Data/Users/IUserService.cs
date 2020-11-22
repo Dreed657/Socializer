@@ -7,9 +7,13 @@
 
     public interface IUserService
     {
-        Task<ApplicationUser> GetUserById(string id);
+        Task<T> GetUserById<T>(string userId);
+
+        Task<IEnumerable<T>> GetAllUsers<T>();
 
         Task<int> GetUserCount();
+
+        Task<ApplicationUser> GetUserById(string id);
 
         Task<IEnumerable<T>> GetAllFriendRequestsAsync<T>(string receiverId);
 

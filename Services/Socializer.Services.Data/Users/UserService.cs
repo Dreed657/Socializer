@@ -8,7 +8,7 @@
     using Socializer.Data.Common.Repositories;
     using Socializer.Data.Models;
     using Socializer.Data.Models.Enums;
-    using Mapping;
+    using Socializer.Services.Mapping;
 
     public class UserService : IUserService
     {
@@ -23,14 +23,24 @@
             this.friendsRepo = friendsRepo;
         }
 
-        public async Task<ApplicationUser> GetUserById(string id)
+        public async Task<T> GetUserById<T>(string userId)
         {
-            return await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == id);
+            return await this.userRepo.All().Where(x => x.Id == userId).To<T>().FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetAllUsers<T>()
+        {
+            return await this.userRepo.All().To<T>().ToListAsync();
         }
 
         public Task<int> GetUserCount()
         {
             return this.userRepo.All().CountAsync();
+        }
+
+        public async Task<ApplicationUser> GetUserById(string id)
+        {
+            return await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<T>> GetAllFriendRequestsAsync<T>(string receiverId)

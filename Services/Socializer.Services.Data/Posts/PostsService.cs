@@ -110,5 +110,10 @@
 
             return entity?.IsLiked ?? false;
         }
+
+        public async Task<T> GetPostById<T>(int postId)
+        {
+            return await this.postsRepo.All().Where(x => x.Id == postId).To<T>().FirstOrDefaultAsync();
+        }
     }
 }

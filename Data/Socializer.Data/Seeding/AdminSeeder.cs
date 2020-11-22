@@ -25,18 +25,23 @@
 
         public async Task SeedAdminAsync(UserManager<ApplicationUser> userManager)
         {
-            var user = new ApplicationUser
-            {
-                FirstName = "Admin",
-                LastName = "01",
-                UserName = $"Administrator01",
-                Email = "admin@gmail.com",
-                Gender = Gender.Male,
-                Birthdate = DateTime.Now,
-            };
+            var admin = await userManager.FindByNameAsync("Administrator01");
 
-            await userManager.CreateAsync(user, "password");
-            await userManager.AddToRoleAsync(user, GlobalConstants.AdministratorRoleName);
+            if (admin == null)
+            {
+                var user = new ApplicationUser
+                {
+                    FirstName = "Admin",
+                    LastName = "01",
+                    UserName = "Administrator01",
+                    Email = "admin@gmail.com",
+                    Gender = Gender.Male,
+                    Birthdate = DateTime.Now,
+                };
+
+                await userManager.CreateAsync(user, "password");
+                await userManager.AddToRolesAsync(user, new string[] { GlobalConstants.AdministratorRoleName, GlobalConstants.VerifiedRoleName });
+            }
         }
     }
 }

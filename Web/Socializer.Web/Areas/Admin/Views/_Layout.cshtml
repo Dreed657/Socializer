@@ -59,7 +59,7 @@
                 Posts
             </div>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" asp-area="Admin" asp-controller="Posts" asp-action="AllPosts">
                     <i class="fas fa-times"></i>
                     <span>All Posts</span>
                 </a>
@@ -80,7 +80,7 @@
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" asp-area="Admin" asp-controller="Users" asp-action="AllUsers">
                     <i class="fas fa-users"></i>
                     <span>All Users</span>
                 </a>
@@ -95,13 +95,13 @@
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" asp-area="Admin" asp-controller="Group" asp-action="All">
+                <a class="nav-link" asp-area="Admin" asp-controller="Groups" asp-action="All">
                     <i class="fas fa-bacteria"></i>
                     <span>All Groups</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" asp-area="Admin" asp-controller="Group" asp-action="Requests">
+                <a class="nav-link" asp-area="Admin" asp-controller="Groups" asp-action="Requests">
                     <i class="fas fa-bacteria"></i>
                     <span>All Groups Requests</span>
                 </a>
@@ -382,27 +382,20 @@
         </div>
     </div>
 
-
-    <!-- Core plugin JavaScript-->
-    <script src="~/lib/jquert-easing/jquery.easing.min.js" asp-append-version="true"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="~/js/dashboard-custom.js" asp-append-version="true"></script>
-
-    <!-- Page level plugins -->
-    <script src="~/lib/charts/dist/Chart.min.js" asp-append-version="true"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="~/js/demo/chart-area-demo.js" asp-append-version="true"></script>
-    <script src="~/js/demo/chart-pie-demo.js" asp-append-version="true"></script>
-
     <script src="~/js/site.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <script src="~/lib/popper/popper.min.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+
+    <script src="~/js/dashboard-custom.js" asp-append-version="true"></script>
+    <script src="~/lib/jquert-easing/jquery.easing.min.js" asp-append-version="true"></script>
     <script src="~/js/lazy.js" asp-append-version="true"></script>
+
+    <script src="~/lib/charts/dist/Chart.min.js" asp-append-version="true"></script>
+    <script src="~/js/demo/chart-pie-demo.js" asp-append-version="true"></script>
+    <script src="~/js/demo/chart-area-demo.js" asp-append-version="true"></script>
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

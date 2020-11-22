@@ -8,6 +8,7 @@
     using Socializer.Web.Areas.Admin.Services;
 
     [Area("Admin")]
+    [Route("Dashboard/[Controller]/[Action]")]
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public class DashboardController : Controller
     {

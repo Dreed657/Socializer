@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Socializer.Web.ViewModels.Posts.PostViewModel>
+
+<h1>All Posts</h1>
+
+@if (!Model.Any())
+{
+    <h3>No posts in the database.</h3>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Username</th>
+            <th scope="col">Content</th>
+            <th scope="col">Created On</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var post in Model)
+        {
+            <tr>
+                <th scope="row">@post.Id</th>
+                <td>@post.Creator.UserName</td>
+                <td>@post.Content.Substring(0, post.Content.Length > 30 ? 30 : post.Content.Length)</td>
+                <td>@post.CreatedOn</td>
+                <td><a href="#" class="btn btn-outline-info">View Post</a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

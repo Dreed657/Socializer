@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Socializer.Web.ViewModels.Users.ShortUserViewModel>
+
+<h1>All Posts</h1>
+
+@if (!Model.Any())
+{
+    <h3>No users in the database.</h3>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Username</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <th scope="row">@user.Id</th>
+                    <td>@user.UserName</td>
+                    <td><a asp-controller="Profile" asp-action="Index" asp-route-username="@user.UserName" class="btn btn-outline-info">View Profile</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

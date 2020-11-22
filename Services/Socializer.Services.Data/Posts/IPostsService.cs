@@ -13,6 +13,8 @@
 
         Task<bool> DeleteAsync(int id);
 
+        Task<T> GetPostById<T>(int postId);
+
         Task<IEnumerable<T>> GetAllAsync<T>();
 
         Task<int> GetPostsCount();

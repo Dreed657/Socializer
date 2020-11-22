@@ -7,11 +7,11 @@
     using Socializer.Web.ViewModels.Groups;
     using Socializer.Web.ViewModels.Groups.Dashboard;
 
-    public class GroupController : DashboardController
+    public class GroupsController : DashboardController
     {
         private readonly IGroupService groupService;
 
-        public GroupController(IGroupService groupService)
+        public GroupsController(IGroupService groupService)
         {
             this.groupService = groupService;
         }
