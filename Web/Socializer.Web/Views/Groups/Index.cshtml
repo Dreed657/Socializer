@@ -1,64 +1,75 @@
-﻿@model IEnumerable<GroupShortViewModel>
-@{
-    this.ViewData["Title"] = "Groups";
-}
+﻿@model GroupViewModel
 
+@{
+    this.ViewData["Title"] = "Group " + @Model.Name;
+}
 <div class="container">
-    <div class="row text-center">
+    <div class="row">
+        @* Cover *@
+        <img class="group-cover" src="https://via.placeholder.com/728x90.png" alt="Alternate Text" />
+    </div>
+    <div class="row p-3">
+        @* Info *@
         <div class="col">
-            <h3>Groups</h3>
+            <h3>@Model.Name</h3>
+            <h6><i class="fas fa-globe-europe"></i> Public Group <i class="fas fa-circle"></i> @Model.MembersCount Members</h6>
+        </div>
+        <div class="col-3 my-auto">
+            <button type="button" class="btn btn-outline-warning float-right">Edit Group</button>
+            <button type="button" class="btn btn-outline-primary float-right">Join Group</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            @if (Model.Posts.Any())
+            {
+                @foreach (var post in Model.Posts)
+                {
+                    <partial name="_PostPartial" model="post"/>
+                }
+            }
+            else
+            {
+                <h3 class="text-center">This group don't have any posts yet.</h3>
+            }
         </div>
         <div class="col">
-            <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#groupRequest">Request group</button>
-            <div class="modal fade" id="groupRequest" tabindex="-1" role="dialog" aria-labelledby="groupRequestLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content p-2">
-                        <form asp-controller="Groups" asp-action="CreateRequest" method="post">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Request for group</h5>
-                                <button type="button" class="btn btn-black" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body m-2">
-                                <div class="form-group">
-                                    <label for="Name">Group name</label>
-                                    <input type="text" class="form-control" id="Name" name="Name" placeholder="Group Name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="Description">Group Description</label>
-                                    <textarea class="form-control" name="Description" id="Description" style="height: 100px;"></textarea>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <input class="btn btn-success m-2" type="submit" value="Request!" />
-                                <input type="text" name="returnUrl" value="@this.Context.Request.Path.Value" hidden/>
-                            </div>
-                        </form>
+            <div class="group-info p-2">
+                <div class="row m-2">
+                    <div class="border-bottom-dark p-2">
+                        <h3>About</h3>
+                    </div>
+                    <div class="">
+                        <p>@Model.Description</p>
+                    </div>
+                </div>
+                <div class="row my-3 mx-2">
+                    <div class="col-1 px-2">
+                        <i class="fas fa-globe-europe"></i>
+                    </div>
+                    <div class="col pl-0">
+                        <p class="mb-0">Public Group</p>
+                        <sub>Anyone can see who's in the group and what they post.</sub>
+                    </div>
+                </div>
+                <div class="row my-3 mx-2">
+                    <div class="col-1 px-2">
+                        <i class="far fa-eye"></i>
+                    </div>
+                    <div class="col pl-0">
+                        <p class="mb-0">Visible</p>
+                        <sub>Anyone can find this group.</sub>
+                    </div>
+                </div>
+                <div class="row my-3 mx-2">
+                    <div class="col-1 px-2">
+                        <i class="fas fa-street-view"></i>
+                    </div>
+                    <div class="col pl-0">
+                        <p class="mb-0">Sofia, Bulgaria</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    @if (!Model.Any())
-    {
-        <div class="row text-center">
-            <h2>No groups at the moment.</h2>
-        </div>
-    }
-    else
-    {
-        @foreach (var group in Model)
-        {
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">@group.Name</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">@group.Description</p>
-                    <a href="#" class="btn btn-success">Join Group</a>
-                </div>
-            </div>
-        }
-    }
 </div>

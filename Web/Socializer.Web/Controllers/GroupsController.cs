@@ -21,16 +21,22 @@ namespace Socializer.Web.Controllers
             this.userManger = userManger;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int groupId)
         {
-            var groups = await this.groupService.GetAll<GroupShortViewModel>();
+            var group = await this.groupService.GetByIdAsync<GroupViewModel>(groupId);
+            return this.View(group);
+        }
+
+        public async Task<IActionResult> Discover()
+        {
+            var groups = await this.groupService.GetAllAsync<GroupShortViewModel>();
             return this.View(groups);
         }
 
         public async Task<IActionResult> CreateRequest(GroupRequestInputModel model, string returnUrl)
         {
             var user = await this.userManger.GetUserAsync(this.User);
-            var result = await this.groupService.CreateGroupRequest(model, user);
+            var result = await this.groupService.CreateGroupRequestAsync(model, user);
 
             return this.Redirect(returnUrl);
         }

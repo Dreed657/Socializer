@@ -166,3 +166,12 @@ ul.feed-sizenav > li.nav-item > a {
     background-color: #000 !important;
     color: #fff;
 }
+
+.group-info {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+}
+.group-cover {
+    width: 100%;
+    height: 150px;
+}

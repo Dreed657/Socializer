@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Socializer.Web.ViewModels.Groups.Dashboard.GroupCreateRequestViewModel>
+﻿@model IEnumerable<Socializer.Web.ViewModels.Groups.Dashboard.DbGroupCreateRequestViewModel>
 
 <h1>Group Create Requests</h1>
 
@@ -21,7 +21,6 @@ else
             </tr>
         </thead>
         <tbody>
-
             @foreach (var request in Model)
             {
                 <tr>

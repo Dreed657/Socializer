@@ -1,4 +1,4 @@
-﻿@model Socializer.Web.ViewModels.Groups.Dashboard.DashboardGroupViewModel
+﻿@model Socializer.Web.ViewModels.Groups.Dashboard.DbGroupViewModel
 
 <div class="card" style="width: 18rem;">
     <div class="card-body">
@@ -6,7 +6,7 @@
         <h6 class="card-subtitle mb-2 text-muted">@Model.Id</h6>
         <p class="card-text">@Model.Description</p>
         <sub class="card-subtitle mb-2 text-muted">@Model.Status</sub>
-        <a asp-area="Admin" asp-controller="Group" asp-action="ApproveRequest" asp-route-requestId="@Model.Id" class="btn btn-success">Approve</a>
-        <a asp-area="Admin" asp-controller="Group" asp-action="DeclineRequest" asp-route-requestId="@Model.Id" class="btn btn-danger">Decline</a>
+        <a asp-area="Admin" asp-controller="Groups" asp-action="ApproveRequest" asp-route-requestId="@Model.Id" class="btn btn-success">Approve</a>
+        <a asp-area="Admin" asp-controller="Groups" asp-action="DeclineRequest" asp-route-requestId="@Model.Id" class="btn btn-danger">Decline</a>
     </div>
 </div>

@@ -1,4 +1,5 @@
-﻿@model PostViewModel
+﻿@using Socializer.Common
+@model PostViewModel
 @inject IPostsService PostService
 @inject UserManager<ApplicationUser> UserManager
 
@@ -6,11 +7,23 @@
     <div class="card-body">
         <div class="row">
             <div class="col">
-                <h4 class="card-title"><a asp-controller="Profile" asp-action="Index" asp-route-username="@Model.Creator.UserName">@Model.Creator.FirstName @Model.Creator.LastName</a></h4>
                 <div class="row">
-                    <div class="col">
-                        <sub>@Model.CreatedOn.ToLocalTime()</sub>
+                    <div class="col-auto">
+                        <h4 class="card-title"><a asp-controller="Profile" asp-action="Index" asp-route-username="@Model.Creator.UserName">@Model.Creator.FirstName @Model.Creator.LastName</a></h4>
                     </div>
+                    <div class="col-auto">
+                        @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.Creator.Id), GlobalConstants.VerifiedRoleName))
+                        {
+                            <span class="badge badge-info"><i class="fas fa-check"></i></span>
+                        }
+                        @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.Creator.Id), GlobalConstants.AdministratorRoleName))
+                        {
+                            <span class="badge badge-danger"><i class="fas fa-user-shield"></i></span>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <sub>@Model.CreatedOn.ToLocalTime()</sub>
                 </div>
             </div>
             <div class="col">

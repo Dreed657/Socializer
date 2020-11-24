@@ -6,6 +6,6 @@
 
     public interface IDashboardService
     {
-        Task<DashboardHomeViewModel> GetHomeData();
+        Task<DbHomeViewModel> GetHomeData();
     }
 }

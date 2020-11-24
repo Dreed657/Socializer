@@ -23,22 +23,22 @@
             this.groupCreateRepository = groupCreteRepository;
         }
 
-        public async Task<T> GetById<T>(int id)
+        public async Task<T> GetByIdAsync<T>(int id)
         {
             return await this.groupRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAll<T>()
+        public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
             return await this.groupRepository.All().To<T>().ToListAsync();
         }
 
-        public async Task<T> GetRequestById<T>(int id)
+        public async Task<T> GetRequestByIdAsync<T>(int id)
         {
             return await this.groupCreateRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllRequests<T>()
+        public async Task<IEnumerable<T>> GetAllRequestsAsync<T>()
         {
             return await this.groupCreateRepository
                 .All()
@@ -46,7 +46,7 @@
                 .ToListAsync();
         }
 
-        public async Task<bool> CreateGroupRequest(GroupRequestInputModel model, ApplicationUser creator)
+        public async Task<bool> CreateGroupRequestAsync(GroupRequestInputModel model, ApplicationUser creator)
         {
             var request = new GroupCreateRequest()
             {
@@ -62,7 +62,7 @@
             return true;
         }
 
-        public async Task ApproveRequest(int requestId)
+        public async Task ApproveRequestAsync(int requestId)
         {
             var request = await this.groupCreateRepository.All().Where(x => x.Id == requestId).FirstOrDefaultAsync();
 
@@ -80,7 +80,7 @@
             await this.groupCreateRepository.SaveChangesAsync();
         }
 
-        public async Task DeclineRequest(int requestId)
+        public async Task DeclineRequestAsync(int requestId)
         {
             var request = await this.groupCreateRepository.All().Where(x => x.Id == requestId).FirstOrDefaultAsync();
 
@@ -88,9 +88,14 @@
             await this.groupCreateRepository.SaveChangesAsync();
         }
 
-        public async Task<int> GetRequestsCount()
+        public async Task<int> GetPendingRequestsCountAsync()
         {
-            return await this.groupCreateRepository.All().CountAsync();
+            return await this.groupCreateRepository.All().Where(x => x.Status == Status.Pending).CountAsync();
+        }
+
+        public async Task<int> GetGroupsCountAsync()
+        {
+            return await this.groupRepository.All().CountAsync();
         }
     }
 }

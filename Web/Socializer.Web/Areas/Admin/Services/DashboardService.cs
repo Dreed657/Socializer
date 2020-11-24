@@ -21,13 +21,14 @@ namespace Socializer.Web.Areas.Admin.Services
             this.groupService = groupService;
         }
 
-        public async Task<DashboardHomeViewModel> GetHomeData()
+        public async Task<DbHomeViewModel> GetHomeData()
         {
-            var model = new DashboardHomeViewModel()
+            var model = new DbHomeViewModel()
             {
                 PostsCount = await this.postsService.GetPostsCount(),
                 UsersCount = await this.userService.GetUserCount(),
-                GroupRequestsCount = await this.groupService.GetRequestsCount(),
+                GroupCount = await this.groupService.GetGroupsCountAsync(),
+                GroupRequestsCount = await this.groupService.GetPendingRequestsCountAsync(),
             };
 
             return model;
