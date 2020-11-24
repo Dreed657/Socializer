@@ -29,13 +29,13 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <input type="text" name="groupId" hidden="" value="@Model.Id" />
-                    <input type="text" name="returnUrl" hidden="" value="@this.Context.Request.Path.Value" />
+                    <input type="text" name="returnUrl" hidden="" value="@($"{this.Context.Request.Path.Value}?groupId={Model.Id}")" />
                 </form>
             </div>
 
             @if (Model.Posts.Any())
             {
-                @foreach (var post in Model.Posts)
+                @foreach (var post in Model.Posts.OrderByDescending(x => x.CreatedOn))
                 {
                     <partial name="_PostPartial" model="post"/>
                 }

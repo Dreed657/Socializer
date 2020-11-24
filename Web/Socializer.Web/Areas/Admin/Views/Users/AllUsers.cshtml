@@ -22,7 +22,7 @@ else
                 <tr>
                     <th scope="row">@user.Id</th>
                     <td>@user.UserName</td>
-                    <td><a asp-controller="Profile" asp-action="Index" asp-route-username="@user.UserName" class="btn btn-outline-info">View Profile</a></td>
+                    <td><a asp-area="Admin" asp-controller="Users" asp-action="Index" asp-route-username="@user.UserName" class="btn btn-outline-info">View Profile</a></td>
                 </tr>
             }
         </tbody>
