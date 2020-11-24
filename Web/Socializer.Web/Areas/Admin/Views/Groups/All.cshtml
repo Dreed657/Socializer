@@ -24,9 +24,9 @@ else
             <tr>
                 <th scope="row">@group.Id</th>
                 <td>@group.Name</td>
-                <td>@group.Description</td>
+                <td>@group.Description.Substring(0, group.Description.Length > 30 ? 30 : group.Description.Length)</td>
                 <td>@group.CreatedOn</td>
-                <td><a href="#" class="btn btn-outline-info">View Group</a></td>
+                <td><a asp-area="" asp-controller="Groups" asp-action="Index" asp-route-groupId="@group.Id" class="btn btn-outline-info">View Group</a></td>
             </tr>
             }
         </tbody>

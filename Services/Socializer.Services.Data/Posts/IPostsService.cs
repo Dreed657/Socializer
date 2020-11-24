@@ -9,7 +9,7 @@
 
     public interface IPostsService
     {
-        Task<int?> CreateAsync(PostsInputModel model, string userId);
+        Task<int?> CreateAsync(PostsInputModel model, string userId, int groupId = 0);
 
         Task<bool> DeleteAsync(int id);
 

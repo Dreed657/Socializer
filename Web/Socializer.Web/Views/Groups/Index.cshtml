@@ -21,6 +21,18 @@
     </div>
     <div class="row">
         <div class="col-8">
+            <div>
+                <form asp-controller="Posts" asp-action="Create" method="post">
+                    <div class="form-group">
+                        <label for="content"></label>
+                        <input type="text" class="form-control" id="content" name="content" placeholder="Content" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <input type="text" name="groupId" hidden="" value="@Model.Id" />
+                    <input type="text" name="returnUrl" hidden="" value="@this.Context.Request.Path.Value" />
+                </form>
+            </div>
+
             @if (Model.Posts.Any())
             {
                 @foreach (var post in Model.Posts)

@@ -23,13 +23,18 @@
             this.likeRepo = likesRepo;
         }
 
-        public async Task<int?> CreateAsync(PostsInputModel model, string userId)
+        public async Task<int?> CreateAsync(PostsInputModel model, string userId, int groupId = 0)
         {
             var entity = new Post()
             {
                 Content = model.Content,
                 CreatorId = userId,
             };
+
+            if (groupId != 0)
+            {
+                entity.GroupId = groupId;
+            }
 
             await this.postsRepo.AddAsync(entity);
             await this.postsRepo.SaveChangesAsync();

@@ -9,7 +9,14 @@
             <div class="col">
                 <div class="row">
                     <div class="col-auto">
-                        <h4 class="card-title"><a asp-controller="Profile" asp-action="Index" asp-route-username="@Model.Creator.UserName">@Model.Creator.FirstName @Model.Creator.LastName</a></h4>
+                        <h4 class="card-title">
+                            <a asp-controller="Profile" asp-action="Index" asp-route-username="@Model.Creator.UserName">@Model.Creator.FirstName @Model.Creator.LastName</a>
+                            @if (Model.InGroup)
+                            {
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                                <a asp-controller="Groups" asp-action="Index" asp-route-groupId="@Model.Group.Id">@Model.Group.Name</a>
+                            }
+                        </h4>
                     </div>
                     <div class="col-auto">
                         @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.Creator.Id), GlobalConstants.VerifiedRoleName))

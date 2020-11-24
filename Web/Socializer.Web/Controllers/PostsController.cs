@@ -29,11 +29,12 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(PostsInputModel model, string returnUrl)
+        public async Task<IActionResult> Create(PostsInputModel model, string returnUrl, int groupId)
         {
             var user = await this.userManager.GetUserAsync(this.User);
+            await this.postsService.CreateAsync(model, user.Id, groupId);
 
-            return this.Redirect(await this.postsService.CreateAsync(model, user.Id) is null ? "Error" : returnUrl);
+            return this.Redirect(returnUrl);
         }
 
         public async Task<IActionResult> Delete(int postId, string returnUrl)

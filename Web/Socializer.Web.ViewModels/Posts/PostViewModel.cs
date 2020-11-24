@@ -1,4 +1,6 @@
-﻿namespace Socializer.Web.ViewModels.Posts
+﻿using AutoMapper;
+
+namespace Socializer.Web.ViewModels.Posts
 {
     using System;
 
@@ -15,5 +17,9 @@
         public DateTime CreatedOn { get; set; }
 
         public ApplicationUser Creator { get; set; }
+
+        public Group Group { get; set; }
+
+        public bool InGroup => this.Group != null;
     }
 }
