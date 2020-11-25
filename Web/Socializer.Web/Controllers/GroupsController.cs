@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Socializer.Data.Models;
 
 namespace Socializer.Web.Controllers
@@ -37,6 +38,14 @@ namespace Socializer.Web.Controllers
         {
             var user = await this.userManger.GetUserAsync(this.User);
             var result = await this.groupService.CreateGroupRequestAsync(model, user);
+
+            return this.Redirect(returnUrl);
+        }
+
+        public async Task<IActionResult> JoinGroup(int groupId, string returnUrl)
+        {
+            var userId = this.userManger.GetUserId(this.User);
+            await this.groupService.AddMemberToGroup(groupId, userId);
 
             return this.Redirect(returnUrl);
         }

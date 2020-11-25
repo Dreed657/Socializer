@@ -23,7 +23,7 @@
             }
             else
             {
-                <button type="button" class="btn btn-outline-primary float-right">Join Group</button>
+                <a class="btn btn-outline-primary float-right" asp-controller="Groups" asp-action="JoinGroup" asp-route-groupId="@Model.Id" asp-route-returnUrl="@($"{this.Context.Request.Path.Value}?groupId={Model.Id}")">Join Group</a>
             }
         </div>
     </div>

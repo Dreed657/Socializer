@@ -28,6 +28,30 @@
             return await this.groupRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefaultAsync();
         }
 
+        public async Task<bool> AddMemberToGroup(int groupId, string userId)
+        {
+            var group = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Id == groupId);
+
+            if (group != null)
+            {
+                var entity = new GroupMember()
+                {
+                    GroupId = groupId,
+                    MemberId = userId,
+                    Role = GroupRole.Member,
+                };
+
+                group.Members.Add(entity);
+            }
+            else
+            {
+                return false;
+            }
+
+            await this.groupRepository.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
             return await this.groupRepository.All().To<T>().ToListAsync();
