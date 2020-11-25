@@ -34,6 +34,12 @@
             return this.View(model);
         }
 
+        [HttpGet("Friends")]
+        public IActionResult Friends()
+        {
+            return this.View();
+        }
+
         [HttpGet("/AddFriend")]
         public async Task<IActionResult> AddFriend(string userId, string returnUrl)
         {

@@ -1,4 +1,6 @@
 ﻿@model GroupViewModel
+@inject UserManager<ApplicationUser> UserManager
+@inject IGroupService GroupService
 
 @{
     this.ViewData["Title"] = "Group " + @Model.Name;
@@ -15,29 +17,38 @@
             <h6><i class="fas fa-globe-europe"></i> Public Group <i class="fas fa-circle"></i> @Model.MembersCount Members</h6>
         </div>
         <div class="col-3 my-auto">
-            <button type="button" class="btn btn-outline-warning float-right">Edit Group</button>
-            <button type="button" class="btn btn-outline-primary float-right">Join Group</button>
+            @if (this.GroupService.IsMemberInGroup(Model.Id, this.UserManager.GetUserId(this.User)))
+            {
+                <button type="button" class="btn btn-outline-warning float-right">Edit Group</button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-outline-primary float-right">Join Group</button>
+            }
         </div>
     </div>
     <div class="row">
         <div class="col-8">
-            <div>
-                <form asp-controller="Posts" asp-action="Create" method="post">
-                    <div class="form-group">
-                        <label for="content"></label>
-                        <input type="text" class="form-control" id="content" name="content" placeholder="Content" />
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <input type="text" name="groupId" hidden="" value="@Model.Id" />
-                    <input type="text" name="returnUrl" hidden="" value="@($"{this.Context.Request.Path.Value}?groupId={Model.Id}")" />
-                </form>
-            </div>
+            @if (this.GroupService.IsMemberInGroup(Model.Id, this.UserManager.GetUserId(this.User)))
+            {
+                <div>
+                    <form asp-controller="Posts" asp-action="Create" method="post">
+                        <div class="form-group">
+                            <label for="content"></label>
+                            <input type="text" class="form-control" id="content" name="content" placeholder="Content" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <input type="text" name="groupId" hidden="" value="@Model.Id" />
+                        <input type="text" name="returnUrl" hidden="" value="@($"{this.Context.Request.Path.Value}?groupId={Model.Id}")" />
+                    </form>
+                </div>
+            }
 
             @if (Model.Posts.Any())
             {
                 @foreach (var post in Model.Posts.OrderByDescending(x => x.CreatedOn))
                 {
-                    <partial name="_PostPartial" model="post"/>
+                    <partial name="_PostPartial" model="post" />
                 }
             }
             else

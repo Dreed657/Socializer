@@ -1,0 +1,5 @@
+﻿@inject UserManager<ApplicationUser> UserManager
+
+<div class="container">
+    <vc:friend-request receiver-id="@this.UserManager.GetUserId(this.User)"></vc:friend-request>
+</div>

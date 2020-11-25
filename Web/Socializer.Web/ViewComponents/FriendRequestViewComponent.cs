@@ -7,11 +7,11 @@
     using Socializer.Services.Data.Users;
     using Socializer.Web.ViewModels.Users;
 
-    public class FriendRequestDropViewComponent : ViewComponent
+    public class FriendRequestViewComponent : ViewComponent
     {
         private readonly IUserService userService;
 
-        public FriendRequestDropViewComponent(IUserService userService)
+        public FriendRequestViewComponent(IUserService userService)
         {
             this.userService = userService;
         }

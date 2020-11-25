@@ -64,7 +64,9 @@
 
         public async Task ApproveRequestAsync(int requestId)
         {
-            var request = await this.groupCreateRepository.All().Where(x => x.Id == requestId).FirstOrDefaultAsync();
+            var request = await this.groupCreateRepository.All()
+                .Include(x => x.Creator)
+                .FirstOrDefaultAsync(x => x.Id == requestId);
 
             var group = new Group()
             {
@@ -72,7 +74,7 @@
                 Description = request.Description,
             };
 
-            group.Members.Add(new GroupMember() { Member = request.Creator, Group = group });
+            group.Members.Add(new GroupMember() { MemberId = request.Creator.Id, Group = group, Role = GroupRole.Admin });
             await this.groupRepository.AddAsync(group);
             await this.groupRepository.SaveChangesAsync();
 
@@ -96,6 +98,15 @@
         public async Task<int> GetGroupsCountAsync()
         {
             return await this.groupRepository.All().CountAsync();
+        }
+
+        public bool IsMemberInGroup(int groupId, string userId)
+        {
+            return this.groupRepository
+                .All()
+                .Include(x => x.Members)
+                .FirstOrDefault(x => x.Id == groupId)
+                .Members.Any(x => x.MemberId == userId && x.GroupId == groupId);
         }
     }
 }

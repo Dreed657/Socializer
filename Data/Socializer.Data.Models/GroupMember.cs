@@ -1,4 +1,6 @@
-﻿namespace Socializer.Data.Models
+﻿using Socializer.Data.Models.Enums;
+
+namespace Socializer.Data.Models
 {
     using Socializer.Data.Common.Models;
 
@@ -11,5 +13,7 @@
         public string MemberId { get; set; }
 
         public virtual ApplicationUser Member { get; set; }
+
+        public GroupRole Role { get; set; }
     }
 }

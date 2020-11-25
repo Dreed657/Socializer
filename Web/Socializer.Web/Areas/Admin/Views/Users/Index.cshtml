@@ -1,16 +1,57 @@
-﻿@model Socializer.Web.ViewModels.Users.ProfileViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@using Socializer.Common
+@using Socializer.Data.Models
+@model Socializer.Web.ViewModels.Users.ProfileViewModel
+@inject UserManager<ApplicationUser> UserManager
 
-<div class="row text-center">
+<div class="row">
     <div class="col">
-        <h3>Profile</h3>
+        <h3 class="text-center">Profile</h3>
         <h4>@Model.Id</h4>
         <h5>@Model.UserName</h5>
-        @foreach (var post in Model.Posts)
+
+        @foreach (var post in Model.Posts.OrderByDescending(x => x.CreatedOn))
         {
-            <partial model="post" name="_PostPartial"/>
+            <div class="card my-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <h4 class="card-title">
+                                        <a asp-controller="Profile" asp-action="Index" asp-route-username="@post.Creator.UserName">@post.Creator.FirstName @post.Creator.LastName</a>
+                                        @if (post.InGroup)
+                                        {
+                                            <i class="fas fa-long-arrow-alt-right"></i>
+                                            <a asp-controller="Groups" asp-action="Index" asp-route-groupId="@post.Group.Id">@post.Group.Name</a>
+                                        }
+                                    </h4>
+                                </div>
+                                <div class="col-auto">
+                                    @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(post.Creator.Id), GlobalConstants.VerifiedRoleName))
+                                    {
+                                        <span class="badge badge-info"><i class="fas fa-check"></i></span>
+                                    }
+                                    @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(post.Creator.Id), GlobalConstants.AdministratorRoleName))
+                                    {
+                                        <span class="badge badge-danger"><i class="fas fa-user-shield"></i></span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row">
+                                <sub>@post.CreatedOn.ToLocalTime()</sub>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <p class="card-text m-2">@post.Content</p>
+                    </div>
+                </div>
+            </div>
         }
     </div>
     <div class="col">
-        <h3>Settings</h3>
+        <h3 class="text-center">Settings</h3>
     </div>
 </div>

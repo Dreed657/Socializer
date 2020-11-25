@@ -10,6 +10,8 @@
     {
         Task<T> GetByIdAsync<T>(int id);
 
+        bool IsMemberInGroup(int groupId, string userId);
+
         Task<IEnumerable<T>> GetAllAsync<T>();
 
         Task<bool> CreateGroupRequestAsync(GroupRequestInputModel model, ApplicationUser creator);
