@@ -28,7 +28,7 @@
             return await this.groupRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefaultAsync();
         }
 
-        public async Task<bool> AddMemberToGroup(int groupId, string userId)
+        public async Task<bool> AddMemberToGroupAsync(int groupId, string userId)
         {
             var group = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Id == groupId);
 

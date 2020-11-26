@@ -12,7 +12,7 @@
 
         bool IsMemberInGroup(int groupId, string userId);
 
-        Task<bool> AddMemberToGroup(int groupId, string userId);
+        Task<bool> AddMemberToGroupAsync(int groupId, string userId);
 
         Task<IEnumerable<T>> GetAllAsync<T>();
 

@@ -45,7 +45,7 @@ namespace Socializer.Web.Controllers
         public async Task<IActionResult> JoinGroup(int groupId, string returnUrl)
         {
             var userId = this.userManger.GetUserId(this.User);
-            await this.groupService.AddMemberToGroup(groupId, userId);
+            await this.groupService.AddMemberToGroupAsync(groupId, userId);
 
             return this.Redirect(returnUrl);
         }
