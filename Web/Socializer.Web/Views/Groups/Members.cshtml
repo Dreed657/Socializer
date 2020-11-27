@@ -1,0 +1,28 @@
+﻿@model GroupMembersViewModel
+@{
+    this.ViewData["Title"] = @Model.Name + " Members";
+}
+<div class="container p-2">
+    <div class="row">
+        <div class="col p-2">
+            <a class="btn btn-secondary" asp-controller="Groups" asp-action="Index" asp-route-groupId="@Model.Id">
+                <i class="fas fa-arrow-circle-left"></i>
+            </a>
+        </div>
+        <div class="col p-2">
+            <h3>@Model.Name (@Model.MembersCount) members</h3>
+        </div>
+    </div>
+    @foreach (var member in Model.Members)
+    {
+        <div class="row p-2 border-top">
+            <div class="media p-2">
+                <img class="mr-3" src="https://via.placeholder.com/150" alt="Generic placeholder image">
+                <div class="media-body p-4">
+                    <h5 class="mt-0">@member.MemberFirstName @member.MemberLastName @@@member.MemberUserName</h5>
+                    <p>@member.Role.ToString()</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

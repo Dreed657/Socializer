@@ -14,7 +14,7 @@
         @* Info *@
         <div class="col">
             <h3>@Model.Name</h3>
-            <h6><i class="fas fa-globe-europe"></i> Public Group <i class="fas fa-circle"></i> @Model.MembersCount Members</h6>
+            <h6><i class="fas fa-globe-europe"></i> Public Group <i class="fas fa-circle"></i> <a asp-controller="Groups" asp-action="Members" asp-route-groupId="@Model.Id">@Model.MembersCount Members</a></h6>
         </div>
         <div class="col-3 my-auto">
             @if (this.GroupService.IsMemberInGroup(Model.Id, this.UserManager.GetUserId(this.User)))

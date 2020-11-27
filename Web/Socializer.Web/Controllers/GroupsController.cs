@@ -1,13 +1,12 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using Socializer.Data.Models;
-
-namespace Socializer.Web.Controllers
+﻿namespace Socializer.Web.Controllers
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore.Query.Internal;
+    using Socializer.Data.Models;
     using Socializer.Services.Data.Groups;
     using Socializer.Web.ViewModels.Groups;
 
@@ -25,6 +24,13 @@ namespace Socializer.Web.Controllers
         public async Task<IActionResult> Index(int groupId)
         {
             var group = await this.groupService.GetByIdAsync<GroupViewModel>(groupId);
+            return this.View(group);
+        }
+
+        [HttpGet("Group/{groupId}/Members")]
+        public async Task<IActionResult> Members(int groupId)
+        {
+            var group = await this.groupService.GetByIdAsync<GroupMembersViewModel>(groupId);
             return this.View(group);
         }
 
