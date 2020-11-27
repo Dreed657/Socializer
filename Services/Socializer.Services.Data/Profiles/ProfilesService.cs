@@ -20,7 +20,7 @@ namespace Socializer.Services.Data.Profiles
             this.userRepo = userRepo;
         }
 
-        public async Task<ProfileViewModel> GetProfileByUsername(string username)
+        public async Task<ProfileViewModel> GetProfileByUsernameAsync(string username)
         {
             return await this.userRepo
                 .All()

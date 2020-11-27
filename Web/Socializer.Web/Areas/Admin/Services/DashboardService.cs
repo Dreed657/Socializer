@@ -25,8 +25,8 @@ namespace Socializer.Web.Areas.Admin.Services
         {
             var model = new DbHomeViewModel()
             {
-                PostsCount = await this.postsService.GetPostsCount(),
-                UsersCount = await this.userService.GetUserCount(),
+                PostsCount = await this.postsService.GetPostsCountAsync(),
+                UsersCount = await this.userService.GetUserCountAsync(),
                 GroupCount = await this.groupService.GetGroupsCountAsync(),
                 GroupRequestsCount = await this.groupService.GetPendingRequestsCountAsync(),
             };

@@ -5,6 +5,6 @@ namespace Socializer.Services.Data.Profiles
 {
     public interface IProfilesService
     {
-        Task<ProfileViewModel> GetProfileByUsername(string username);
+        Task<ProfileViewModel> GetProfileByUsernameAsync(string username);
     }
 }

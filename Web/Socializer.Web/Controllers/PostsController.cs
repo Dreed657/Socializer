@@ -49,13 +49,13 @@
 
         public async Task<IActionResult> Like(int postId, string returnUrl)
         {
-            await this.postsService.Like(postId, this.userManager.GetUserId(this.User));
+            await this.postsService.LikeAsync(postId, this.userManager.GetUserId(this.User));
             return this.Redirect(returnUrl);
         }
 
         public async Task<IActionResult> UnLike(int postId, string returnUrl)
         {
-            await this.postsService.UnLike(postId, this.userManager.GetUserId(this.User));
+            await this.postsService.UnLikeAsync(postId, this.userManager.GetUserId(this.User));
             return this.Redirect(returnUrl);
         }
     }

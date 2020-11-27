@@ -51,7 +51,7 @@
 
         <div class="row text-center mt-2 py-2 border-top border-bottom">
             <div class="col">
-                @if (!await this.PostService.IsLiked(Model.Id, this.UserManager.GetUserId(this.User)))
+                @if (!await this.PostService.IsLikedAsync(Model.Id, this.UserManager.GetUserId(this.User)))
                 {
 
                     <a asp-controller="Posts" asp-action="Like" asp-route-postId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value" class="btn btn-outline-success"><i class="far fa-thumbs-up"></i> Like</a>

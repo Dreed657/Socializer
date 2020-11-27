@@ -24,7 +24,7 @@
         [HttpGet("/Profile/{username}")]
         public async Task<IActionResult> Index(string username)
         {
-            var model = await this.profilesService.GetProfileByUsername(username);
+            var model = await this.profilesService.GetProfileByUsernameAsync(username);
 
             if (model == null)
             {

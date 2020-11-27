@@ -4,16 +4,19 @@
     using System.Threading.Tasks;
 
     using Socializer.Data.Models;
+    using Socializer.Web.ViewModels.Dashboard.Users;
 
     public interface IUserService
     {
-        Task<T> GetUserById<T>(string userId);
+        Task<bool> DbEditAsync(DbUserInputModel model, string userId);
 
-        Task<IEnumerable<T>> GetAllUsers<T>();
+        Task<T> GetUserByIdAsync<T>(string userId);
 
-        Task<int> GetUserCount();
+        Task<IEnumerable<T>> GetAllUsersAsync<T>();
 
-        Task<ApplicationUser> GetUserById(string id);
+        Task<int> GetUserCountAsync();
+
+        Task<ApplicationUser> GetUserByIdAsync(string id);
 
         Task<IEnumerable<T>> GetAllFriendRequestsAsync<T>(string receiverId);
 

@@ -17,7 +17,7 @@
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var userService = serviceProvider.GetRequiredService<IUserService>();
 
-            if (await userService.GetUserCount() == 0)
+            if (await userService.GetUserCountAsync() == 0)
             {
                 await this.SeedAdminAsync(userManager);
             }

@@ -66,12 +66,12 @@
                 .ToListAsync();
         }
 
-        public async Task<int> GetPostsCount()
+        public async Task<int> GetPostsCountAsync()
         {
             return await this.postsRepo.All().CountAsync();
         }
 
-        public async Task Like(int postId, string userId)
+        public async Task LikeAsync(int postId, string userId)
         {
             var entity = await this.likeRepo
                 .All()
@@ -96,7 +96,7 @@
             await this.likeRepo.SaveChangesAsync();
         }
 
-        public async Task UnLike(int postId, string userId)
+        public async Task UnLikeAsync(int postId, string userId)
         {
             var entity = await this.likeRepo
                 .All()
@@ -107,7 +107,7 @@
             await this.likeRepo.SaveChangesAsync();
         }
 
-        public async Task<bool> IsLiked(int postId, string userId)
+        public async Task<bool> IsLikedAsync(int postId, string userId)
         {
             var entity = await this.likeRepo
                 .All()
@@ -116,7 +116,7 @@
             return entity?.IsLiked ?? false;
         }
 
-        public async Task<T> GetPostById<T>(int postId)
+        public async Task<T> GetPostByIdAsync<T>(int postId)
         {
             return await this.postsRepo.All().Where(x => x.Id == postId).To<T>().FirstOrDefaultAsync();
         }

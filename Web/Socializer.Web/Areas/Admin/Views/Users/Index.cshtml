@@ -1,57 +1,104 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Socializer.Common
 @using Socializer.Data.Models
-@model Socializer.Web.ViewModels.Users.ProfileViewModel
+@using Socializer.Data.Models.Enums
+@model Socializer.Web.ViewModels.Dashboard.Users.DbDetailUserModel
 @inject UserManager<ApplicationUser> UserManager
 
 <div class="row">
     <div class="col">
         <h3 class="text-center">Profile</h3>
-        <h4>@Model.Id</h4>
-        <h5>@Model.UserName</h5>
+        <h4>@Model.ViewModel.Id</h4>
+        <h5>@Model.ViewModel.UserName</h5>
 
-        @foreach (var post in Model.Posts.OrderByDescending(x => x.CreatedOn))
-        {
-            <div class="card my-3">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col-auto">
-                                    <h4 class="card-title">
-                                        <a asp-controller="Profile" asp-action="Index" asp-route-username="@post.Creator.UserName">@post.Creator.FirstName @post.Creator.LastName</a>
-                                        @if (post.InGroup)
+        <div class="pre-scrollable">
+            @foreach (var post in Model.ViewModel.Posts.OrderByDescending(x => x.CreatedOn))
+            {
+                <div class="card my-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <h4 class="card-title">
+                                            <a asp-controller="Profile" asp-action="Index" asp-route-username="@post.Creator.UserName">@post.Creator.FirstName @post.Creator.LastName</a>
+                                            @if (post.InGroup)
+                                            {
+                                                <i class="fas fa-long-arrow-alt-right"></i>
+                                                <a asp-controller="Groups" asp-action="Index" asp-route-groupId="@post.Group.Id">@post.Group.Name</a>
+                                            }
+                                        </h4>
+                                    </div>
+                                    <div class="col-auto">
+                                        @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(post.Creator.Id), GlobalConstants.VerifiedRoleName))
                                         {
-                                            <i class="fas fa-long-arrow-alt-right"></i>
-                                            <a asp-controller="Groups" asp-action="Index" asp-route-groupId="@post.Group.Id">@post.Group.Name</a>
+                                            <span class="badge badge-info"><i class="fas fa-check"></i></span>
                                         }
-                                    </h4>
+                                        @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(post.Creator.Id), GlobalConstants.AdministratorRoleName))
+                                        {
+                                            <span class="badge badge-danger"><i class="fas fa-user-shield"></i></span>
+                                        }
+                                    </div>
                                 </div>
-                                <div class="col-auto">
-                                    @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(post.Creator.Id), GlobalConstants.VerifiedRoleName))
-                                    {
-                                        <span class="badge badge-info"><i class="fas fa-check"></i></span>
-                                    }
-                                    @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(post.Creator.Id), GlobalConstants.AdministratorRoleName))
-                                    {
-                                        <span class="badge badge-danger"><i class="fas fa-user-shield"></i></span>
-                                    }
+                                <div class="row">
+                                    <sub>@post.CreatedOn.ToLocalTime()</sub>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <sub>@post.CreatedOn.ToLocalTime()</sub>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <p class="card-text m-2">@post.Content</p>
+                        <div class="row">
+                            <p class="card-text m-2">@post.Content</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
-    <div class="col">
+    <div class="col border-left">
         <h3 class="text-center">Settings</h3>
+        <div class="p-4">
+            <form asp-controller="Users" asp-action="Edit" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="InputModel.UserName"></label>
+                    <input class="form-control" asp-for="InputModel.UserName" value="@Model.ViewModel.UserName">
+                    <span asp-validation-for="InputModel.UserName"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="InputModel.FirstName"></label>
+                    <input class="form-control" asp-for="InputModel.FirstName" value="@Model.ViewModel.FirstName">
+                    <span asp-validation-for="InputModel.FirstName"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="InputModel.LastName"></label>
+                    <input class="form-control" asp-for="InputModel.LastName" value="@Model.ViewModel.LastName">
+                    <span asp-validation-for="InputModel.LastName"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="InputModel.Description"></label>
+                    <textarea id="InputModel_Description" name="InputModel.Description" class="form-control" rows="3">@Model.ViewModel.Description</textarea>
+                    <span asp-validation-for="InputModel.Description"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="InputModel.Gender"></label>
+                    <select asp-for="InputModel.Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-control">
+                    </select>
+                    <span asp-validation-for="InputModel.Gender"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="InputModel.IsDeleted"></label>
+                    <input asp-for="InputModel.IsDeleted">
+                    <span asp-validation-for="InputModel.IsDeleted"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="InputModel.IsVerified">Verified?</label>
+                    <input type="checkbox" asp-for="InputModel.IsVerified">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+
+                <input type="text" name="returnUrl" value="@($"{this.Context.Request.Path.Value}?username={Model.ViewModel.UserName}")" hidden />
+                <input type="text" name="userId" value="@this.Model.ViewModel.Id" hidden />
+            </form>
+        </div>
     </div>
 </div>

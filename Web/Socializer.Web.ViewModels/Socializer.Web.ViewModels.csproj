@@ -23,8 +23,4 @@
     <ProjectReference Include="..\..\Services\Socializer.Services.Mapping\Socializer.Services.Mapping.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dashboard\Users\" />
-  </ItemGroup>
-
 </Project>
