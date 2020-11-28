@@ -90,9 +90,17 @@
                     <input asp-for="InputModel.IsDeleted">
                     <span asp-validation-for="InputModel.IsDeleted"></span>
                 </div>
+               
                 <div class="form-group">
                     <label asp-for="InputModel.IsVerified">Verified?</label>
-                    <input type="checkbox" asp-for="InputModel.IsVerified">
+                    @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.ViewModel.Id), GlobalConstants.VerifiedRoleName))
+                    {
+                        <input type="checkbox" asp-for="InputModel.IsVerified" checked>
+                    }
+                    else
+                    {
+                        <input type="checkbox" asp-for="InputModel.IsVerified">
+                    }
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
 

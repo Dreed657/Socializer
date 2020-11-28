@@ -31,11 +31,17 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1 justify-content-center">
-                        <li class="nav-item px-2">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <li class="nav-item h3 px-2">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-place-of-worship"></i></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Index">Feed</a>
+                        <li class="nav-item h3 px-2">
+                            <a class="nav-link text-danger" asp-area="" asp-controller="Posts" asp-action="Index"><i class="fas fa-home"></i></a>
+                        </li>
+                        <li class="nav-item h3 px-2">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Friends"><i class="fas fa-user-friends"></i></a>
+                        </li>
+                        <li class="nav-item h3 px-2">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Groups" asp-action="Discover"><i class="fas fa-users"></i></a>
                         </li>
                     </ul>
                 </div>
