@@ -1,4 +1,6 @@
-﻿namespace Socializer.Web.Areas.Admin.Controllers
+﻿using Socializer.Web.ViewModels.Dashboard.Groups;
+
+namespace Socializer.Web.Areas.Admin.Controllers
 {
     using System.Threading.Tasks;
 
@@ -22,10 +24,12 @@
             return this.View(models);
         }
 
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int groupId)
         {
-            var group = await this.groupService.GetRequestByIdAsync<DbGroupViewModel>(id);
-            return this.View(group);
+            var groupViewModel = await this.groupService.GetByIdAsync<DbGroupViewModel>(groupId);
+            var dbComplexModel = new DbDetailGroupComplexModel() { ViewModel = groupViewModel };
+            
+            return this.View(dbComplexModel);
         }
 
         public async Task<IActionResult> Requests()

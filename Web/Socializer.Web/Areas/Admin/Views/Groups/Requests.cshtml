@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Socializer.Web.ViewModels.Groups.Dashboard.DbGroupCreateRequestViewModel>
+﻿@model IEnumerable<DbGroupCreateRequestViewModel>
 
 <h1>Group Create Requests</h1>
 
@@ -30,7 +30,10 @@ else
                     <td><a asp-controller="Profile" asp-action="Index" asp-route-username="@request.Creator.UserName">@request.Creator.UserName</a></td>
                     <td>@request.CreatedOn.ToShortDateString()</td>
                     <td>@request.Status</td>
-                    <td><a asp-area="Admin" asp-controller="Groups" asp-action="Details" asp-route-id="@request.Id" class="btn btn-success">View</a></td>
+                    <td>
+                        <a asp-area="Admin" asp-controller="Groups" asp-action="ApproveRequest" asp-route-requestId="@request.Id" class="btn btn-outline-success">Approve</a>
+                        <a asp-area="Admin" asp-controller="Groups" asp-action="DeclineRequest" asp-route-requestId="@request.Id" class="btn btn-outline-danger">Decline</a>
+                    </td>
                 </tr>
             }
         </tbody>

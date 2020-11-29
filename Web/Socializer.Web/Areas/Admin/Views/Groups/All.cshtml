@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Socializer.Web.ViewModels.Groups.GroupShortViewModel>
+﻿@model IEnumerable<GroupShortViewModel>
 
 <h1>Group</h1>
 
@@ -26,7 +26,7 @@ else
                 <td>@group.Name</td>
                 <td>@group.Description.Substring(0, group.Description.Length > 30 ? 30 : group.Description.Length)</td>
                 <td>@group.CreatedOn</td>
-                <td><a asp-area="" asp-controller="Groups" asp-action="Index" asp-route-groupId="@group.Id" class="btn btn-outline-info">View Group</a></td>
+                <td><a asp-area="Admin" asp-controller="Groups" asp-action="Details" asp-route-groupId="@group.Id" class="btn btn-outline-info">View Group</a></td>
             </tr>
             }
         </tbody>

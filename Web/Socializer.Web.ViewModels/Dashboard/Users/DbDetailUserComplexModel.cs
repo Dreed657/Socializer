@@ -4,7 +4,7 @@
     using Socializer.Web.ViewModels.Common;
     using Socializer.Web.ViewModels.Users;
 
-    public class DbDetailUserModel : ComplexModel<DbUserInputModel, ProfileViewModel>
+    public class DbDetailUserComplexModel : ComplexModel<DbUserInputModel, ProfileViewModel>
     {
     }
 }

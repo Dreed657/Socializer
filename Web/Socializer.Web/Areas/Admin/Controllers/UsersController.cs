@@ -23,13 +23,13 @@ namespace Socializer.Web.Areas.Admin.Controllers
         public async Task<IActionResult> Index(string username)
         {
             var view = await this.profilesService.GetProfileByUsernameAsync(username);
-            var model = new DbDetailUserModel() { ViewModel = view };
+            var model = new DbDetailUserComplexModel() { ViewModel = view };
 
             return this.View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(DbDetailUserModel model, string userId, string returnUrl)
+        public async Task<IActionResult> Edit(DbDetailUserComplexModel model, string userId, string returnUrl)
         {
             var result = await this.userService.DbEditAsync(model.InputModel, userId);
 

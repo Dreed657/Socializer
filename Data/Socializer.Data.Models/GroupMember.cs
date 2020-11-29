@@ -1,8 +1,7 @@
-﻿using Socializer.Data.Models.Enums;
-
-namespace Socializer.Data.Models
+﻿namespace Socializer.Data.Models
 {
     using Socializer.Data.Common.Models;
+    using Socializer.Data.Models.Enums;
 
     public class GroupMember : BaseModel<int>
     {
