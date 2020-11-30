@@ -60,6 +60,10 @@
                 <p><i class="far fa-clock"></i> Joined in @Model.CreatedOn.ToString("M")</p>
                 <p><i class="fas fa-birthday-cake"></i> Born on @Model.Birthdate.ToShortDateString()</p>
             </div>
+            @if (this.Model.Id == this.UserManager.GetUserId(this.User))
+            {
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Edit Profile</a>
+            }
         </div>
         <div class="col-8 mx-auto">
             @foreach (var post in Model.Posts.OrderByDescending(x => x.CreatedOn))
