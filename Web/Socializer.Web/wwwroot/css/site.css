@@ -76,6 +76,17 @@ body.auth-body {
     width: 300px;
 }
 
+li.navigation {
+    margin-bottom: 0px !important;
+
+    font-size: 25px !important;
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+}
+li.navigation:hover {
+    background-color: #e6e6e6;
+}
+
 .main-head {
     height: 150px;
 }

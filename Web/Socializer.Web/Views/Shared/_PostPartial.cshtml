@@ -1,6 +1,8 @@
 ﻿@using Socializer.Common
+@using Socializer.Services
 @model PostViewModel
 @inject IPostsService PostService
+@inject ITimeService TimeService
 @inject UserManager<ApplicationUser> UserManager
 
 <div class="card my-3">
@@ -30,7 +32,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <sub>@Model.CreatedOn.ToLocalTime()</sub>
+                    <sub>@TimeService.TimeAgo(Model.CreatedOn.ToLocalTime())</sub>
                 </div>
             </div>
             <div class="col">

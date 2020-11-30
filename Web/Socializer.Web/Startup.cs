@@ -16,6 +16,7 @@
     using Socializer.Data.Models;
     using Socializer.Data.Repositories;
     using Socializer.Data.Seeding;
+    using Socializer.Services;
     using Socializer.Services.Data.Groups;
     using Socializer.Services.Data.Posts;
     using Socializer.Services.Data.Profiles;
@@ -66,6 +67,7 @@
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
+            services.AddTransient<ITimeService, TimeService>();
 
             services.AddTransient<IEmailSender, SendGridEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddTransient<IPostsService, PostsService>();

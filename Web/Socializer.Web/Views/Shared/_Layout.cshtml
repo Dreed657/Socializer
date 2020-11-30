@@ -21,29 +21,29 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow">
-            <div class="container">
-                <a class="logo" asp-area="" asp-controller="Home" asp-action="Index"><i class="fab fa-angellist fa-2x"></i></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow p-0">
+            <div class="row m-auto w-100">
+                <div class="col">
+                    <a class="logo p-2" asp-area="" asp-controller="Home" asp-action="Index"><i class="fab fa-angellist fa-2x"></i></a>
+                </div>
+                <div class="col">
                     <ul class="navbar-nav flex-grow-1 justify-content-center">
-                        <li class="nav-item h3 px-2">
+                        <li class="nav-item navigation">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-place-of-worship"></i></a>
                         </li>
-                        <li class="nav-item h3 px-2">
+                        <li class="nav-item navigation">
                             <a class="nav-link text-danger" asp-area="" asp-controller="Posts" asp-action="Index"><i class="fas fa-home"></i></a>
                         </li>
-                        <li class="nav-item h3 px-2">
+                        <li class="nav-item navigation">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Friends"><i class="fas fa-user-friends"></i></a>
                         </li>
-                        <li class="nav-item h3 px-2">
+                        <li class="nav-item navigation">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Groups" asp-action="Discover"><i class="fas fa-users"></i></a>
                         </li>
                     </ul>
+                </div>
+                <div class="col">
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
