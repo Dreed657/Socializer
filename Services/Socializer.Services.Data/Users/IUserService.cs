@@ -4,10 +4,13 @@
     using System.Threading.Tasks;
 
     using Socializer.Data.Models;
+    using Socializer.Web.ViewModels.Common;
     using Socializer.Web.ViewModels.Dashboard.Users;
 
     public interface IUserService
     {
+        Task<bool> UpdateUser(EditUserInputModel model, string userId);
+
         Task<bool> DbEditAsync(DbUserInputModel model, string userId);
 
         Task<T> GetUserByIdAsync<T>(string userId);

@@ -12,6 +12,7 @@ namespace Socializer.Services.Data.Users
     using Socializer.Data.Models;
     using Socializer.Data.Models.Enums;
     using Socializer.Services.Mapping;
+    using Socializer.Web.ViewModels.Common;
     using Socializer.Web.ViewModels.Dashboard.Users;
 
     public class UserService : IUserService
@@ -152,6 +153,40 @@ namespace Socializer.Services.Data.Users
                 await this.userManager.RemoveFromRoleAsync(user, GlobalConstants.VerifiedRoleName);
             }
 
+            await this.userRepo.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateUser(EditUserInputModel model, string userId)
+        {
+            var user = await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == userId);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            if (model.FirstName != user.FirstName)
+            {
+                user.FirstName = model.FirstName;
+            }
+
+            if (model.LastName != user.LastName)
+            {
+                user.LastName = model.LastName;
+            }
+
+            if (model.Description != user.Description)
+            {
+                user.Description = model.Description;
+            }
+
+            if (model.Gender != user.Gender)
+            {
+                user.Gender = model.Gender;
+            }
+
+            this.userRepo.Update(user);
             await this.userRepo.SaveChangesAsync();
             return true;
         }

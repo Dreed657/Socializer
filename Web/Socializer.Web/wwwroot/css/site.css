@@ -186,3 +186,6 @@ ul.feed-sizenav > li.nav-item > a {
     width: 100%;
     height: 150px;
 }
+.profileImage {
+    max-height: 175px;
+}

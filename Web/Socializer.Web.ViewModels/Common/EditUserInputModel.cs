@@ -6,8 +6,7 @@
 
     public class EditUserInputModel
     {
-        [Required]
-        [Display(Name = "UserName")]
+        [Display(Name = "User name")]
         [DataType(DataType.Text)]
         public string UserName { get; set; }
 
@@ -25,11 +24,9 @@
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        [Required]
         [Display(Name = "Gender")]
         public Gender Gender { get; set; }
 
-        [Required]
         [Display(Name = "Deleted")]
         public bool IsDeleted { get; set; }
     }

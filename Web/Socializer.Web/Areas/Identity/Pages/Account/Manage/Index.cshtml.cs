@@ -1,125 +1,96 @@
-﻿using Socializer.Data.Models.Enums;
-
-namespace Socializer.Web.Areas.Identity.Pages.Account.Manage
+﻿namespace Socializer.Web.Areas.Identity.Pages.Account.Manage
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Linq;
+    using System.Text;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Socializer.Data.Models;
+    using Socializer.Services.Data.Users;
+    using Socializer.Web.ViewModels.Users;
 
     public partial class IndexModel : PageModel
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IUserService userService;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IUserService userService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.userService = userService;
         }
-
-        public string UserName { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public EditUserProfileInputModel Input { get; set; }
 
-        public class InputModel
+        public async Task<IActionResult> OnGetAsync()
         {
-            [Required]
-            [Display(Name = "First name")]
-            [DataType(DataType.Text)]
-            public string FirstName { get; set; }
+            var user = await this.userManager.GetUserAsync(this.User);
+            if (user == null)
+            {
+                return this.NotFound($"Unable to load user with ID '{this.userManager.GetUserId(this.User)}'.");
+            }
 
-            [Required]
-            [Display(Name = "Last name")]
-            [DataType(DataType.Text)]
-            public string LastName { get; set; }
-
-            [Display(Name = "Description")]
-            [DataType(DataType.MultilineText)]
-            public string Description { get; set; }
-
-            [Required]
-            [DataType(DataType.Date)]
-            public DateTime BirthDate { get; set; }
-
-            [Required]
-            [Display(Name = "Gender")]
-            public Gender Gender { get; set; }
-
-            [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
+            await this.LoadAsync(user);
+            return this.Page();
         }
 
-        private async Task LoadAsync(ApplicationUser user)
+        public async Task<IActionResult> OnPostAsync()
         {
-            this.UserName = user.UserName;
-
-            this.Input = new InputModel
+            var user = await this.userManager.GetUserAsync(this.User);
+            if (user == null)
             {
+                return this.NotFound($"Unable to load user with ID '{this.userManager.GetUserId(this.User)}'.");
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                await this.LoadAsync(user);
+
+                var sb = new StringBuilder();
+
+                foreach (var item in this.ModelState.Values)
+                {
+                    sb.AppendLine($"Value: {item.RawValue} State: {item.ValidationState} |");
+                }
+
+                this.StatusMessage = sb.ToString().Trim();
+                return this.Page();
+            }
+
+            if (!await this.userService.UpdateUser(this.Input, user.Id))
+            {
+                this.StatusMessage = "Unexpected error when trying to set data.";
+                return this.RedirectToPage();
+            }
+
+            await this.signInManager.RefreshSignInAsync(user);
+            this.StatusMessage = "Your profile has been updated";
+            return this.RedirectToPage();
+        }
+
+        private Task LoadAsync(ApplicationUser user)
+        {
+            this.Input = new EditUserProfileInputModel
+            {
+                UserName = user.UserName,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Description = user.Description,
                 BirthDate = user.Birthdate,
                 Gender = user.Gender,
-                PhoneNumber = user.PhoneNumber,
             };
-        }
 
-        public async Task<IActionResult> OnGetAsync()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
-            await LoadAsync(user);
-            return Page();
-        }
-
-        public async Task<IActionResult> OnPostAsync()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                await LoadAsync(user);
-                return Page();
-            }
-
-            // TODO: MAP ALL PROPERTIES FROM INPUT MODEL!!1!!!1!!!!1!!!
-
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
-            {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
-                }
-            }
-
-            await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
-            return RedirectToPage();
+            return Task.CompletedTask;
         }
     }
 }
