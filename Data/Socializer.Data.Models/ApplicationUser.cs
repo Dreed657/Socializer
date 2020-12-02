@@ -34,6 +34,16 @@ namespace Socializer.Data.Models
 
         public Gender Gender { get; set; }
 
+        public string ProfileImageId { get; set; }
+
+        public virtual Image ProfileImage { get; set; }
+
+        public string CoverImageId { get; set; }
+
+        public virtual Image CoverImage { get; set; }
+
+        public virtual ICollection<Image> Images { get; set; }
+
         public virtual ICollection<Post> Posts { get; set; }
 
         public virtual ICollection<PostLike> Likes { get; set; }

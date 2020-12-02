@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Socializer.Data;
 
 namespace Socializer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201202183724_ImagesTable")]
+    partial class ImagesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,12 +181,6 @@ namespace Socializer.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CoverImageId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CoverImageId1")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -239,12 +235,6 @@ namespace Socializer.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ProfileImageId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ProfileImageId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -257,8 +247,6 @@ namespace Socializer.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CoverImageId1");
-
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("NormalizedEmail")
@@ -268,8 +256,6 @@ namespace Socializer.Data.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("ProfileImageId1");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -586,21 +572,6 @@ namespace Socializer.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Socializer.Data.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("Socializer.Data.Models.Image", "CoverImage")
-                        .WithMany()
-                        .HasForeignKey("CoverImageId1");
-
-                    b.HasOne("Socializer.Data.Models.Image", "ProfileImage")
-                        .WithMany()
-                        .HasForeignKey("ProfileImageId1");
-
-                    b.Navigation("CoverImage");
-
-                    b.Navigation("ProfileImage");
-                });
-
             modelBuilder.Entity("Socializer.Data.Models.Friend", b =>
                 {
                     b.HasOne("Socializer.Data.Models.ApplicationUser", "Receiver")
@@ -664,7 +635,7 @@ namespace Socializer.Data.Migrations
             modelBuilder.Entity("Socializer.Data.Models.Image", b =>
                 {
                     b.HasOne("Socializer.Data.Models.ApplicationUser", "Creator")
-                        .WithMany("Images")
+                        .WithMany()
                         .HasForeignKey("CreatorId");
 
                     b.Navigation("Creator");
@@ -709,8 +680,6 @@ namespace Socializer.Data.Migrations
                     b.Navigation("Friends");
 
                     b.Navigation("Groups");
-
-                    b.Navigation("Images");
 
                     b.Navigation("Likes");
 

@@ -25,6 +25,8 @@
 
         public DbSet<Post> Posts { get; set; }
 
+        public DbSet<Image> Images { get; set; }
+
         public DbSet<PostLike> PostsLikes { get; set; }
 
         public DbSet<Group> Groups { get; set; }
@@ -68,6 +70,10 @@
             builder.Entity<ApplicationUser>()
                 .HasMany(x => x.Friends)
                 .WithOne(x => x.Receiver);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(x => x.Images)
+                .WithOne(x => x.Creator);
 
             var entityTypes = builder.Model.GetEntityTypes().ToList();
 
