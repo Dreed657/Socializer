@@ -19,11 +19,11 @@
 
             if (await userService.GetUserCountAsync() == 0)
             {
-                await this.SeedAdminAsync(userManager);
+                await SeedAdminAsync(userManager);
             }
         }
 
-        public async Task SeedAdminAsync(UserManager<ApplicationUser> userManager)
+        public static async Task SeedAdminAsync(UserManager<ApplicationUser> userManager)
         {
             var admin = await userManager.FindByNameAsync("Administrator01");
 

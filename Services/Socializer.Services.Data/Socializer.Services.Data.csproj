@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CloudinaryDotNet" Version="1.14.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.205" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -24,6 +25,7 @@
     <ProjectReference Include="..\..\Socializer.Common\Socializer.Common.csproj" />
     <ProjectReference Include="..\..\Web\Socializer.Web.ViewModels\Socializer.Web.ViewModels.csproj" />
     <ProjectReference Include="..\Socializer.Services.Mapping\Socializer.Services.Mapping.csproj" />
+    <ProjectReference Include="..\Socializer.Services\Socializer.Services.csproj" />
   </ItemGroup>
 
 </Project>

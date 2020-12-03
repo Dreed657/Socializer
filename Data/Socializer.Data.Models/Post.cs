@@ -11,6 +11,7 @@
         public Post()
         {
             this.Likes = new HashSet<PostLike>();
+            this.Comments = new HashSet<Comment>();
         }
 
         public string Content { get; set; }
@@ -24,6 +25,8 @@
         public virtual Group Group { get; set; }
 
         public virtual ApplicationUser Creator { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
 
         public virtual ICollection<PostLike> Likes { get; set; }
     }

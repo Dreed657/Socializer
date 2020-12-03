@@ -28,7 +28,7 @@ namespace Socializer.Web.Areas.Admin.Controllers
         {
             var groupViewModel = await this.groupService.GetByIdAsync<DbGroupViewModel>(groupId);
             var dbComplexModel = new DbDetailGroupComplexModel() { ViewModel = groupViewModel };
-            
+
             return this.View(dbComplexModel);
         }
 

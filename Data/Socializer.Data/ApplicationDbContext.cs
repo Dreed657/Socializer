@@ -9,7 +9,7 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using Socializer.Data.Common.Models;
-    using Models;
+    using Socializer.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -24,6 +24,8 @@
         }
 
         public DbSet<Post> Posts { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
 
         public DbSet<Image> Images { get; set; }
 

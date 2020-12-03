@@ -9,7 +9,7 @@ namespace Socializer.Web.ViewModels.Users
     using Socializer.Services.Mapping;
     using Socializer.Web.ViewModels.Posts;
 
-    public class ProfileViewModel : IMapFrom<ApplicationUser>
+    public class  ProfileViewModel : IMapFrom<ApplicationUser>
     {
         public string Id { get; set; }
 
@@ -26,6 +26,10 @@ namespace Socializer.Web.ViewModels.Users
         public DateTime CreatedOn { get; set; }
 
         public Gender Gender { get; set; }
+
+        public Image ProfileImage { get; set; }
+
+        public Image CoverImage { get; set; }
 
         public ICollection<PostViewModel> Posts { get; set; }
     }

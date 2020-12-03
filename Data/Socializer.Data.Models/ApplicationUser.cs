@@ -18,6 +18,7 @@ namespace Socializer.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
 
             this.Posts = new HashSet<Post>();
+            this.Comments = new HashSet<Comment>();
             this.Likes = new HashSet<PostLike>();
             this.Friends = new HashSet<Friend>();
             this.Groups = new HashSet<GroupMember>();
@@ -45,6 +46,8 @@ namespace Socializer.Data.Models
         public virtual ICollection<Image> Images { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
 
         public virtual ICollection<PostLike> Likes { get; set; }
 

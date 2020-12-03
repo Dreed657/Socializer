@@ -6,13 +6,15 @@
     this.ViewData["Title"] = Model.UserName;
     var friendStatus = this.UserService.CheckFriendStatus(this.UserManager.GetUserId(this.User), Model.Id);
     var requestStatus = this.UserService.CheckRequestStatus(this.UserManager.GetUserId(this.User), Model.Id);
+
+    var profileUrl = !string.IsNullOrEmpty(Model.ProfileImage?.Url) ? Model.ProfileImage.Url : "https://picsum.photos/200/300";
 }
 
 <div class="container">
     <div class="row">
         <div class="text-center col-2 mx-2 border-left border-right">
             <div class="row">
-                <img class="rounded-circle img-thumbnail mx-auto p-1 w-75 profileImage" src="https://picsum.photos/200/300" />
+                <img class="rounded-circle img-thumbnail mx-auto p-1 w-75 profileImage" src="@profileUrl" />
             </div>
             <div class="row my-2">
                 <h3>@Model.FirstName @Model.LastName</h3>

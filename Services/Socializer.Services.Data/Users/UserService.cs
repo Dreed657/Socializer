@@ -1,30 +1,34 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Socializer.Common;
-
-namespace Socializer.Services.Data.Users
+﻿namespace Socializer.Services.Data.Users
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
+    using CloudinaryDotNet;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+    using Socializer.Common;
     using Socializer.Data.Common.Repositories;
     using Socializer.Data.Models;
     using Socializer.Data.Models.Enums;
     using Socializer.Services.Mapping;
     using Socializer.Web.ViewModels.Common;
     using Socializer.Web.ViewModels.Dashboard.Users;
+    using Socializer.Web.ViewModels.Users;
 
     public class UserService : IUserService
     {
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly Cloudinary cloudinary;
         private readonly IRepository<ApplicationUser> userRepo;
         private readonly IRepository<FriendRequest> friendRequestRepo;
         private readonly IRepository<Friend> friendsRepo;
 
-        public UserService(UserManager<ApplicationUser> userManager, IRepository<ApplicationUser> userRepo, IRepository<FriendRequest> friendRequestRepo, IRepository<Friend> friendsRepo)
+        public UserService(UserManager<ApplicationUser> userManager, Cloudinary cloudinary, IRepository<ApplicationUser> userRepo, IRepository<FriendRequest> friendRequestRepo, IRepository<Friend> friendsRepo)
         {
             this.userManager = userManager;
+            this.cloudinary = cloudinary;
             this.userRepo = userRepo;
             this.friendRequestRepo = friendRequestRepo;
             this.friendsRepo = friendsRepo;
@@ -157,7 +161,7 @@ namespace Socializer.Services.Data.Users
             return true;
         }
 
-        public async Task<bool> UpdateUser(EditUserInputModel model, string userId)
+        public async Task<bool> UpdateUser(EditUserProfileInputModel model, string userId)
         {
             var user = await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == userId);
 
@@ -184,6 +188,38 @@ namespace Socializer.Services.Data.Users
             if (model.Gender != user.Gender)
             {
                 user.Gender = model.Gender;
+            }
+
+            if (model.ProfileImage != null)
+            {
+                var imageName = Guid.NewGuid().ToString();
+                var imageUrl = await ApplicationCloudinary.UploadImage(this.cloudinary, model.ProfileImage, imageName);
+
+                if (!string.IsNullOrEmpty(imageUrl))
+                {
+                    user.ProfileImage = new Image()
+                    {
+                        Url = imageUrl,
+                        Name = imageName,
+                        Creator = user,
+                    };
+                }
+            }
+
+            if (model.CoverImage != null)
+            {
+                var imageName = Guid.NewGuid().ToString();
+                var imageUrl = await ApplicationCloudinary.UploadImage(this.cloudinary, model.CoverImage, imageName);
+
+                if (!string.IsNullOrEmpty(imageUrl))
+                {
+                    user.CoverImage = new Image()
+                    {
+                        Url = imageUrl,
+                        Name = imageName,
+                        Creator = user,
+                    };
+                }
             }
 
             this.userRepo.Update(user);

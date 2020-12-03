@@ -1,7 +1,4 @@
-﻿// Copyright (c) SDV Code Project. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
-
-namespace SdvCode.Services.Cloud
+﻿namespace Socializer.Services
 {
     using System.Collections.Generic;
     using System.IO;
@@ -15,40 +12,40 @@ namespace SdvCode.Services.Cloud
     {
         public static async Task<string> UploadImage(Cloudinary cloudinary, IFormFile image, string name)
         {
-            if (image != null)
+            if (image == null)
             {
-                byte[] destinationImage;
-                using (var memoryStream = new MemoryStream())
-                {
-                    await image.CopyToAsync(memoryStream);
-                    destinationImage = memoryStream.ToArray();
-                }
-
-                using (var ms = new MemoryStream(destinationImage))
-                {
-                    // Cloudinary doesn't work with [?, &, #, \, %, <, >]
-                    name = name.Replace("&", "And");
-                    name = name.Replace("#", "sharp");
-                    name = name.Replace("?", "questionMark");
-                    name = name.Replace("\\", "right");
-                    name = name.Replace("%", "percent");
-                    name = name.Replace(">", "greater");
-                    name = name.Replace("<", "lower");
-
-                    var uploadParams = new ImageUploadParams()
-                    {
-                        File = new FileDescription(name, ms),
-                        PublicId = name,
-                    };
-
-                    var uploadResult = cloudinary.Upload(uploadParams);
-#pragma warning disable CS0618 // Type or member is obsolete
-                    return uploadResult.SecureUri.AbsoluteUri;
-#pragma warning restore CS0618 // Type or member is obsolete
-                }
+                return null;
             }
 
-            return null;
+            byte[] destinationImage;
+            await using (var memoryStream = new MemoryStream())
+            {
+                await image.CopyToAsync(memoryStream);
+                destinationImage = memoryStream.ToArray();
+            }
+
+            await using (var ms = new MemoryStream(destinationImage))
+            {
+                // Cloudinary doesn't work with [?, &, #, \, %, <, >]
+                name = name.Replace("&", "And");
+                name = name.Replace("#", "sharp");
+                name = name.Replace("?", "questionMark");
+                name = name.Replace("\\", "right");
+                name = name.Replace("%", "percent");
+                name = name.Replace(">", "greater");
+                name = name.Replace("<", "lower");
+
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(name, ms),
+                    PublicId = name,
+                };
+
+                var uploadResult = cloudinary.Upload(uploadParams);
+#pragma warning disable CS0618 // Type or member is obsolete
+                return uploadResult.SecureUri.AbsoluteUri;
+#pragma warning restore CS0618 // Type or member is obsolete
+            }
         }
 
         public static void DeleteImage(Cloudinary cloudinary, string name)

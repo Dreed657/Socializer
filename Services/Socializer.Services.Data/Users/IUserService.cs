@@ -6,10 +6,11 @@
     using Socializer.Data.Models;
     using Socializer.Web.ViewModels.Common;
     using Socializer.Web.ViewModels.Dashboard.Users;
+    using Socializer.Web.ViewModels.Users;
 
     public interface IUserService
     {
-        Task<bool> UpdateUser(EditUserInputModel model, string userId);
+        Task<bool> UpdateUser(EditUserProfileInputModel model, string userId);
 
         Task<bool> DbEditAsync(DbUserInputModel model, string userId);
 
