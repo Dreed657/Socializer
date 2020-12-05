@@ -29,6 +29,10 @@
                 {
                     <span class="badge badge-info"><i class="fas fa-check"></i> Verified</span>
                 }
+                @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.Id), GlobalConstants.DeveloperRoleName))
+                {
+                    <span class="badge badge-dark"><i class="fab fa-dev"></i> Developer</span>
+                }
             </div>
 
             @if (this.UserManager.GetUserId(this.User) != Model.Id)

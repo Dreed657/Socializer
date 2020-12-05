@@ -34,6 +34,10 @@
                                         {
                                             <span class="badge badge-danger"><i class="fas fa-user-shield"></i></span>
                                         }
+                                        @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(post.Creator.Id), GlobalConstants.DeveloperRoleName))
+                                        {
+                                            <span class="badge badge-dark"><i class="fab fa-dev"></i></span>
+                                        }
                                     </div>
                                 </div>
                                 <div class="row">
@@ -86,7 +90,7 @@
                     <input asp-for="InputModel.IsDeleted">
                     <span asp-validation-for="InputModel.IsDeleted"></span>
                 </div>
-               
+
                 <div class="form-group">
                     <label asp-for="InputModel.IsVerified">Verified?</label>
                     @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.ViewModel.Id), GlobalConstants.VerifiedRoleName))
@@ -96,6 +100,17 @@
                     else
                     {
                         <input type="checkbox" asp-for="InputModel.IsVerified">
+                    }
+                </div>
+                <div class="form-group">
+                    <label asp-for="InputModel.IsDeveloper">Developer?</label>
+                    @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.ViewModel.Id), GlobalConstants.DeveloperRoleName))
+                    {
+                        <input type="checkbox" asp-for="InputModel.IsDeveloper" checked>
+                    }
+                    else
+                    {
+                        <input type="checkbox" asp-for="InputModel.IsDeveloper">
                     }
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
