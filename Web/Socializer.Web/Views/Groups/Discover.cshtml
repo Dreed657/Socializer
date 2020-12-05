@@ -57,6 +57,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
                 <th scope="col">Created On</th>
+                <th scope="col">Members</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
@@ -68,6 +69,7 @@
                     <td>@group.Name</td>
                     <td>@group.Description.Substring(0, group.Description.Length > 30 ? 30 : group.Description.Length)</td>
                     <td>@group.CreatedOn</td>
+                    <td>@group.MembersCount</td>
                     <td><a asp-controller="Groups" asp-action="Index" asp-route-groupId="@group.Id" class="btn btn-outline-info">View Group</a></td>
                 </tr>
             }

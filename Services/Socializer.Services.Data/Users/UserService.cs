@@ -157,6 +157,15 @@
                 await this.userManager.RemoveFromRoleAsync(user, GlobalConstants.VerifiedRoleName);
             }
 
+            if (model.IsDeveloper && !await this.userManager.IsInRoleAsync(user, GlobalConstants.DeveloperRoleName))
+            {
+                await this.userManager.AddToRoleAsync(user, GlobalConstants.DeveloperRoleName);
+            }
+            else if (!model.IsDeveloper && await this.userManager.IsInRoleAsync(user, GlobalConstants.DeveloperRoleName))
+            {
+                await this.userManager.RemoveFromRoleAsync(user, GlobalConstants.DeveloperRoleName);
+            }
+
             await this.userRepo.SaveChangesAsync();
             return true;
         }

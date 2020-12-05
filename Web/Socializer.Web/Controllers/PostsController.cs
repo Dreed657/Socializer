@@ -28,6 +28,13 @@
             return this.View(models.OrderByDescending(x => x.CreatedOn));
         }
 
+        [Route("/{postId}")]
+        public async Task<IActionResult> Details(int postId)
+        {
+            var model = await this.postsService.GetPostByIdAsync<PostViewModel>(postId);
+            return this.View(model);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(PostsInputModel model, string returnUrl, int groupId)
         {
@@ -35,6 +42,18 @@
             await this.postsService.CreateAsync(model, user.Id, groupId);
 
             return this.Redirect(returnUrl);
+        }
+
+        public async Task<IActionResult> AddComment(int postId, string content)
+        {
+            var result = await this.postsService.AddComment(content, postId, this.userManager.GetUserId(this.User));
+
+            if (!result)
+            {
+                return this.BadRequest();
+            }
+
+            return this.Redirect("/");
         }
 
         public async Task<IActionResult> Delete(int postId, string returnUrl)

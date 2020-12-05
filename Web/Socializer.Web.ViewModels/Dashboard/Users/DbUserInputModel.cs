@@ -10,5 +10,7 @@
     public class DbUserInputModel : EditUserInputModel, IMapFrom<ApplicationUser>
     {
         public bool IsVerified { get; set; }
+
+        public bool IsDeveloper { get; set; }
     }
 }

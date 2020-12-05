@@ -29,20 +29,34 @@
                         {
                             <span class="badge badge-danger"><i class="fas fa-user-shield"></i></span>
                         }
+                        @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.Creator.Id), GlobalConstants.DeveloperRoleName))
+                        {
+                            <span class="badge badge-dark"><i class="fab fa-dev"></i></span>
+                        }
                     </div>
                 </div>
                 <div class="row">
                     <sub>@TimeService.TimeAgo(Model.CreatedOn.ToLocalTime())</sub>
                 </div>
             </div>
+
             <div class="col">
                 <div class="dropdown float-right">
                     <button class="btn btn-dark dropdown-toggle" type="button" id="postDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-ellipsis-h"></i>
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="postDropDown">
-                        <a class="dropdown-item" asp-controller="Posts" asp-action="Delete" asp-route-postId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value">Delete</a>
-                    </div>
+                    <ul class="dropdown-menu" aria-labelledby="postDropDown">
+                        <li class="dropdown-item">
+                            <a asp-controller="Posts" asp-action="Details" asp-route-postId="@Model.Id">Go To Post</a>
+                        </li>
+                        @if (Model.Creator.Id == this.UserManager.GetUserId(this.User))
+                        {
+                            <li class="dropdown-divider"></li>
+                            <li class="dropdown-item">
+                                <a asp-controller="Posts" asp-action="Delete" asp-route-postId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value">Delete</a>
+                            </li>
+                        }
+                    </ul>
                 </div>
             </div>
         </div>
@@ -80,6 +94,37 @@
             </div>
             <div class="col">
                 <a href="#" class="btn btn-outline-success"><i class="fas fa-share"></i> Share</a>
+            </div>
+        </div>
+        
+        <div>
+            <div class="row">
+                <form asp-controller="Posts" asp-action="AddComment" method="post">
+                    <div class="row p-1 m-1">
+                        <div class="col-1 mx-auto">
+                            <img src="https://image-placeholder.com/images/actual-size/75x75.png" style="width: 40px; height: 40px"/>
+                        </div>
+                        <div class="col">
+                            <input class="form-control" type="text" name="content"/>
+                            <input class="form-control" type="text" name="postId" value="@Model.Id" hidden/>
+                        </div>
+                        <div class="col-1">
+                            <input class="btn btn-outline-success" type="submit" name="name" value="SEND" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="comments">
+                @foreach (var comment in Model.Comments)
+                {
+                    <div class="row p-2 my-2 border">
+                        <div class="my-2">
+                            <p class="m-0">@comment.CreatorUserName</p>
+                            <sub>@TimeService.TimeAgo(comment.CreatedOn.ToLocalTime())</sub>
+                        </div>
+                        <p class="px-4">@comment.Content</p>
+                    </div>
+                }
             </div>
         </div>
     </div>

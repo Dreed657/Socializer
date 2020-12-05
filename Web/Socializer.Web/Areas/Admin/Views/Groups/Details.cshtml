@@ -47,7 +47,12 @@
             <h1>Settings</h1>
         </div>
         <div class="row p-2 m-2">
-            <form action="/" method="post">
+            @if (this.TempData.ContainsKey("Error"))
+            {
+                <div class="alert alert-danger" role="alert">@this.TempData["Error"]</div>
+            }
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <form asp-area="Admin" asp-controller="Groups" asp-action="Edit" method="post">
                 <div class="form-group">
                     <label asp-for="InputModel.Name"></label>
                     <input class="form-control" asp-for="InputModel.Name" value="@Model.ViewModel.Name">
@@ -56,6 +61,7 @@
                     <label asp-for="InputModel.Description"></label>
                     <input class="form-control" asp-for="InputModel.Description" value="@Model.ViewModel.Description">
                 </div>
+                <input type="text" name="groupId" value="@Model.ViewModel.Id" hidden/>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>

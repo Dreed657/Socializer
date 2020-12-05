@@ -1,4 +1,7 @@
-﻿namespace Socializer.Services.Data.Groups
+﻿using System;
+using Socializer.Web.ViewModels.Common;
+
+namespace Socializer.Services.Data.Groups
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -28,6 +31,31 @@
             return await this.groupRepository.All()
                 .Where(x => x.Id == id).To<T>()
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> UpdateGroup(EditGroupModel model, int groupId)
+        {
+            var entity = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Id == groupId);
+
+            if (entity == null)
+            {
+                return false;
+            }
+
+            if (entity.Name != model.Name)
+            {
+                entity.Name = model.Name;
+            }
+
+            if (entity.Description != model.Description)
+            {
+                entity.Description = model.Description;
+            }
+
+            this.groupRepository.Update(entity);
+            await this.groupRepository.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<bool> AddMemberToGroupAsync(int groupId, string userId)

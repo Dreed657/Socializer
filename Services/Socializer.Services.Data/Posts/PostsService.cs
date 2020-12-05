@@ -1,4 +1,6 @@
-﻿namespace Socializer.Services.Data.Posts
+﻿using AutoMapper.Configuration.Conventions;
+
+namespace Socializer.Services.Data.Posts
 {
     using System;
     using System.Collections.Generic;
@@ -69,6 +71,21 @@
         public async Task<int> GetPostsCountAsync()
         {
             return await this.postsRepo.All().CountAsync();
+        }
+
+        public async Task<bool> AddComment(string content, int postId, string userId)
+        {
+            var post = await this.postsRepo.All().FirstOrDefaultAsync(x => x.Id == postId);
+
+            if (post == null)
+            {
+                return false;
+            }
+
+            post.Comments.Add(new Comment() { Content = content, Post = post, CreatorId = userId });
+            await this.postsRepo.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task LikeAsync(int postId, string userId)

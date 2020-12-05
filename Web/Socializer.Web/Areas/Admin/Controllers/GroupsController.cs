@@ -1,4 +1,5 @@
-﻿using Socializer.Web.ViewModels.Dashboard.Groups;
+﻿using Socializer.Web.ViewModels.Common;
+using Socializer.Web.ViewModels.Dashboard.Groups;
 
 namespace Socializer.Web.Areas.Admin.Controllers
 {
@@ -30,6 +31,21 @@ namespace Socializer.Web.Areas.Admin.Controllers
             var dbComplexModel = new DbDetailGroupComplexModel() { ViewModel = groupViewModel };
 
             return this.View(dbComplexModel);
+        }
+
+        public async Task<IActionResult> Edit(DbDetailGroupComplexModel model, int groupId)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                this.ModelState.AddModelError("123", "Model is not valid!");
+            }
+
+            if (!await this.groupService.UpdateGroup(model.InputModel, groupId))
+            {
+                this.TempData["Error"] = "Something went wrong with the request!";
+            }
+
+            return this.RedirectToAction(nameof(this.Details), new { groupId = groupId });
         }
 
         public async Task<IActionResult> Requests()

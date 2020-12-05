@@ -1,4 +1,6 @@
-﻿namespace Socializer.Services.Data.Groups
+﻿using Socializer.Web.ViewModels.Common;
+
+namespace Socializer.Services.Data.Groups
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -9,6 +11,8 @@
     public interface IGroupService
     {
         Task<T> GetByIdAsync<T>(int id);
+
+        Task<bool> UpdateGroup(EditGroupModel model, int groupId);
 
         bool IsMemberInGroup(int groupId, string userId);
 
