@@ -1,4 +1,6 @@
-﻿namespace Socializer.Web.Areas.Identity.Pages.Account
+﻿using Socializer.Services.Data.Common;
+
+namespace Socializer.Web.Areas.Identity.Pages.Account
 {
     using System;
     using System.Collections.Generic;
@@ -23,16 +25,19 @@
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IDefaultImageService defaultImageService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
+            IDefaultImageService defaultImageService,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
+            this.defaultImageService = defaultImageService;
             this._userManager = userManager;
             this._signInManager = signInManager;
             this._logger = logger;
@@ -104,6 +109,8 @@
                 Email = this.Input.Email,
                 Gender = this.Input.Gender,
                 Birthdate = this.Input.Birthdate,
+                ProfileImage = await this.defaultImageService.GetDefaultProfileImage(),
+                CoverImage = await this.defaultImageService.GetDefaultCoverImage(),
             };
 
             user.Posts.Add(new Post()

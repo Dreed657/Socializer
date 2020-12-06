@@ -64,7 +64,7 @@
         <div class="row">
             <p class="card-text m-2">@Model.Content</p>
         </div>
-        
+
         <div class="row">
             <div class="col">
 
@@ -90,23 +90,23 @@
                 }
             </div>
             <div class="col">
-                <a href="#" class="btn btn-outline-success"><i class="far fa-comment-alt"></i> Comment</a>
+                <a class="btn btn-outline-success" id="comment-toggle-@Model.Id"><i class="far fa-comment-alt"></i> Comment</a>
             </div>
             <div class="col">
-                <a href="#" class="btn btn-outline-success"><i class="fas fa-share"></i> Share</a>
+                <a class="btn btn-outline-success"><i class="fas fa-share"></i> Share</a>
             </div>
         </div>
-        
-        <div>
+
+        <div id="comments-@Model.Id">
             <div class="row">
                 <form asp-controller="Posts" asp-action="AddComment" method="post">
                     <div class="row p-1 m-1">
                         <div class="col-1 mx-auto">
-                            <img src="https://image-placeholder.com/images/actual-size/75x75.png" style="width: 40px; height: 40px"/>
+                            <img src="https://image-placeholder.com/images/actual-size/75x75.png" style="width: 40px; height: 40px" />
                         </div>
                         <div class="col">
-                            <input class="form-control" type="text" name="content"/>
-                            <input class="form-control" type="text" name="postId" value="@Model.Id" hidden/>
+                            <input class="form-control" type="text" name="content" />
+                            <input class="form-control" type="text" name="postId" value="@Model.Id" hidden />
                         </div>
                         <div class="col-1">
                             <input class="btn btn-outline-success" type="submit" name="name" value="SEND" />
@@ -129,3 +129,4 @@
         </div>
     </div>
 </div>
+
