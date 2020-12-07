@@ -1,4 +1,5 @@
 ﻿using AutoMapper.Configuration.Conventions;
+using CloudinaryDotNet;
 
 namespace Socializer.Services.Data.Posts
 {
@@ -16,11 +17,13 @@ namespace Socializer.Services.Data.Posts
 
     public class PostsService : IPostsService
     {
+        private readonly Cloudinary cloudinary;
         private readonly IDeletableEntityRepository<Post> postsRepo;
         private readonly IRepository<PostLike> likeRepo;
 
-        public PostsService(IDeletableEntityRepository<Post> postsRepo, IRepository<PostLike> likesRepo)
+        public PostsService(Cloudinary cloudinary, IDeletableEntityRepository<Post> postsRepo, IRepository<PostLike> likesRepo)
         {
+            this.cloudinary = cloudinary;
             this.postsRepo = postsRepo;
             this.likeRepo = likesRepo;
         }

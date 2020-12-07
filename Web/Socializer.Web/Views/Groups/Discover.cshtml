@@ -3,78 +3,85 @@
     this.ViewData["Title"] = "Groups";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h3>Groups</h3>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#groupRequest">Request group</button>
-            <div class="modal fade" id="groupRequest" tabindex="-1" role="dialog" aria-labelledby="groupRequestLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content p-2">
-                        <form asp-controller="Groups" asp-action="CreateRequest" method="post">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Request for group</h5>
-                                <button type="button" class="btn btn-black" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+<div class="row">
+    <div class="col-2">
+        <partial name="_SideMenuPartial" />
+    </div>
+    <div class="col-8">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3>Groups</h3>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#groupRequest">Request group</button>
+                    <div class="modal fade" id="groupRequest" tabindex="-1" role="dialog" aria-labelledby="groupRequestLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content p-2">
+                                <form asp-controller="Groups" asp-action="CreateRequest" method="post">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Request for group</h5>
+                                        <button type="button" class="btn btn-black" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body m-2">
+                                        <div class="form-group">
+                                            <label for="Name">Group name</label>
+                                            <input type="text" class="form-control" id="Name" name="Name" placeholder="Group Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Description">Group Description</label>
+                                            <textarea class="form-control" name="Description" id="Description" style="height: 100px;"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input class="btn btn-success m-2" type="submit" value="Request!" />
+                                        <input type="text" name="returnUrl" value="@this.Context.Request.Path.Value" hidden />
+                                    </div>
+                                </form>
                             </div>
-                            <div class="modal-body m-2">
-                                <div class="form-group">
-                                    <label for="Name">Group name</label>
-                                    <input type="text" class="form-control" id="Name" name="Name" placeholder="Group Name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="Description">Group Description</label>
-                                    <textarea class="form-control" name="Description" id="Description" style="height: 100px;"></textarea>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <input class="btn btn-success m-2" type="submit" value="Request!" />
-                                <input type="text" name="returnUrl" value="@this.Context.Request.Path.Value" hidden />
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
+
+
+            @if (!Model.Any())
+            {
+                <div class="row text-center">
+                    <h2>No groups at the moment.</h2>
+                </div>
+            }
+            else
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Created On</th>
+                            <th scope="col">Members</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var group in Model)
+                        {
+                            <tr>
+                                <th scope="row">@group.Id</th>
+                                <td>@group.Name</td>
+                                <td>@group.Description.Substring(0, group.Description.Length > 30 ? 30 : group.Description.Length)</td>
+                                <td>@group.CreatedOn</td>
+                                <td>@group.MembersCount</td>
+                                <td><a asp-controller="Groups" asp-action="Index" asp-route-groupId="@group.Id" class="btn btn-outline-info">View Group</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
         </div>
     </div>
-
-
-    @if (!Model.Any())
-    {
-        <div class="row text-center">
-            <h2>No groups at the moment.</h2>
-        </div>
-    }
-    else
-    {
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Name</th>
-                <th scope="col">Description</th>
-                <th scope="col">Created On</th>
-                <th scope="col">Members</th>
-                <th scope="col">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var group in Model)
-            {
-                <tr>
-                    <th scope="row">@group.Id</th>
-                    <td>@group.Name</td>
-                    <td>@group.Description.Substring(0, group.Description.Length > 30 ? 30 : group.Description.Length)</td>
-                    <td>@group.CreatedOn</td>
-                    <td>@group.MembersCount</td>
-                    <td><a asp-controller="Groups" asp-action="Index" asp-route-groupId="@group.Id" class="btn btn-outline-info">View Group</a></td>
-                </tr>
-            }
-            </tbody>
-        </table>
-    }
-    
 </div>

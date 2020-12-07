@@ -22,12 +22,6 @@
             this.postsService = postsService;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var models = await this.postsService.GetAllAsync<PostViewModel>();
-            return this.View(models.OrderByDescending(x => x.CreatedOn));
-        }
-
         [Route("/{postId}")]
         public async Task<IActionResult> Details(int postId)
         {
