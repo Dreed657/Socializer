@@ -21,6 +21,8 @@
 
         Task<bool> AddComment(string content, int postId, string userId);
 
+        Task<IEnumerable<CommentViewModel>> GetAllComments(int postId);
+
         Task LikeAsync(int postId, string userId);
 
         Task UnLikeAsync(int postId, string userId);

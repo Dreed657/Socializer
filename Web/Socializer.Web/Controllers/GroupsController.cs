@@ -21,19 +21,21 @@
             this.userManger = userManger;
         }
 
-        public async Task<IActionResult> Index(int groupId)
+        [HttpGet("/{groupName}/{groupId}")]
+        public async Task<IActionResult> Index(string groupName, int groupId)
         {
             var group = await this.groupService.GetByIdAsync<GroupViewModel>(groupId);
             return this.View(group);
         }
 
-        [HttpGet("Group/{groupId}/Members")]
+        [HttpGet("group/{groupId}/Members")]
         public async Task<IActionResult> Members(int groupId)
         {
             var group = await this.groupService.GetByIdAsync<GroupMembersViewModel>(groupId);
             return this.View(group);
         }
 
+        [HttpGet("/groups")]
         public async Task<IActionResult> Discover()
         {
             var groups = await this.groupService.GetAllAsync<GroupShortViewModel>();

@@ -75,7 +75,7 @@
                                 <td>@group.Description.Substring(0, group.Description.Length > 30 ? 30 : group.Description.Length)</td>
                                 <td>@group.CreatedOn</td>
                                 <td>@group.MembersCount</td>
-                                <td><a asp-controller="Groups" asp-action="Index" asp-route-groupId="@group.Id" class="btn btn-outline-info">View Group</a></td>
+                                <td><a asp-controller="Groups" asp-action="Index" asp-route-groupId="@group.Id" asp-route-groupName="@group.Name" class="btn btn-outline-info">View Group</a></td>
                             </tr>
                         }
                     </tbody>

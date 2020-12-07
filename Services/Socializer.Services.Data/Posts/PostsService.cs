@@ -1,7 +1,4 @@
-﻿using AutoMapper.Configuration.Conventions;
-using CloudinaryDotNet;
-
-namespace Socializer.Services.Data.Posts
+﻿namespace Socializer.Services.Data.Posts
 {
     using System;
     using System.Collections.Generic;
@@ -9,6 +6,8 @@ namespace Socializer.Services.Data.Posts
     using System.Text;
     using System.Threading.Tasks;
 
+    using AutoMapper.Configuration.Conventions;
+    using CloudinaryDotNet;
     using Microsoft.EntityFrameworkCore;
     using Socializer.Data.Common.Repositories;
     using Socializer.Data.Models;
@@ -139,6 +138,16 @@ namespace Socializer.Services.Data.Posts
         public async Task<T> GetPostByIdAsync<T>(int postId)
         {
             return await this.postsRepo.All().Where(x => x.Id == postId).To<T>().FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<CommentViewModel>> GetAllComments(int postId)
+        {
+            var post = await this.postsRepo
+                .All()
+                .To<PostViewModel>()
+                .FirstOrDefaultAsync(x => x.Id == postId);
+
+            return post.Comments;
         }
     }
 }
