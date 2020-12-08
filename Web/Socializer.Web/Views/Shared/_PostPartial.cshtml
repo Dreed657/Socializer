@@ -82,15 +82,15 @@
                 @if (!await this.PostService.IsLikedAsync(Model.Id, this.UserManager.GetUserId(this.User)))
                 {
 
-                    <a asp-controller="Posts" asp-action="Like" asp-route-postId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value" class="btn btn-outline-success"><i class="far fa-thumbs-up"></i> Like</a>
+                    <a id="like" class="btn btn-outline-success" post-like-id="@Model.Id"><i class="far fa-thumbs-up"></i> Like</a>
                 }
                 else
                 {
-                    <a asp-controller="Posts" asp-action="UnLike" asp-route-postId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value" class="btn btn-outline-danger"><i class="fas fa-thumbs-up"></i> Like</a>
+                    <a id="unlike" class="btn btn-outline-danger" post-like-id="@Model.Id"><i class="fas fa-thumbs-up"></i> Like</a>
                 }
             </div>
             <div class="col">
-                <a class="btn btn-outline-success" id="comment-toggle" comment-id="@Model.Id"><i class="far fa-comment-alt"></i> Comment</a>
+                <a class="btn btn-outline-success" id="comment-toggle" post-id="@Model.Id"><i class="far fa-comment-alt"></i> Comment</a>
             </div>
             <div class="col">
                 <a class="btn btn-outline-success"><i class="fas fa-share"></i> Share</a>
