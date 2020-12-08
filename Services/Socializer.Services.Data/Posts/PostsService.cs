@@ -40,6 +40,22 @@
                 entity.GroupId = groupId;
             }
 
+            if (model.Image != null)
+            {
+                var imageName = Guid.NewGuid().ToString();
+                var imageUrl = await ApplicationCloudinary.UploadImage(this.cloudinary, model.Image, imageName);
+
+                if (!string.IsNullOrEmpty(imageUrl))
+                {
+                    entity.Image = new Image()
+                    {
+                        Url = imageUrl,
+                        Name = imageName,
+                        CreatorId = userId,
+                    };
+                }
+            }
+
             await this.postsRepo.AddAsync(entity);
             await this.postsRepo.SaveChangesAsync();
 

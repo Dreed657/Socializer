@@ -24,6 +24,10 @@
 
         public virtual Group Group { get; set; }
 
+        public int? ImageId { get; set; }
+
+        public virtual Image Image { get; set; }
+
         public virtual ApplicationUser Creator { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }

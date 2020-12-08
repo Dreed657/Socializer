@@ -26,6 +26,8 @@ namespace Socializer.Web.ViewModels.Posts
 
         public Group Group { get; set; }
 
+        public Image Image { get; set; }
+
         public bool InGroup => this.Group != null;
 
         public int CommentCount => this.Comments.Count;
