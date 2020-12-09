@@ -8,7 +8,7 @@
 }
 else
 {
-    <table class="table table-striped">
+    <table class="table table-striped" id="groups-table">
         <thead>
             <tr>
                 <th scope="col">Id</th>
@@ -31,4 +31,13 @@ else
             }
         </tbody>
     </table>
+}
+
+@section Scripts
+{
+    <script>
+        $(document).ready( function () {
+            $("#groups-table").DataTable();
+        } );
+    </script>
 }

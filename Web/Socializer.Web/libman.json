@@ -70,6 +70,10 @@
         "css/all.css",
         "css/all.min.css"
       ]
+    },
+    {
+      "library": "datatables@1.10.18",
+      "destination": "wwwroot/lib/datatables"
     }
   ]
 }

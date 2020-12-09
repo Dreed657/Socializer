@@ -8,7 +8,7 @@
 }
 else
 {
-    <table class="table">
+    <table class="table" id="users-table">
         <thead>
             <tr>
                 <th scope="col">Id</th>
@@ -27,4 +27,13 @@ else
             }
         </tbody>
     </table>
+}
+
+@section Scripts
+{
+    <script>
+        $(document).ready( function () {
+            $("#users-table").DataTable();
+        } );
+    </script>
 }
