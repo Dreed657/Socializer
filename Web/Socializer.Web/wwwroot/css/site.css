@@ -154,20 +154,12 @@ ul.feed-sizenav > li.nav-item > a {
     }
 }
 @media screen and (max-width: 450px) {
-    .login-form {
-        margin-top: 10%;
-    }
-
     .register-form {
         margin-top: 10%;
     }
 }
 
 @media screen and (min-width: 768px) {
-    .main {
-        margin-left: 45%;
-    }
-
     .sidenav {
         width: 40%;
         position: fixed;
@@ -176,20 +168,44 @@ ul.feed-sizenav > li.nav-item > a {
         left: 0;
     }
 
-    .login-form {
-        margin-top: 40%;
-    }
-
     .register-form {
         margin-top: 20%;
     }
 }
 
-
+div.login-form label {
+    color: white !important;
+}
+div.login-form hr {
+    color: white !important;
+}
+.form-container {
+    display: flex;
+}
+.form-header {
+    color: white;
+    text-align: center;
+}
+div.form-header > h1 {
+    color: white;
+}
+.main-backgroup {
+    background-image: url("../images/login-bg.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 1000px;
+}
 .login-main-text {
     margin-top: 20%;
     padding: 60px;
     color: #fff;
+}
+p > a.forgot-password {
+    color: white;
+    border-bottom: 0px;
+}
+a.forgot-password:hover {
+    text-decoration: underline;
 }
 
 .login-main-text h2 {
@@ -199,7 +215,6 @@ ul.feed-sizenav > li.nav-item > a {
     background-color: #000 !important;
     color: #fff;
 }
-
 .group-info {
     background-color: #f2f2f2;
     border-radius: 10px;

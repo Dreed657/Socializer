@@ -75,5 +75,10 @@
       "library": "datatables@1.10.18",
       "destination": "wwwroot/lib/datatables"
     }
-  ]
+  ,
+{
+  "library": "qrcodejs@1.0.0",
+  "destination": "wwwroot/lib/qrcodejs/"
+}
+]
 }
