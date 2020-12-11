@@ -2,6 +2,25 @@
     console.log("JS Loaded!");
 });
 
+$("#add-comment").submit(function (event) {
+    event.preventDefault(); //prevent default action 
+    var post_url = $(this).attr("action"); //get form action url
+    var form_data = $(this).serialize(); //Encode form elements for submission
+
+    console.log(form_data);
+
+    $.ajax({
+        url: post_url,
+        contentType: "application/jsonrequest; charset=utf-8",
+        data: form_data,
+        type: 'POST',
+        dataType: 'json',
+        succsess: function() {
+            ReloadComments(form_data.postId);
+        }
+    });
+});
+
 $("a#like").click(function () {
     var postId = $(this).attr("post-like-id");
     $.ajax({
@@ -49,17 +68,23 @@ $("a#comment-toggle").click(function () {
     $("div#comment-controls-" + postId).show();
     $("div.comments-body-" + postId).text("");
 
+    ReloadComments(postId);
+});
+
+function ReloadComments(postId) {
     $.ajax({
         url: "/api/post/comments?postId=" + postId,
         success: function (data) {
             $.each(data, function (item, index) {
                 $("div.comments-body-" + postId)
-                    .append($("<div/>").addClass("row p-2 my-2 border")
-                        .append($("<div/>").addClass("my-2")
-                            .append($("<p/>").addClass("m-0").text(index.creatorUserName))
-                            .append($("<sub />").text(index.createdOn))
-                        ).append($("<p/>").addClass("px-4").text(index.content))
-                    );
+                    .append($("<div/>").html(`<div class="row p-2 my-2 border">
+                                                <div class="my-2">
+                                                    <p class="m-0">${index.creatorUserName}</p>
+                                                    <sub>${index.createdOn}</sub>
+                                                </div>
+                                                <p class="px-4">${index.content}</p>
+                                            </div>`
+                ));
             });
         },
         error: function (errors) {
@@ -75,4 +100,4 @@ $("a#comment-toggle").click(function () {
         type: "GET",
         dataType: "json"
     });
-});
+}

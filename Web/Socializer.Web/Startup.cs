@@ -79,7 +79,7 @@ namespace Socializer.Web
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
             services.AddTransient<ITimeService, TimeService>();
-            services.AddTransient<IEmailSender, SendGridEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddTransient<IDefaultImageService, DefaultImageService>();
 
             services.AddTransient<IPostsService, PostsService>();

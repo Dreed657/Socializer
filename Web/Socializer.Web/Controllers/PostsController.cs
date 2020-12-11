@@ -47,7 +47,7 @@
                 return this.BadRequest();
             }
 
-            return this.Redirect("/");
+            return this.Ok(postId);
         }
 
         public async Task<IActionResult> Delete(int postId, string returnUrl)

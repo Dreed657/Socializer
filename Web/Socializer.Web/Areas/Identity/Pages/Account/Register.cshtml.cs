@@ -1,6 +1,4 @@
-﻿using Socializer.Services.Data.Common;
-
-namespace Socializer.Web.Areas.Identity.Pages.Account
+﻿namespace Socializer.Web.Areas.Identity.Pages.Account
 {
     using System;
     using System.Collections.Generic;
@@ -13,13 +11,14 @@ namespace Socializer.Web.Areas.Identity.Pages.Account
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
     using Microsoft.Extensions.Logging;
     using Socializer.Data.Models;
     using Socializer.Data.Models.Enums;
+    using Socializer.Services.Data.Common;
+    using Socializer.Services.Messaging;
 
     [AllowAnonymous]
     public class RegisterModel : PageModel
@@ -132,7 +131,7 @@ namespace Socializer.Web.Areas.Identity.Pages.Account
                     values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                     protocol: this.Request.Scheme);
 
-                await this._emailSender.SendEmailAsync(this.Input.Email, "Confirm your email", $"<h1>Hello {this.Input.FirstName} thank you for your time!</h1><h3>Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.</h3>");
+                await this._emailSender.SendEmailAsync("ninjakiviWTF@gmail.com", "John doe", this.Input.Email, "Confirm your email", $"<h1>Hello {this.Input.FirstName} thank you for your time!</h1><h3>Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.</h3>");
 
                 if (this._userManager.Options.SignIn.RequireConfirmedAccount)
                 {
