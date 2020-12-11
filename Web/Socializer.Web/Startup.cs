@@ -1,4 +1,5 @@
 ﻿using Socializer.Services.Data.Common;
+using Microsoft.Extensions.Configuration;
 
 namespace Socializer.Web
 {
@@ -32,6 +33,7 @@ namespace Socializer.Web
 
     public class Startup
     {
+        public IConfiguration Configuration { get; }
         private readonly IConfiguration configuration;
 
         public Startup(IConfiguration configuration)
@@ -87,6 +89,7 @@ namespace Socializer.Web
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IGroupService, GroupService>();
             services.AddTransient<IDashboardService, DashboardService>();
+            services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
