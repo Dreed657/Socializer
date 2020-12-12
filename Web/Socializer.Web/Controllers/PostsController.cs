@@ -38,18 +38,6 @@
             return this.Redirect(returnUrl);
         }
 
-        public async Task<IActionResult> AddComment(int postId, string content)
-        {
-            var result = await this.postsService.AddComment(content, postId, this.userManager.GetUserId(this.User));
-
-            if (!result)
-            {
-                return this.BadRequest();
-            }
-
-            return this.Ok(postId);
-        }
-
         [HttpPost]
         public async Task<IActionResult> Delete(int postId, string returnUrl)
         {

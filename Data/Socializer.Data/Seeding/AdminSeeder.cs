@@ -1,4 +1,6 @@
-﻿namespace Socializer.Data.Seeding
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Socializer.Data.Seeding
 {
     using System;
     using System.Threading.Tasks;
@@ -19,13 +21,16 @@
 
             if (await userService.GetUserCountAsync() == 0)
             {
-                await SeedAdminAsync(userManager);
+                await SeedAdminAsync(dbContext, userManager);
             }
         }
 
-        public static async Task SeedAdminAsync(UserManager<ApplicationUser> userManager)
+        public static async Task SeedAdminAsync(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager)
         {
             var admin = await userManager.FindByNameAsync("Administrator01");
+
+            var profileImage = await dbContext.Images.FirstOrDefaultAsync(x => x.Name == "Default_Profile");
+            var coverImage = await dbContext.Images.FirstOrDefaultAsync(x => x.Name == "Default_Cover");
 
             if (admin == null)
             {
@@ -37,6 +42,8 @@
                     Email = "admin@gmail.com",
                     Gender = Gender.Male,
                     Birthdate = DateTime.Now,
+                    ProfileImage = profileImage,
+                    CoverImage = coverImage,
                 };
 
                 await userManager.CreateAsync(user, "password");

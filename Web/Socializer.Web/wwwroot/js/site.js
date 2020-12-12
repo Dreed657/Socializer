@@ -1,21 +1,20 @@
-﻿$(document).ready(function () {
-    console.log("JS Loaded!");
-});
-
-$("#add-comment").submit(function (event) {
-    event.preventDefault(); //prevent default action 
-    var post_url = $(this).attr("action"); //get form action url
-    var form_data = $(this).serialize(); //Encode form elements for submission
-
-    console.log(form_data);
+﻿$("#add-comment").submit(function (event) {
+    event.preventDefault();
+    var post_url = $(this).attr("action");
+    var method = $(this).attr("method");
+    var form_data = $(this).serialize();
 
     $.ajax({
         url: post_url,
-        contentType: "application/jsonrequest; charset=utf-8",
+        contentType: "application/text",
         data: form_data,
-        type: 'POST',
-        dataType: 'json',
-        succsess: function() {
+        type: method,
+        dataType: 'text',
+        error: function(errors) {
+            console.log(errors);
+        },
+        success: function () {
+            console.log("good");
             ReloadComments(form_data.postId);
         }
     });
@@ -24,7 +23,7 @@ $("#add-comment").submit(function (event) {
 $("a#like").click(function () {
     var postId = $(this).attr("post-like-id");
     $.ajax({
-        url: "/api/Like?postId=" + postId,
+        url: "api/post/like?postId=" + postId,
         success: function (data) {
             console.log("bad");
         },
@@ -45,7 +44,7 @@ $("a#like").click(function () {
 $("a#unlike").click(function () {
     var postId = $(this).attr("post-like-id");
     $.ajax({
-        url: "/api/UnLike?postId=" + postId,
+        url: "api/post/unlike?postId=" + postId,
         success: function (data) {
             console.log("bad");
         },

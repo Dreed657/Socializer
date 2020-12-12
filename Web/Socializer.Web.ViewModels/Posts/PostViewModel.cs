@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
-
-namespace Socializer.Web.ViewModels.Posts
+﻿namespace Socializer.Web.ViewModels.Posts
 {
     using System;
+    using System.Collections.Generic;
 
     using Socializer.Data.Models;
     using Socializer.Services.Mapping;
@@ -30,7 +28,7 @@ namespace Socializer.Web.ViewModels.Posts
 
         public bool InGroup => this.Group != null;
 
-        public int CommentCount => this.Comments.Count;
+        public int CommentsCount { get; set; }
 
         public ICollection<CommentViewModel> Comments { get; set; }
     }

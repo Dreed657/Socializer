@@ -19,12 +19,14 @@
         private readonly Cloudinary cloudinary;
         private readonly IDeletableEntityRepository<Post> postsRepo;
         private readonly IRepository<PostLike> likeRepo;
+        private readonly IDeletableEntityRepository<Comment> commentRepo;
 
-        public PostsService(Cloudinary cloudinary, IDeletableEntityRepository<Post> postsRepo, IRepository<PostLike> likesRepo)
+        public PostsService(Cloudinary cloudinary, IDeletableEntityRepository<Post> postsRepo, IRepository<PostLike> likesRepo, IDeletableEntityRepository<Comment> commentRepo)
         {
             this.cloudinary = cloudinary;
             this.postsRepo = postsRepo;
             this.likeRepo = likesRepo;
+            this.commentRepo = commentRepo;
         }
 
         public async Task<int?> CreateAsync(PostInputModel model, string userId, int groupId = 0)
@@ -159,12 +161,7 @@
 
         public async Task<IEnumerable<CommentViewModel>> GetAllComments(int postId)
         {
-            var post = await this.postsRepo
-                .All()
-                .To<PostViewModel>()
-                .FirstOrDefaultAsync(x => x.Id == postId);
-
-            return post.Comments;
+            return await this.commentRepo.All().Where(x => x.PostId == postId).To<CommentViewModel>().ToListAsync();
         }
     }
 }

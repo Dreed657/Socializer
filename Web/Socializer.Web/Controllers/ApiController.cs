@@ -29,37 +29,39 @@ namespace Socializer.Web.Controllers
         {
             var data = await this.postsService.GetAllComments(postId);
 
-            if (data.Any())
+            if (!data.Any())
             {
-                return this.Ok(data);
+                return this.BadRequest();
             }
 
-            return this.BadRequest();
+            return this.Ok(data);
         }
 
-        [HttpPost("Post/AddComment")]
+        [HttpPost("post/AddComment")]
         public async Task<IActionResult> AddComment(int postId, string content)
         {
             var result = await this.postsService.AddComment(content, postId, this.userManager.GetUserId(this.User));
 
             if (!result)
             {
-                return this.BadRequest();
+                return this.NotFound();
             }
 
             return this.Ok(postId);
         }
 
-        [HttpGet("/Like")]
-        public async Task Like(int postId)
+        [HttpGet("post/like")]
+        public async Task<IActionResult> Like(int postId)
         {
             await this.postsService.LikeAsync(postId, this.userManager.GetUserId(this.User));
+            return this.Ok();
         }
 
-        [HttpGet("/UnLike")]
-        public async Task UnLike(int postId)
+        [HttpGet("post/unlike")]
+        public async Task<IActionResult> UnLike(int postId)
         {
             await this.postsService.UnLikeAsync(postId, this.userManager.GetUserId(this.User));
+            return this.Ok();
         }
     }
 }

@@ -44,6 +44,7 @@
                 options =>
                 {
                     options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection"));
+                    options.UseLazyLoadingProxies();
                 });
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)

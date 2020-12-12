@@ -2,7 +2,16 @@
 @model IEnumerable<PostViewModel>
 @{ this.ViewData["Title"] = "Feed"; }
 
-@foreach (var post in Model)
+@if (Model.Any())
 {
-    <partial name="_PostPartial" model="post" />  
+    foreach (var post in Model)
+    {
+        <partial name="_PostPartial" model="post" />
+    }
 }
+else
+{
+    <h1 class="text-center mt-2">No posts found!</h1>
+}
+
+
