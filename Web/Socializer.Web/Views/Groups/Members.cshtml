@@ -1,5 +1,4 @@
-﻿@using Socializer.Data.Models.Enums
-@model GroupMembersViewModel
+﻿@model GroupMembersViewModel
 @{
     this.ViewData["Title"] = @Model.Name + " Members";
 }
@@ -22,7 +21,7 @@
                 <img style="width: 100px" src="@(string.IsNullOrEmpty(member.ProfileImageUrl) ? "https://image-placeholder.com/images/actual-size/75x75.png" : member.ProfileImageUrl)" alt="Generic placeholder image">
             </div>
             <div class="col">
-                <h5 class="mt-0">@member.MemberFirstName @member.MemberLastName @@@member.MemberUserName</h5>
+                <h5 class="mt-0">@member.MemberFirstName @member.MemberLastName <a asp-controller="Profile" asp-action="Index" asp-route-username="@member.MemberUserName">@@@member.MemberUserName</a></h5>
                 <h6>
                     Role:
                     @switch (member.Role)

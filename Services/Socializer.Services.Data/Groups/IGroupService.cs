@@ -1,11 +1,10 @@
-﻿using Socializer.Web.ViewModels.Common;
-
-namespace Socializer.Services.Data.Groups
+﻿namespace Socializer.Services.Data.Groups
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Socializer.Data.Models;
+    using Socializer.Web.ViewModels.Common;
     using Socializer.Web.ViewModels.Groups;
 
     public interface IGroupService
@@ -14,9 +13,11 @@ namespace Socializer.Services.Data.Groups
 
         Task<bool> UpdateGroup(EditGroupModel model, int groupId);
 
-        bool IsMemberInGroup(int groupId, string userId);
+        Task<bool> IsMemberInGroup(int groupId, string userId);
 
-        Task<bool> AddMemberToGroupAsync(int groupId, string userId);
+        Task<bool> IsMemberAdmin(int groupId, string userId);
+
+        Task<string> AddMemberToGroupAsync(int groupId, string userId);
 
         Task<IEnumerable<T>> GetAllAsync<T>();
 

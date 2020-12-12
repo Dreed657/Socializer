@@ -58,7 +58,14 @@ namespace Socializer.Services.Data.Groups
             return true;
         }
 
-        public async Task<bool> AddMemberToGroupAsync(int groupId, string userId)
+        public async Task<bool> IsMemberAdmin(int groupId, string userId)
+        {
+            var group = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Id == groupId);
+
+            return group.Members.Any(x => x.MemberId == userId && x.Role == GroupRole.Admin);
+        }
+
+        public async Task<string> AddMemberToGroupAsync(int groupId, string userId)
         {
             var group = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Id == groupId);
 
@@ -75,11 +82,11 @@ namespace Socializer.Services.Data.Groups
             }
             else
             {
-                return false;
+                return null;
             }
 
             await this.groupRepository.SaveChangesAsync();
-            return true;
+            return group.Name;
         }
 
         public async Task<IEnumerable<T>> GetAllAsync<T>()
@@ -161,13 +168,14 @@ namespace Socializer.Services.Data.Groups
             return await this.groupRepository.All().CountAsync();
         }
 
-        public bool IsMemberInGroup(int groupId, string userId)
+        public async Task<bool> IsMemberInGroup(int groupId, string userId)
         {
-            return this.groupRepository
+            var group = await this.groupRepository
                 .All()
                 .Include(x => x.Members)
-                .FirstOrDefault(x => x.Id == groupId)
-                .Members.Any(x => x.MemberId == userId && x.GroupId == groupId);
+                .FirstOrDefaultAsync(x => x.Id == groupId);
+
+            return group.Members.Any(x => x.MemberId == userId && x.GroupId == groupId);
         }
     }
 }

@@ -23,15 +23,15 @@
                     <div class="col-auto">
                         @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.Creator.Id), GlobalConstants.VerifiedRoleName))
                         {
-                            <span class="badge badge-info"><i class="fas fa-check"></i></span>
+                            <span class="badge badge-info" alt="Verified User"><i class="fas fa-check"></i></span>
                         }
                         @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.Creator.Id), GlobalConstants.AdministratorRoleName))
                         {
-                            <span class="badge badge-danger"><i class="fas fa-user-shield"></i></span>
+                            <span class="badge badge-danger" alt="Administrator"><i class="fas fa-user-shield"></i></span>
                         }
                         @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.Creator.Id), GlobalConstants.DeveloperRoleName))
                         {
-                            <span class="badge badge-dark"><i class="fab fa-dev"></i></span>
+                            <span class="badge badge-dark" alt="Developer"><i class="fab fa-dev"></i></span>
                         }
                     </div>
                 </div>

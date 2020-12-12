@@ -50,12 +50,13 @@
             return this.Redirect(returnUrl);
         }
 
-        public async Task<IActionResult> JoinGroup(int groupId, string returnUrl)
+        [HttpPost]
+        public async Task<IActionResult> JoinGroup(int groupId)
         {
             var userId = this.userManger.GetUserId(this.User);
-            await this.groupService.AddMemberToGroupAsync(groupId, userId);
+            var groupName = await this.groupService.AddMemberToGroupAsync(groupId, userId);
 
-            return this.Redirect(returnUrl);
+            return this.RedirectToAction(nameof(this.Index), new { groupName = groupName, groupId = groupId });
         }
     }
 }

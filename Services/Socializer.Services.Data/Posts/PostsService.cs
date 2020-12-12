@@ -33,6 +33,7 @@
             {
                 Content = model.Content,
                 CreatorId = userId,
+                Privacy = model.Privacy,
             };
 
             if (groupId != 0)
