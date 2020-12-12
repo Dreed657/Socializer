@@ -10,11 +10,13 @@
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            await this.CreateImage(dbContext, "Default_Cover", @"https://via.placeholder.com/728x90.png");
-            await this.CreateImage(dbContext, "Default_Profile", @"https://image-placeholder.com/images/actual-size/75x75.png");
+            var user = await dbContext.Users.FirstOrDefaultAsync();
+
+            await this.CreateImage(dbContext, user, "Default_Cover", @"https://via.placeholder.com/728x90.png");
+            await this.CreateImage(dbContext, user, "Default_Profile", @"https://image-placeholder.com/images/actual-size/75x75.png");
         }
 
-        public async Task CreateImage(ApplicationDbContext dbContext, string name, string url)
+        public async Task CreateImage(ApplicationDbContext dbContext, ApplicationUser user, string name, string url)
         {
             var image = await dbContext.Images.FirstOrDefaultAsync(x => x.Name == name);
 
@@ -24,6 +26,7 @@
                 {
                     Url = url,
                     Name = name,
+                    Creator = user,
                 };
 
                 await dbContext.Images.AddAsync(image);

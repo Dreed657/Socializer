@@ -16,7 +16,7 @@
             this.postService = postService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(string userId)
         {
             var models = await this.postService.GetAllAsync<PostViewModel>();
 

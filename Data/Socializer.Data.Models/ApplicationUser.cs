@@ -1,8 +1,8 @@
-﻿// ReSharper disable VirtualMemberCallInConstructor
-namespace Socializer.Data.Models
+﻿namespace Socializer.Data.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using Microsoft.AspNetCore.Identity;
     using Socializer.Data.Common.Models;
@@ -25,14 +25,18 @@ namespace Socializer.Data.Models
         }
 
         // Custom Info
+        [Required]
         public string FirstName { get; set; }
 
+        [Required]
         public string LastName { get; set; }
 
         public string Description { get; set; }
 
+        [Required]
         public DateTime Birthdate { get; set; }
 
+        [Required]
         public Gender Gender { get; set; }
 
         public string ProfileImageId { get; set; }

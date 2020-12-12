@@ -1,16 +1,9 @@
-﻿@using Socializer.Common
+﻿@inject UserManager<ApplicationUser> UserManager
+
 @{
     this.ViewData["Title"] = "Feed";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
-<hr class="my-4"/>
-
-<div class="row">
-    <partial name="_SideMenuPartial"/>
-    <vc:feed></vc:feed>
+<div class="container w-50">
+    <vc:feed user-id="@this.UserManager.GetUserId(this.User)"></vc:feed>
 </div>

@@ -2,9 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Text;
 
     using Socializer.Data.Common.Models;
+    using Socializer.Data.Models.Enums;
 
     public class Post : BaseDeletableModel<int>
     {
@@ -14,11 +16,11 @@
             this.Comments = new HashSet<Comment>();
         }
 
+        [Required]
         public string Content { get; set; }
 
+        [Required]
         public string CreatorId { get; set; }
-
-        public bool? InGroup { get; set; }
 
         public int? GroupId { get; set; }
 
@@ -27,6 +29,9 @@
         public int? ImageId { get; set; }
 
         public virtual Image Image { get; set; }
+
+        [Required]
+        public PrivacyStatus Privacy { get; set; }
 
         public virtual ApplicationUser Creator { get; set; }
 

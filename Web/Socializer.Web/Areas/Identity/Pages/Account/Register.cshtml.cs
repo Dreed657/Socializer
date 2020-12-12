@@ -115,6 +115,7 @@
             user.Posts.Add(new Post()
             {
                 Content = $"Born on {user.Birthdate.ToShortDateString()}",
+                Privacy = PrivacyStatus.InProfile,
             });
 
             var result = await this._userManager.CreateAsync(user, this.Input.Password);

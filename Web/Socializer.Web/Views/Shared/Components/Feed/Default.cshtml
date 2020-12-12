@@ -2,14 +2,7 @@
 @model IEnumerable<PostViewModel>
 @{ this.ViewData["Title"] = "Feed"; }
 
-<div class="col-6 mx-lg-5">
-    <div class="container">
-        @foreach (var post in Model)
-        {
-            <partial name="_PostPartial" model="post" />  
-        }
-    </div>
-</div>
-<div class="col ml-5">
-
-</div>
+@foreach (var post in Model)
+{
+    <partial name="_PostPartial" model="post" />  
+}
