@@ -1,4 +1,7 @@
-﻿namespace Socializer.Web
+﻿using Socializer.Web.Areas.Messenger.Services;
+using Socializer.Web.Hubs;
+
+namespace Socializer.Web
 {
     using System.Reflection;
 
@@ -87,6 +90,9 @@
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IGroupService, GroupService>();
             services.AddTransient<IDashboardService, DashboardService>();
+            services.AddTransient<IMessengerService, MessengerService>();
+
+            services.AddSignalR();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -125,6 +131,9 @@
                     {
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+
+                        endpoints.MapHub<MessengerHub>("/chat");
+
                         endpoints.MapRazorPages();
                     });
         }
