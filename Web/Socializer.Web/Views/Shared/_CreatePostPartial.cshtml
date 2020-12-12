@@ -1,0 +1,30 @@
+﻿@model PostInputModel
+
+<form asp-controller="Posts" asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create</h5>
+        <button type="button" class="btn btn-black" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body m-2">
+        <div class="form-group mb-4">
+            <textarea class="form-control" asp-for="Content" placeholder="Content" style="height: 100px"></textarea>
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-2">
+            <label asp-for="Privacy"></label>
+            <select class="form-control" id="inputState" asp-for="Privacy" asp-items="Html.GetEnumSelectList<PrivacyStatus>()"></select>
+            <span asp-validation-for="Privacy" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-2">
+            <label asp-for="Image">Choose file</label>
+            <input class="form-control" asp-for="Image">
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+        <input type="text" name="returnUrl" value="@this.Context.Request.Path.Value" hidden/>
+    </div>
+    <div class="modal-footer">
+        <input class="btn btn-success m-2" type="submit" value="Create"/>
+    </div>
+</form>

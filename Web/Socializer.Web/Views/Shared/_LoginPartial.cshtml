@@ -1,4 +1,5 @@
 ﻿@using Socializer.Common
+@using Socializer.Data.Models.Enums
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
@@ -19,36 +20,7 @@
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content p-2">
-                        <form asp-controller="Posts" asp-action="Create" method="post" enctype="multipart/form-data">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Create</h5>
-                                <button type="button" class="btn btn-black" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body m-2">
-                                <div asp-validation-summary="All"></div>
-                                <div class="form-group mb-4">
-                                    <textarea class="form-control" name="Content" placeholder="Content" style="height: 100px"></textarea>
-                                </div>
-                                <div class="form-group mb-2">
-                                    <select class="form-control">
-                                        <option selected>Open this select menu</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                                <div class="form-group mb-2">
-                                    <label for="image" aria-describedby="image">Choose file</label>
-                                    <input type="file" class="form-control" id="image" name="Image">
-                                </div>
-                                <input type="text" name="returnUrl" value="@this.Context.Request.Path.Value" hidden/>
-                            </div>
-                            <div class="modal-footer">
-                                <input class="btn btn-success m-2" type="submit" value="Create"/>
-                            </div>
-                        </form>
+                        <partial model="new PostInputModel()" name="_CreatePostPartial"/>
                     </div>
                 </div>
             </div>
@@ -66,7 +38,7 @@
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-offset="20" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-sort-down"></i></button>
                 <ul class="dropdown-menu dropdown-menu-right dropdown-menu-lg-right" aria-labelledby="dropdownMenuButton">
                     <li class="dropdown-item">
-                        <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Edit Profile</a>
+                        <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="dropdown-item">Edit Profile</a>
                     </li>
                     <li class="dropdown-divider"></li>
                     <li class="dropdown-item">

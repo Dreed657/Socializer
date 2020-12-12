@@ -30,7 +30,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(PostsInputModel model, string returnUrl, int groupId)
+        public async Task<IActionResult> Create(PostInputModel model, string returnUrl, int groupId)
         {
             var user = await this.userManager.GetUserAsync(this.User);
             await this.postsService.CreateAsync(model, user.Id, groupId);
@@ -50,6 +50,7 @@
             return this.Ok(postId);
         }
 
+        [HttpPost]
         public async Task<IActionResult> Delete(int postId, string returnUrl)
         {
             if (!await this.postsService.DeleteAsync(postId))

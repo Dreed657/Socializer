@@ -47,13 +47,15 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="postDropDown">
                         <li class="dropdown-item">
-                            <a asp-controller="Posts" asp-action="Details" asp-route-postId="@Model.Id">Go To Post</a>
+                            <a asp-controller="Posts" asp-action="Details" asp-route-postId="@Model.Id" class="dropdown-item">Go To Post</a>
                         </li>
                         @if (Model.Creator.Id == this.UserManager.GetUserId(this.User))
                         {
                             <li class="dropdown-divider"></li>
                             <li class="dropdown-item">
-                                <a asp-controller="Posts" asp-action="Delete" asp-route-postId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value">Delete</a>
+                                <form asp-controller="Posts" asp-action="Delete" asp-route-postId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value" method="post">
+                                    <input type="submit" value="Delete" class="dropdown-item">
+                                </form>
                             </li>
                         }
                     </ul>

@@ -122,7 +122,14 @@ namespace Socializer.Services.Data.Groups
                 .Include(x => x.Creator)
                 .FirstOrDefaultAsync(x => x.Id == requestId);
 
-            var group = new Group()
+            var group = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Name == request.Name);
+
+            if (group != null)
+            {
+                return;
+            }
+
+            group = new Group()
             {
                 Name = request.Name,
                 Description = request.Description,

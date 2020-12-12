@@ -27,7 +27,7 @@
             this.likeRepo = likesRepo;
         }
 
-        public async Task<int?> CreateAsync(PostsInputModel model, string userId, int groupId = 0)
+        public async Task<int?> CreateAsync(PostInputModel model, string userId, int groupId = 0)
         {
             var entity = new Post()
             {

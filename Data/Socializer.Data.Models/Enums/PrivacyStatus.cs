@@ -2,9 +2,9 @@
 {
     public enum PrivacyStatus
     {
-        Public,
-        Private,
-        InGroup,
-        InProfile,
+        Public = 0,
+        Private = 1,
+        InGroup = 2,
+        InProfile = 3,
     }
 }
