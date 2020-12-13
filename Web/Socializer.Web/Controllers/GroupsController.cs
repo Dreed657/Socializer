@@ -21,7 +21,7 @@
             this.userManger = userManger;
         }
 
-        [HttpGet("/{groupName}/{groupId}")]
+        [HttpGet("/group/{groupName}/{groupId}")]
         public async Task<IActionResult> Index(string groupName, int groupId)
         {
             var group = await this.groupService.GetByIdAsync<GroupViewModel>(groupId);

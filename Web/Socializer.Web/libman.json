@@ -74,11 +74,14 @@
     {
       "library": "datatables@1.10.18",
       "destination": "wwwroot/lib/datatables"
+    },
+    {
+      "library": "qrcodejs@1.0.0",
+      "destination": "wwwroot/lib/qrcodejs/"
+    },
+    {
+      "library": "@microsoft/signalr@latest",
+      "destination": "wwwroot/lib/signalr/"
     }
-  ,
-{
-  "library": "qrcodejs@1.0.0",
-  "destination": "wwwroot/lib/qrcodejs/"
-}
-]
+  ]
 }

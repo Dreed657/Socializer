@@ -20,8 +20,6 @@
 
         Task<int> GetUserCountAsync();
 
-        Task<ApplicationUser> GetUserByIdAsync(string id);
-
         Task<IEnumerable<T>> GetAllFriendRequestsAsync<T>(string receiverId);
 
         Task<bool> AddRequestFriendAsync(string senderId, string receiverId);
