@@ -10,7 +10,7 @@
 }
 
 <div class="container">
-    <div class="my-3">
+    <div class="card my-3">
         <div class="card-body">
             <div class="row">
                 <div class="col">
@@ -86,6 +86,9 @@
                     {
                         <a asp-controller="Posts" asp-action="UnLike" asp-route-postId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value" class="btn btn-outline-danger"><i class="fas fa-thumbs-up"></i> Like</a>
                     }
+                </div>
+                <div class="col">
+                    <a href="#" class="btn btn-outline-success"><i class="far fa-comment-alt"></i> Comment</a>
                 </div>
                 <div class="col">
                     <a href="#" class="btn btn-outline-success"><i class="fas fa-share"></i> Share</a>

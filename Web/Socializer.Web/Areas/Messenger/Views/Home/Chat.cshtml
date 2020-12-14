@@ -15,18 +15,17 @@
         <div>
             <div class="row">
                 <div class="col-md-6">
-                    <div style="float: left" id="toUser">
-                        <p>Group name</p>
-                        <p id="group-name"></p>
-                    </div>
+                    <h3 style="float: left" id="toUser">Group name</h3>
                 </div>
             </div>
         </div>
         <div>
-            <div id="demo-chat-body">
-                <div class="lds-ring" id="chat-loading"><div></div><div></div><div></div><div></div></div>
-                <ul class="list-unstyled" id="messagesList">
+            <div id="demo-chat-body" class="nano-content pad-all" tabindex="0">
+                <ul class="list-unstyled media-block" id="messagesList">
                 </ul>
+            </div>
+            <div>
+                <div style="height: 141px; transform: translate(0px, 0px);"></div>
             </div>
         </div>
 
@@ -44,10 +43,6 @@
     </div>
 
 </div>
-
-@section Styles {
-    <link href="~/messenger/css/chat-loading-styles.css" rel="stylesheet" />
-}
 
 @section Scripts {
     <script src="~/lib/signalr/dist/browser/signalr.js"></script>

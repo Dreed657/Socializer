@@ -1,4 +1,7 @@
-﻿namespace Socializer.Web
+﻿using Socializer.Web.Areas.Messenger.Services;
+using Socializer.Web.Hubs;
+
+namespace Socializer.Web
 {
     using System.Reflection;
 
@@ -27,8 +30,6 @@
     using Socializer.Services.Mapping;
     using Socializer.Services.Messaging;
     using Socializer.Web.Areas.Admin.Services;
-    using Socializer.Web.Areas.Messenger.Services;
-    using Socializer.Web.Hubs;
     using Socializer.Web.ViewModels.Common;
 
     public class Startup
@@ -105,7 +106,7 @@
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
-            if (!env.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();

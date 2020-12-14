@@ -36,11 +36,6 @@
                 posts.AddRange(group.Group.Posts.Where(x => x.Privacy == PrivacyStatus.Public && x.Privacy != PrivacyStatus.InGroup));
             }
 
-            foreach (var friend in user.Friends)
-            {
-                posts.AddRange(friend.Sender.Posts.Where(x => x.Privacy == PrivacyStatus.Public));
-            }
-
             posts = posts.OrderByDescending(x => x.CreatedOn).ToList();
 
             //TODO: ADD AUTO MAPPER
