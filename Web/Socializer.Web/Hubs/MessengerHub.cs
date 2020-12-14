@@ -27,5 +27,13 @@ namespace Socializer.Web.Hubs
         {
             await this.Clients.All.SendAsync("ReceiveMessage", senderId, message, groupName);
         }
+<<<<<<< HEAD
+=======
+
+        public async Task ReceiveMessage(string senderId, string message, string groupName)
+        {
+            await this.Clients.User(senderId).SendAsync("SendMessage", senderId, message, groupName);
+        }
+>>>>>>> main
     }
 }
