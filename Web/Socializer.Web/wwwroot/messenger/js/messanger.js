@@ -8,6 +8,8 @@ connection.start().then(function () {
     connection.invoke("JoinChannel", groupName, senderId)
     .then(function() {
         console.log(`added to the group: ${groupName} senderId: ${senderId}`);
+        $("p#group-name").text(groupName);
+        $("#chat-loading").hide();
     })
     .catch(function (err) {
         return console.error(err.toString());
@@ -25,9 +27,9 @@ connection.on("ReceiveMessage", function (senderId, message, group) {
     var loggedUserId = document.getElementById("senderId").textContent;
 
     if (loggedUserId === senderId) {
-        $("#messagesList").append(`<li class="border p-2 text-danger text-right">${message} in ${group}</li>`);
+        $("#messagesList").append(`<li class="border p-2 text-danger text-right">${message}</li>`);
     } else {
-        $("#messagesList").append(`<li class="border p-2 text-secondary text-left">${message} in ${group}</li>`);
+        $("#messagesList").append(`<li class="border p-2 text-secondary text-left">${message}</li>`);
     }
 });
 

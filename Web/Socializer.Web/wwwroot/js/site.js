@@ -1,4 +1,4 @@
-﻿$("#add-comment").submit(function (event) {
+﻿$("#add-comment").click(function (event) {
     event.preventDefault();
     var post_url = $(this).attr("action");
     var method = $(this).attr("method");
