@@ -1,5 +1,6 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
+[![Build Status](https://dev.azure.com/StoyanLazarov/socializer/_apis/build/status/Dreed657.Socializer?branchName=main)](https://dev.azure.com/StoyanLazarov/socializer/_build/latest?definitionId=1&branchName=main)
 
 # :pencil2: Socializer
 Just another social media project
