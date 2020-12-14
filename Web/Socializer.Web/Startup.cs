@@ -27,6 +27,7 @@
     using Socializer.Services.Mapping;
     using Socializer.Services.Messaging;
     using Socializer.Web.Areas.Admin.Services;
+    using Socializer.Web.Areas.Messenger.Services;
     using Socializer.Web.ViewModels.Common;
 
     public class Startup
@@ -87,6 +88,10 @@
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IGroupService, GroupService>();
             services.AddTransient<IDashboardService, DashboardService>();
+            services.AddTransient<IMessengerService, MessengerService>();
+
+            services.AddSignalR();
+            services.AddApplicationInsightsTelemetry();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
