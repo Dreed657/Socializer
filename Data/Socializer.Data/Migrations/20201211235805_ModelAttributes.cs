@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Socializer.Data.Migrations
+﻿namespace Socializer.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class ModelAttributes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace Socializer.Data.Migrations
                 table: "Posts",
                 type: "nvarchar(450)",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(450)",
                 oldNullable: true);
@@ -25,7 +25,7 @@ namespace Socializer.Data.Migrations
                 table: "Posts",
                 type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)",
                 oldNullable: true);
@@ -42,7 +42,7 @@ namespace Socializer.Data.Migrations
                 table: "Images",
                 type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)",
                 oldNullable: true);
@@ -52,7 +52,7 @@ namespace Socializer.Data.Migrations
                 table: "Images",
                 type: "nvarchar(450)",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(450)",
                 oldNullable: true);
@@ -62,7 +62,7 @@ namespace Socializer.Data.Migrations
                 table: "Groups",
                 type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)",
                 oldNullable: true);
@@ -72,7 +72,7 @@ namespace Socializer.Data.Migrations
                 table: "Groups",
                 type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)",
                 oldNullable: true);
@@ -82,7 +82,7 @@ namespace Socializer.Data.Migrations
                 table: "GroupMembers",
                 type: "nvarchar(450)",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(450)",
                 oldNullable: true);
@@ -92,7 +92,7 @@ namespace Socializer.Data.Migrations
                 table: "GroupCreateRequests",
                 type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)",
                 oldNullable: true);
@@ -102,7 +102,7 @@ namespace Socializer.Data.Migrations
                 table: "GroupCreateRequests",
                 type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)",
                 oldNullable: true);
@@ -112,7 +112,7 @@ namespace Socializer.Data.Migrations
                 table: "GroupCreateRequests",
                 type: "nvarchar(450)",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(450)",
                 oldNullable: true);
@@ -122,7 +122,7 @@ namespace Socializer.Data.Migrations
                 table: "FriendRequests",
                 type: "nvarchar(450)",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(450)",
                 oldNullable: true);
@@ -132,7 +132,7 @@ namespace Socializer.Data.Migrations
                 table: "FriendRequests",
                 type: "nvarchar(450)",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(450)",
                 oldNullable: true);
@@ -142,7 +142,7 @@ namespace Socializer.Data.Migrations
                 table: "Comments",
                 type: "nvarchar(450)",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(450)",
                 oldNullable: true);
@@ -152,7 +152,7 @@ namespace Socializer.Data.Migrations
                 table: "Comments",
                 type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)",
                 oldNullable: true);
@@ -162,7 +162,7 @@ namespace Socializer.Data.Migrations
                 table: "AspNetUsers",
                 type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)",
                 oldNullable: true);
@@ -172,7 +172,7 @@ namespace Socializer.Data.Migrations
                 table: "AspNetUsers",
                 type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)",
                 oldNullable: true);

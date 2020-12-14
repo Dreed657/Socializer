@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Socializer.Data.Migrations
+﻿namespace Socializer.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class RoleToGroupMember : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

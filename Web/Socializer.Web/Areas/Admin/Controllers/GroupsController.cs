@@ -1,12 +1,10 @@
-﻿using Socializer.Web.ViewModels.Common;
-using Socializer.Web.ViewModels.Dashboard.Groups;
-
-namespace Socializer.Web.Areas.Admin.Controllers
+﻿namespace Socializer.Web.Areas.Admin.Controllers
 {
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
     using Socializer.Services.Data.Groups;
+    using Socializer.Web.ViewModels.Dashboard.Groups;
     using Socializer.Web.ViewModels.Groups;
     using Socializer.Web.ViewModels.Groups.Dashboard;
 

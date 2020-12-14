@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace Socializer.Web.Hubs
+﻿namespace Socializer.Web.Hubs
 {
     using System;
     using System.Threading.Tasks;

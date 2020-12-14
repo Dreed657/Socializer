@@ -1,7 +1,4 @@
-﻿using Socializer.Web.Areas.Messenger.Services;
-using Socializer.Web.Hubs;
-
-namespace Socializer.Web
+﻿namespace Socializer.Web
 {
     using System.Reflection;
 
@@ -29,6 +26,8 @@ namespace Socializer.Web
     using Socializer.Services.Mapping;
     using Socializer.Services.Messaging;
     using Socializer.Web.Areas.Admin.Services;
+    using Socializer.Web.Areas.Messenger.Services;
+    using Socializer.Web.Hubs;
     using Socializer.Web.ViewModels.Common;
 
     public class Startup
@@ -90,7 +89,7 @@ namespace Socializer.Web
             services.AddTransient<IDashboardService, DashboardService>();
             services.AddTransient<IMessengerService, MessengerService>();
 
-            services.AddSignalR(); 
+            services.AddSignalR();
             services.AddApplicationInsightsTelemetry();
         }
 

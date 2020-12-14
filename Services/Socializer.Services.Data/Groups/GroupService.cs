@@ -1,18 +1,16 @@
-﻿using System;
-using Socializer.Web.ViewModels.Common;
-
-namespace Socializer.Services.Data.Groups
+﻿namespace Socializer.Services.Data.Groups
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
-    using Mapping;
 
     using Microsoft.EntityFrameworkCore;
     using Socializer.Data.Common.Repositories;
     using Socializer.Data.Models;
     using Socializer.Data.Models.Enums;
+    using Socializer.Services.Mapping;
+    using Socializer.Web.ViewModels.Common;
     using Socializer.Web.ViewModels.Groups;
 
     public class GroupService : IGroupService

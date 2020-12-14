@@ -1,12 +1,11 @@
-﻿using Socializer.Web.ViewModels.Dashboard.Users;
-
-namespace Socializer.Web.Areas.Admin.Controllers
+﻿namespace Socializer.Web.Areas.Admin.Controllers
 {
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
     using Socializer.Services.Data.Profiles;
     using Socializer.Services.Data.Users;
+    using Socializer.Web.ViewModels.Dashboard.Users;
     using Socializer.Web.ViewModels.Users;
 
     public class UsersController : DashboardController

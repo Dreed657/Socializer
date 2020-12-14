@@ -123,13 +123,13 @@
         public bool CheckFriendStatus(string senderId, string receiverId)
         {
             return this.friendsRepo.All()
-                .Any(x => (x.ReceiverId == receiverId && x.SenderId == senderId) || (x.ReceiverId == senderId && x.SenderId == receiverId) && x.IsFriend);
+                .Any(x => (x.ReceiverId == receiverId && x.SenderId == senderId) || ((x.ReceiverId == senderId && x.SenderId == receiverId) && x.IsFriend));
         }
 
         public bool CheckRequestStatus(string senderId, string receiverId)
         {
             return this.friendRequestRepo.All()
-                .Any(x => (x.ReceiverId == receiverId && x.SenderId == senderId) || (x.ReceiverId == senderId && x.SenderId == receiverId) && x.Status == Status.Pending);
+                .Any(x => (x.ReceiverId == receiverId && x.SenderId == senderId) || ((x.ReceiverId == senderId && x.SenderId == receiverId) && x.Status == Status.Pending));
         }
 
         public async Task<bool> DbEditAsync(DbUserInputModel model, string userId)

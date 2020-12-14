@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Socializer.Data.Seeding
+﻿namespace Socializer.Data.Seeding
 {
     using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
     using Socializer.Common;
     using Socializer.Data.Models;
@@ -14,17 +13,6 @@ namespace Socializer.Data.Seeding
 
     public class AdminSeeder : ISeeder
     {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
-        {
-            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            var userService = serviceProvider.GetRequiredService<IUserService>();
-
-            if (await userService.GetUserCountAsync() == 0)
-            {
-                await SeedAdminAsync(dbContext, userManager);
-            }
-        }
-
         public static async Task SeedAdminAsync(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager)
         {
             var admin = await userManager.FindByNameAsync("Administrator01");
@@ -48,6 +36,17 @@ namespace Socializer.Data.Seeding
 
                 await userManager.CreateAsync(user, "password");
                 await userManager.AddToRolesAsync(user, new string[] { GlobalConstants.AdministratorRoleName, GlobalConstants.VerifiedRoleName });
+            }
+        }
+
+        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        {
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userService = serviceProvider.GetRequiredService<IUserService>();
+
+            if (await userService.GetUserCountAsync() == 0)
+            {
+                await SeedAdminAsync(dbContext, userManager);
             }
         }
     }

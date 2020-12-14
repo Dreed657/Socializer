@@ -1,8 +1,7 @@
-﻿using System.Linq;
-
-namespace Socializer.Web.Controllers
+﻿namespace Socializer.Web.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;

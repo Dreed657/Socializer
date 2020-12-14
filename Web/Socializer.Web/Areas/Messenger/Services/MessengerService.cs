@@ -1,11 +1,10 @@
-﻿using System;
-using Socializer.Services.Data.Users;
-
-namespace Socializer.Web.Areas.Messenger.Services
+﻿namespace Socializer.Web.Areas.Messenger.Services
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.SignalR;
+    using Socializer.Services.Data.Users;
     using Socializer.Web.Hubs;
 
     public class MessengerService : IMessengerService

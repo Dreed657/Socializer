@@ -100,7 +100,7 @@
                     values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                     protocol: this.Request.Scheme);
 
-                await this.emailSender.SendEmailAsync("ninjakiviWTF@gmail.com", "John doe", this.Input.Email, "Confirm your email", $"<h1>Hello {this.Input.FirstName} thank you for your time!</h1><h3>Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.</h3>");
+                await this.emailSender.SendEmailAsync("accounts@socializer.com", "Accounts", this.Input.Email, "Confirm your email", $"<h1>Hello {this.Input.FirstName} thank you for your time!</h1><h3>Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.</h3>");
 
                 if (this.userManager.Options.SignIn.RequireConfirmedAccount)
                 {

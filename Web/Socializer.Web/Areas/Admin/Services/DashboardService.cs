@@ -1,11 +1,10 @@
-﻿using Socializer.Services.Data.Groups;
-using Socializer.Services.Data.Posts;
-using Socializer.Services.Data.Users;
-
-namespace Socializer.Web.Areas.Admin.Services
+﻿namespace Socializer.Web.Areas.Admin.Services
 {
     using System.Threading.Tasks;
 
+    using Socializer.Services.Data.Groups;
+    using Socializer.Services.Data.Posts;
+    using Socializer.Services.Data.Users;
     using Socializer.Web.ViewModels.Dashboard;
 
     public class DashboardService : IDashboardService

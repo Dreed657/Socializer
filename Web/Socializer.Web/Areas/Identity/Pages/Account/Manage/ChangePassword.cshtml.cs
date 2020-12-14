@@ -65,7 +65,7 @@
                 return this.NotFound($"Unable to load user with ID '{this.userManager.GetUserId(this.User)}'.");
             }
 
-            var changePasswordResult = await this.userManager.ChangePasswordAsync(user, this.Input.OldPassword, Input.NewPassword);
+            var changePasswordResult = await this.userManager.ChangePasswordAsync(user, this.Input.OldPassword, this.Input.NewPassword);
             if (!changePasswordResult.Succeeded)
             {
                 foreach (var error in changePasswordResult.Errors)

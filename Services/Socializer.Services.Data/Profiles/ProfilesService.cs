@@ -1,14 +1,13 @@
-﻿using System;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Socializer.Services.Mapping;
-
-namespace Socializer.Services.Data.Profiles
+﻿namespace Socializer.Services.Data.Profiles
 {
+    using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
     using Socializer.Data.Common.Repositories;
     using Socializer.Data.Models;
+    using Socializer.Services.Mapping;
     using Socializer.Web.ViewModels.Users;
 
     public class ProfilesService : IProfilesService
