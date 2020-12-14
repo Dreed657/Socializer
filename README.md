@@ -1,6 +1,6 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
-[![Build Status][azure-url]][azure-shield]
+[![Build Status][azure-shield]][azure-url]
 
 # :pencil2: Socializer
 Just another social media project
