@@ -1,4 +1,4 @@
-var connection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
+﻿var connection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
 
 connection.start().then(function () {
     document.getElementById("sendButton").disabled = false;
