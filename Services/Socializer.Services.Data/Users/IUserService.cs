@@ -2,13 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
-    using Socializer.Data.Models;
-    using Socializer.Web.ViewModels.Common;
-    using Socializer.Web.ViewModels.Dashboard.Users;
+    using Socializer.Web.ViewModels.Dashboard.Users;
     using Socializer.Web.ViewModels.Users;
-
-    public interface IUserService
+    public interface IUserService
     {
         Task<bool> UpdateUser(EditUserProfileInputModel model, string userId);
 
@@ -20,11 +16,6 @@
 
         Task<int> GetUserCountAsync();
 
-<<<<<<< HEAD
-=======
-        Task<ApplicationUser> GetUserByIdAsync(string id);
-
->>>>>>> main
         Task<IEnumerable<T>> GetAllFriendRequestsAsync<T>(string receiverId);
 
         Task<bool> AddRequestFriendAsync(string senderId, string receiverId);

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace Socializer.Web.Hubs
+﻿namespace Socializer.Web.Hubs
 {
     using System;
     using System.Threading.Tasks;
@@ -27,13 +25,10 @@ namespace Socializer.Web.Hubs
         {
             await this.Clients.All.SendAsync("ReceiveMessage", senderId, message, groupName);
         }
-<<<<<<< HEAD
-=======
 
         public async Task ReceiveMessage(string senderId, string message, string groupName)
         {
             await this.Clients.User(senderId).SendAsync("SendMessage", senderId, message, groupName);
         }
->>>>>>> main
     }
 }
