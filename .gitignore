@@ -352,3 +352,5 @@ MigrationBackup/
 Web/Socializer.Web/appsettings.Development.json
 /Web/Socializer.Web/wwwroot/lib
 lib
+
+Web/Socializer.Web/appsettings.Production.json
