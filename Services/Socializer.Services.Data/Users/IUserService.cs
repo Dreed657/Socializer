@@ -2,12 +2,12 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
-    using Socializer.Data.Models;
-    using Socializer.Web.ViewModels.Common;
+
+    using Socializer.Data.Models;
+    using Socializer.Web.ViewModels.Common;
     using Socializer.Web.ViewModels.Dashboard.Users;
     using Socializer.Web.ViewModels.Users;
-
+
     public interface IUserService
     {
         Task<bool> UpdateUser(EditUserProfileInputModel model, string userId);

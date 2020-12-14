@@ -1,14 +1,15 @@
-﻿namespace Socializer.Web.ViewComponents
+﻿using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Socializer.Data.Common.Repositories;
+using Socializer.Data.Models;
+using Socializer.Data.Models.Enums;
+
+namespace Socializer.Web.ViewComponents
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Socializer.Data.Common.Repositories;
-    using Socializer.Data.Models;
-    using Socializer.Data.Models.Enums;
     using Socializer.Services.Data.Posts;
     using Socializer.Web.ViewModels.Posts;
 
