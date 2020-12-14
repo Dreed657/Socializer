@@ -93,6 +93,7 @@ namespace Socializer.Web
             services.AddTransient<IMessengerService, MessengerService>();
 
             services.AddSignalR();
+            services.AddApplicationInsightsTelemetry();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
