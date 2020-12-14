@@ -43,19 +43,6 @@
         [BindProperty]
         public InputModel Input { get; set; }
 
-        private async Task LoadAsync(ApplicationUser user)
-        {
-            var email = await this.userManager.GetEmailAsync(user);
-            this.Email = email;
-
-            this.Input = new InputModel
-            {
-                NewEmail = email,
-            };
-
-            this.IsEmailConfirmed = await this.userManager.IsEmailConfirmedAsync(user);
-        }
-
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -73,7 +60,7 @@
             var user = await this.userManager.GetUserAsync(this.User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{this.userManager.GetUserId(this.User)}'.");
+                return this.NotFound($"Unable to load user with ID '{this.userManager.GetUserId(this.User)}'.");
             }
 
             if (!this.ModelState.IsValid)
@@ -136,6 +123,19 @@
 
             this.StatusMessage = "Verification email sent. Please check your email.";
             return this.RedirectToPage();
+        }
+
+        private async Task LoadAsync(ApplicationUser user)
+        {
+            var email = await this.userManager.GetEmailAsync(user);
+            this.Email = email;
+
+            this.Input = new InputModel
+            {
+                NewEmail = email,
+            };
+
+            this.IsEmailConfirmed = await this.userManager.IsEmailConfirmedAsync(user);
         }
 
         public class InputModel
