@@ -22,7 +22,6 @@ namespace Socializer.Web
     using Socializer.Data.Repositories;
     using Socializer.Data.Seeding;
     using Socializer.Services;
-    using Socializer.Services.Data.Common;
     using Socializer.Services.Data.Groups;
     using Socializer.Services.Data.Posts;
     using Socializer.Services.Data.Profiles;
@@ -83,7 +82,6 @@ namespace Socializer.Web
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
             services.AddTransient<ITimeService, TimeService>();
             services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
-            services.AddTransient<IDefaultImageService, DefaultImageService>();
 
             services.AddTransient<IPostsService, PostsService>();
             services.AddTransient<IProfilesService, ProfilesService>();
@@ -92,7 +90,8 @@ namespace Socializer.Web
             services.AddTransient<IDashboardService, DashboardService>();
             services.AddTransient<IMessengerService, MessengerService>();
 
-            services.AddSignalR();
+            services.AddSignalR(); 
+            services.AddApplicationInsightsTelemetry();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
