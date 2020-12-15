@@ -41,6 +41,8 @@
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(this.configuration);
+
             services.AddDbContext<ApplicationDbContext>(
                 options =>
                 {
@@ -49,7 +51,31 @@
                 });
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddRoles<ApplicationRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddAuthentication()
+                .AddFacebook(facebookOptions =>
+                {
+                    facebookOptions.AppId = this.configuration["ExternalAuth:Facebook:AppId"];
+                    facebookOptions.AppSecret = this.configuration["ExternalAuth:Facebook:AppSecret"];
+                })
+                .AddGoogle(googleOptions =>
+                {
+                    googleOptions.ClientId = this.configuration["ExternalAuth:Google:ClientId"];
+                    googleOptions.ClientSecret = this.configuration["ExternalAuth:Google:ClientSecret"];
+                })
+                .AddTwitter(twitterOptions =>
+                {
+                    twitterOptions.ConsumerKey = this.configuration["ExternalAuth:Twitter:ApiKey"];
+                    twitterOptions.ConsumerSecret = this.configuration["ExternalAuth:Twitter:ApiSecretKey"];
+                    twitterOptions.RetrieveUserDetails = true;
+                })
+                .AddMicrosoftAccount(microsoftOptions =>
+                {
+                    microsoftOptions.ClientId = this.configuration["ExternalAuth:Microsoft:ClientId"];
+                    microsoftOptions.ClientSecret = this.configuration["ExternalAuth:Microsoft:ClientSecret"];
+                });
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -66,8 +92,6 @@
                         options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
-
-            services.AddSingleton(this.configuration);
 
             var cloudinaryAccount = new CloudinaryDotNet.Account(
                 this.configuration["Cloudinary:CloudName"],
