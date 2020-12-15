@@ -24,7 +24,13 @@
         public async Task<IActionResult> Index(int id)
         {
             var group = await this.groupService.GetByIdAsync<GroupViewModel>(id);
-            return this.View(group);
+
+            var model = new GroupIndexComplexModel()
+            {
+                ViewModel = group,
+            };
+
+            return this.View(model);
         }
 
         public async Task<IActionResult> Members(int groupId)
