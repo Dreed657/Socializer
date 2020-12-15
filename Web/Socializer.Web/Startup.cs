@@ -78,9 +78,9 @@
 
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+            services.AddScoped<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
-            services.AddTransient<ITimeService, TimeService>();
-            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
+            services.AddTransient<TimeService>();
 
             services.AddTransient<IPostsService, PostsService>();
             services.AddTransient<IProfilesService, ProfilesService>();

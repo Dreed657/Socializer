@@ -8,7 +8,7 @@
     using Socializer.Services.Mapping;
     using Socializer.Web.ViewModels.Posts;
 
-    public class  ProfileViewModel : IMapFrom<ApplicationUser>
+    public class ProfileViewModel : IMapFrom<ApplicationUser>
     {
         public string Id { get; set; }
 

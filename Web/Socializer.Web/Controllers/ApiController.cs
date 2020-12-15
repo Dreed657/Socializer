@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace Socializer.Web.Controllers
+﻿namespace Socializer.Web.Controllers
 {
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Socializer.Data.Models;

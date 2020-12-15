@@ -3,9 +3,9 @@
     using System;
     using System.Threading.Tasks;
 
-    public class TimeService : ITimeService
+    public class TimeService
     {
-        public string TimeAgo(DateTime dt)
+        public static string TimeAgo(DateTime dt)
         {
             if (dt > DateTime.Now)
             {

@@ -3,8 +3,8 @@
     using System;
 
     using Socializer.Data.Models;
-    using Socializer.Services.Mapping;
     using Socializer.Data.Models.Enums;
+    using Socializer.Services.Mapping;
 
     public class DbGroupCreateRequestViewModel : IMapFrom<GroupCreateRequest>
     {
