@@ -9,7 +9,6 @@
     using Socializer.Common;
     using Socializer.Data.Models;
     using Socializer.Data.Models.Enums;
-    using Socializer.Services.Data.Users;
 
     public class AdminSeeder : ISeeder
     {
@@ -42,9 +41,8 @@
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            var userService = serviceProvider.GetRequiredService<IUserService>();
 
-            if (await userService.GetUserCountAsync() == 0)
+            if (await dbContext.Users.AnyAsync())
             {
                 await SeedAdminAsync(dbContext, userManager);
             }

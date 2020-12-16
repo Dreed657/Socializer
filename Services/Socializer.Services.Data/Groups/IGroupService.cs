@@ -9,13 +9,11 @@
 
     public interface IGroupService
     {
-        Task<IEnumerable<T>> GetAllAsync<T>();
-
         Task<T> GetByIdAsync<T>(int id);
 
-        Task<bool> EditGroup(GroupInputModel model, int groupId, string userId);
+        Task<IEnumerable<T>> GetAllAsync<T>();
 
-        Task<bool> DbUpdateGroup(DbEditGroupModel model, int groupId);
+        Task<bool> UpdateGroup(GroupInputModel model, int groupId, string userId);
 
         Task<bool> IsMemberInGroup(int groupId, string userId);
 
@@ -24,17 +22,5 @@
         Task<string> AddMemberToGroupAsync(int groupId, string userId);
 
         Task<bool> CreateGroupRequestAsync(GroupRequestInputModel model, ApplicationUser creator);
-
-        Task<int> GetGroupsCountAsync();
-
-        Task<int> GetPendingRequestsCountAsync();
-
-        Task<IEnumerable<T>> GetAllRequestsAsync<T>();
-
-        Task<T> GetRequestByIdAsync<T>(int id);
-
-        Task ApproveRequestAsync(int requestId);
-
-        Task DeclineRequestAsync(int requestId);
     }
 }

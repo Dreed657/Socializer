@@ -19,19 +19,26 @@
 
     public class UserService : IUserService
     {
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly Cloudinary cloudinary;
         private readonly IRepository<ApplicationUser> userRepo;
         private readonly IRepository<FriendRequest> friendRequestRepo;
         private readonly IRepository<Friend> friendsRepo;
 
-        public UserService(UserManager<ApplicationUser> userManager, Cloudinary cloudinary, IRepository<ApplicationUser> userRepo, IRepository<FriendRequest> friendRequestRepo, IRepository<Friend> friendsRepo)
+        public UserService(Cloudinary cloudinary, IRepository<ApplicationUser> userRepo, IRepository<FriendRequest> friendRequestRepo, IRepository<Friend> friendsRepo)
         {
-            this.userManager = userManager;
             this.cloudinary = cloudinary;
             this.userRepo = userRepo;
             this.friendRequestRepo = friendRequestRepo;
             this.friendsRepo = friendsRepo;
+        }
+
+        public async Task<T> GetUserByUsernameAsync<T>(string username)
+        {
+            return await this.userRepo
+                .All()
+                .Where(x => x.UserName == username)
+                .To<T>()
+                .FirstOrDefaultAsync();
         }
 
         public async Task<T> GetUserByIdAsync<T>(string userId)
@@ -42,16 +49,6 @@
         public async Task<IEnumerable<T>> GetAllUsersAsync<T>()
         {
             return await this.userRepo.All().To<T>().ToListAsync();
-        }
-
-        public Task<int> GetUserCountAsync()
-        {
-            return this.userRepo.All().CountAsync();
-        }
-
-        public async Task<ApplicationUser> GetUserByIdAsync(string id)
-        {
-            return await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<T>> GetAllFriendRequestsAsync<T>(string receiverId)
@@ -130,44 +127,6 @@
         {
             return this.friendRequestRepo.All()
                 .Any(x => (x.ReceiverId == receiverId && x.SenderId == senderId) || ((x.ReceiverId == senderId && x.SenderId == receiverId) && x.Status == Status.Pending));
-        }
-
-        public async Task<bool> DbEditAsync(DbUserInputModel model, string userId)
-        {
-            var user = await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == userId);
-
-            if (user == null)
-            {
-                return false;
-            }
-
-            user.UserName = model.UserName;
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.Description = model.Description;
-            user.IsDeleted = model.IsDeleted;
-            user.Gender = model.Gender;
-
-            if (model.IsVerified && !await this.userManager.IsInRoleAsync(user, GlobalConstants.VerifiedRoleName))
-            {
-                await this.userManager.AddToRoleAsync(user, GlobalConstants.VerifiedRoleName);
-            }
-            else if (!model.IsVerified && await this.userManager.IsInRoleAsync(user, GlobalConstants.VerifiedRoleName))
-            {
-                await this.userManager.RemoveFromRoleAsync(user, GlobalConstants.VerifiedRoleName);
-            }
-
-            if (model.IsDeveloper && !await this.userManager.IsInRoleAsync(user, GlobalConstants.DeveloperRoleName))
-            {
-                await this.userManager.AddToRoleAsync(user, GlobalConstants.DeveloperRoleName);
-            }
-            else if (!model.IsDeveloper && await this.userManager.IsInRoleAsync(user, GlobalConstants.DeveloperRoleName))
-            {
-                await this.userManager.RemoveFromRoleAsync(user, GlobalConstants.DeveloperRoleName);
-            }
-
-            await this.userRepo.SaveChangesAsync();
-            return true;
         }
 
         public async Task<bool> UpdateUser(EditUserProfileInputModel model, string userId)

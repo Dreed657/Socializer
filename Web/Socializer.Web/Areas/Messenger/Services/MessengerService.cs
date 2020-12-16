@@ -1,26 +1,30 @@
 ﻿namespace Socializer.Web.Areas.Messenger.Services
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.SignalR;
+    using Microsoft.EntityFrameworkCore;
+    using Socializer.Data.Common.Repositories;
+    using Socializer.Data.Models;
     using Socializer.Services.Data.Users;
     using Socializer.Web.Hubs;
 
     public class MessengerService : IMessengerService
     {
         private readonly IHubContext<MessengerHub> messengerHub;
-        private readonly IUserService userService;
+        private readonly IRepository<ApplicationUser> userRepo;
 
-        public MessengerService(IHubContext<MessengerHub> messengerHub, IUserService userService)
+        public MessengerService(IHubContext<MessengerHub> messengerHub, IRepository<ApplicationUser> userRepo)
         {
             this.messengerHub = messengerHub;
-            this.userService = userService;
+            this.userRepo = userRepo;
         }
 
         public async Task AddUserToGroup(string groupName, string senderId)
         {
-            var sender = await this.userService.GetUserByIdAsync(senderId);
+            var sender = await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == senderId);
 
             await this.messengerHub.Clients.Group(groupName).SendAsync("ReceiveMessage", senderId, $"New user joined {sender.UserName}", groupName);
         }

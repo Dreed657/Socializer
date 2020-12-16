@@ -1,4 +1,4 @@
-﻿namespace Socializer.Web.Areas.Admin.Services
+﻿namespace Socializer.Web.Areas.Admin.Services.Common
 {
     using System.Threading.Tasks;
 

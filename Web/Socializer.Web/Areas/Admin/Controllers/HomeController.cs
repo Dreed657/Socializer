@@ -1,12 +1,9 @@
 ﻿namespace Socializer.Web.Areas.Admin.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-    using Socializer.Web.Areas.Admin.Services;
+    using Socializer.Web.Areas.Admin.Services.Common;
 
     public class HomeController : DashboardController
     {

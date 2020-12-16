@@ -37,7 +37,7 @@
         [HttpPost]
         public async Task<IActionResult> Edit(GroupIndexComplexModel model, int id)
         {
-            var result = await this.groupService.EditGroup(model.InputModel, id, this.userManger.GetUserId(this.User));
+            var result = await this.groupService.UpdateGroup(model.InputModel, id, this.userManger.GetUserId(this.User));
 
             return this.RedirectToAction(nameof(this.Index), new { id });
         }

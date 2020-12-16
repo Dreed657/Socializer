@@ -2,7 +2,6 @@
 {
     using System.Reflection;
 
-    using AutoMapper;
     using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -21,11 +20,12 @@
     using Socializer.Services;
     using Socializer.Services.Data.Groups;
     using Socializer.Services.Data.Posts;
-    using Socializer.Services.Data.Profiles;
     using Socializer.Services.Data.Users;
     using Socializer.Services.Mapping;
     using Socializer.Services.Messaging;
-    using Socializer.Web.Areas.Admin.Services;
+    using Socializer.Web.Areas.Admin.Services.Common;
+    using Socializer.Web.Areas.Admin.Services.Groups;
+    using Socializer.Web.Areas.Admin.Services.Users;
     using Socializer.Web.Areas.Messenger.Services;
     using Socializer.Web.Hubs;
     using Socializer.Web.ViewModels.Common;
@@ -54,7 +54,7 @@
                 .AddRoles<ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            //services.AddAuthentication()
+            // services.AddAuthentication()
             //    .AddFacebook(facebookOptions =>
             //    {
             //        facebookOptions.AppId = this.configuration["ExternalAuth:Facebook:AppId"];
@@ -76,7 +76,6 @@
             //        microsoftOptions.ClientId = this.configuration["ExternalAuth:Microsoft:ClientId"];
             //        microsoftOptions.ClientSecret = this.configuration["ExternalAuth:Microsoft:ClientSecret"];
             //    });
-
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.Configure<CookiePolicyOptions>(
@@ -106,12 +105,16 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
             services.AddTransient<TimeService>();
 
+            // Data services
             services.AddTransient<IPostsService, PostsService>();
-            services.AddTransient<IProfilesService, ProfilesService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IGroupService, GroupService>();
-            services.AddTransient<IDashboardService, DashboardService>();
             services.AddTransient<IMessengerService, MessengerService>();
+
+            // Dashboard services
+            services.AddTransient<IDashboardService, DashboardService>();
+            services.AddTransient<IAdminUsersService, AdminUsersService>();
+            services.AddTransient<IAdminGroupsService, AdminGroupsService>();
 
             services.AddSignalR();
             services.AddApplicationInsightsTelemetry();

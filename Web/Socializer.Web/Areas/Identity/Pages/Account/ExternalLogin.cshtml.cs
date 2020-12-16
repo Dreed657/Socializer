@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Socializer.Data.Common.Repositories;
-using Socializer.Data.Models.Enums;
-
-namespace Socializer.Web.Areas.Identity.Pages.Account
+﻿namespace Socializer.Web.Areas.Identity.Pages.Account
 {
     using System;
     using System.Collections.Generic;
@@ -19,10 +15,14 @@ namespace Socializer.Web.Areas.Identity.Pages.Account
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
+    using Socializer.Data.Common.Repositories;
     using Socializer.Data.Models;
+    using Socializer.Data.Models.Enums;
 
     [AllowAnonymous]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1649:File name should match first type name", Justification = "<Pending>")]
     public class ExternalLoginModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> signInManager;
@@ -85,7 +85,7 @@ namespace Socializer.Web.Areas.Identity.Pages.Account
             }
 
             // Sign in the user with this external login provider if the user already has a login.
-            var result = await this.signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor : true);
+            var result = await this.signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
             if (result.Succeeded)
             {
                 this.logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
@@ -142,8 +142,7 @@ namespace Socializer.Web.Areas.Identity.Pages.Account
                     CoverImage = await this.imageRepo.All().FirstOrDefaultAsync(x => x.Name == "Default_Cover"),
                 };
 
-                //Birthdate = info.Principal.FindFirstValue(ClaimTypes.DateOfBirth),
-
+                // Birthdate = info.Principal.FindFirstValue(ClaimTypes.DateOfBirth),
                 user.Posts.Add(new Post()
                 {
                     Content = $"Born on {user.Birthdate.ToShortDateString()}",
@@ -172,7 +171,7 @@ namespace Socializer.Web.Areas.Identity.Pages.Account
                         // If account confirmation is required, we need to show the link if we don't have a real email sender
                         if (this.userManager.Options.SignIn.RequireConfirmedAccount)
                         {
-                            return this.RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
+                            return this.RedirectToPage("./RegisterConfirmation", new { Email = this.Input.Email });
                         }
 
                         await this.signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);

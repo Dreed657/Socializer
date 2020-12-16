@@ -3,24 +3,17 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using Socializer.Data.Models;
-    using Socializer.Web.ViewModels.Common;
-    using Socializer.Web.ViewModels.Dashboard.Users;
     using Socializer.Web.ViewModels.Users;
 
     public interface IUserService
     {
         Task<bool> UpdateUser(EditUserProfileInputModel model, string userId);
 
-        Task<bool> DbEditAsync(DbUserInputModel model, string userId);
+        Task<T> GetUserByUsernameAsync<T>(string username);
 
         Task<T> GetUserByIdAsync<T>(string userId);
 
         Task<IEnumerable<T>> GetAllUsersAsync<T>();
-
-        Task<int> GetUserCountAsync();
-
-        Task<ApplicationUser> GetUserByIdAsync(string id);
 
         Task<IEnumerable<T>> GetAllFriendRequestsAsync<T>(string receiverId);
 

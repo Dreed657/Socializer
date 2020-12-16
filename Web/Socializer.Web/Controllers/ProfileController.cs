@@ -5,18 +5,16 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Socializer.Data.Models;
-    using Socializer.Services.Data.Profiles;
     using Socializer.Services.Data.Users;
+    using Socializer.Web.ViewModels.Users;
 
     public class ProfileController : BaseController
     {
-        private readonly IProfilesService profilesService;
         private readonly IUserService userService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public ProfileController(IProfilesService profilesService, IUserService userService, UserManager<ApplicationUser> userManager)
+        public ProfileController(IUserService userService, UserManager<ApplicationUser> userManager)
         {
-            this.profilesService = profilesService;
             this.userService = userService;
             this.userManager = userManager;
         }
@@ -24,7 +22,7 @@
         [HttpGet("/Profile/{username}")]
         public async Task<IActionResult> Index(string username)
         {
-            var model = await this.profilesService.GetProfileByUsernameAsync(username);
+            var model = await this.userService.GetUserByUsernameAsync<ProfileViewModel>(username);
 
             if (model == null)
             {
