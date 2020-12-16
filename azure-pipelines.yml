@@ -32,11 +32,3 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Azure for Students (03821607-4f22-4a61-88d1-c214ff383036)'
-    appType: 'webApp'
-    WebAppName: 'socializer-test'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
