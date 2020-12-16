@@ -20,7 +20,7 @@
             this.Posts = new HashSet<Post>();
             this.Comments = new HashSet<Comment>();
             this.Likes = new HashSet<PostLike>();
-            this.Friends = new HashSet<ApplicationUser>();
+            this.Friends = new HashSet<Friend>();
             this.Groups = new HashSet<GroupMember>();
         }
 
@@ -39,11 +39,11 @@
         [Required]
         public Gender Gender { get; set; }
 
-        public string ProfileImageId { get; set; }
+        public int ProfileImageId { get; set; }
 
         public virtual Image ProfileImage { get; set; }
 
-        public string CoverImageId { get; set; }
+        public int CoverImageId { get; set; }
 
         public virtual Image CoverImage { get; set; }
 
@@ -55,7 +55,7 @@
 
         public virtual ICollection<PostLike> Likes { get; set; }
 
-        public virtual ICollection<ApplicationUser> Friends { get; set; }
+        public virtual ICollection<Friend> Friends { get; set; }
 
         public virtual ICollection<GroupMember> Groups { get; set; }
 

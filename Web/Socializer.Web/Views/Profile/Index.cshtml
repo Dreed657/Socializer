@@ -1,20 +1,20 @@
-﻿@model ProfileViewModel
-@inject IUserService UserService
+﻿@model ProfileIndexModel
+@inject IFriendService friendService
 @inject UserManager<ApplicationUser> UserManager
 @{
-    this.ViewData["Title"] = Model.UserName;
-    var friendStatus = await this.UserService.CheckFriendStatus(this.UserManager.GetUserId(this.User), Model.Id);
-    var requestStatus = this.UserService.CheckRequestStatus(this.UserManager.GetUserId(this.User), Model.Id);
+    this.ViewData["Title"] = Model.ViewModel.UserName;
+    var friendStatus = await this.friendService.CheckFriendStatus(this.UserManager.GetUserId(this.User), Model.ViewModel.Id);
+    var requestStatus = await this.friendService.CheckRequestStatus(this.UserManager.GetUserId(this.User), Model.ViewModel.Id);
 }
 
 <div class="container">
     <div class="row">
-        <img width="75" height="75" class="rounded-circle img-thumbnail p-1 profileImage" src="@Model.ProfileImageUrl" alt="profile-images"/>
-        <img class="cover-image" src="@Model.CoverImageUrl" alt="cover-images" />
+        <img width="75" height="75" class="rounded-circle img-thumbnail p-1 profileImage" src="@Model.ViewModel.ProfileImageUrl" alt="profile-images"/>
+        <img class="cover-image" src="@Model.ViewModel.CoverImageUrl" alt="cover-images" />
     </div>
     <div class="row text-center mt-2">
-        <p class="h2">@Model.FirstName @Model.LastName</p>
-        <p class="h6">@Model.Description</p>
+        <p class="h2">@Model.ViewModel.FirstName @Model.ViewModel.LastName</p>
+        <p class="h6">@Model.ViewModel.Description</p>
 
         <hr />
     </div>
@@ -27,15 +27,15 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-                       aria-selected="false">Friends</a>
+                       aria-selected="false">Friends <i class="text-secondary my-auto">@Model.FriendsCount</i></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-                       aria-selected="false">Photos</a>
+                       aria-selected="false">Photos <i class="text-secondary my-auto">@Model.ImagesCount</i></a>
                 </li>
             </ul>
         </div>
-        @if (this.UserManager.GetUserId(this.User) != Model.Id)
+        @if (this.UserManager.GetUserId(this.User) != Model.ViewModel.Id)
         {
             <div class="col text-right">
                 @if (friendStatus)
@@ -46,7 +46,7 @@
                 {
                     if (!requestStatus)
                     {
-                        <a class="btn btn-outline-info my-2" asp-controller="Profile" asp-action="AddFriend" asp-route-userId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value">Add Friend</a>
+                        <a class="btn btn-outline-info my-2" asp-controller="Profile" asp-action="AddFriend" asp-route-userId="@Model.ViewModel.Id" asp-route-returnUrl="@this.Context.Request.Path.Value">Add Friend</a>
                     }
                     else
                     {
@@ -72,7 +72,7 @@
                     </div>
                     <div class="col-md-8">
                         <div class="mx-2">
-                            @foreach (var post in Model.Posts.OrderByDescending(x => x.CreatedOn))
+                            @foreach (var post in Model.ViewModel.Posts.OrderByDescending(x => x.CreatedOn))
                             {
                                 <partial name="_PostPartial" model="post" />
                             }
@@ -81,15 +81,12 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="row">
-                    <p>Friends (@Model.FriendsCount)</p>
-                </div>
-                <div class="row-cols-2">
+                <div class="row-cols-auto">
                     @foreach (var friend in Model.Friends)
                     {
-                        <div class="col p-4 bg-dark rounded">
+                        <div class="col-4 p-4 my-2 bg-dark rounded">
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-3">
                                     <img class="align-self-start mr-3 img-thumbnail friend-thumbnail-img" src="@friend.ProfileImageUrl" alt="Generic placeholder image">
                                 </div>
                                 <div class="col text-left">
@@ -104,11 +101,8 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                <div class="row justify-content-around">
-                    <p>Photos @Model.ImagesCount</p>
-                </div>
                 <div class="row-cols-auto">
-                    @foreach (var image in Model.Images)
+                    @foreach (var image in Model.Images.OrderByDescending(x => x.CreatedOn))
                     {
                         <img src="@image.Url" alt="@image.Name" class="profile-imgs-index m-2 rounded-2"/>
                     }

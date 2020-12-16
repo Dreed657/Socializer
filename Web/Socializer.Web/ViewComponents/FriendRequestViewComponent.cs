@@ -1,4 +1,6 @@
-﻿namespace Socializer.Web.Infrastructure.ViewComponents
+﻿using Socializer.Services.Data.Friends;
+
+namespace Socializer.Web.Infrastructure.ViewComponents
 {
     using System.Threading.Tasks;
 
@@ -9,16 +11,16 @@
 
     public class FriendRequestViewComponent : ViewComponent
     {
-        private readonly IUserService userService;
+        private readonly IFriendService friendService;
 
-        public FriendRequestViewComponent(IUserService userService)
+        public FriendRequestViewComponent(IFriendService friendService)
         {
-            this.userService = userService;
+            this.friendService = friendService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(string receiverId)
         {
-            var models = await this.userService.GetAllFriendRequestsAsync<FriendRequestViewModel>(receiverId);
+            var models = await this.friendService.GetAllFriendRequestsAsync<FriendRequestViewModel>(receiverId);
             return this.View(models);
         }
     }

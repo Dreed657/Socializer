@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
     using CloudinaryDotNet;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
@@ -16,7 +15,7 @@
     using Socializer.Web.ViewModels.Common;
     using Socializer.Web.ViewModels.Dashboard.Users;
     using Socializer.Web.ViewModels.Users;
-
+
     public class UserService : IUserService
     {
         private readonly Cloudinary cloudinary;
@@ -38,7 +37,6 @@
                 .To<T>()
                 .FirstOrDefaultAsync();
         }
-
         public async Task<T> GetUserByIdAsync<T>(string userId)
         {
             return await this.userRepo.All().Where(x => x.Id == userId).To<T>().FirstOrDefaultAsync();
@@ -49,117 +47,11 @@
             return await this.userRepo.All().To<T>().ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllFriendRequestsAsync<T>(string receiverId)
-        {
-            return await this.friendRequestRepo
-                .All()
-                .Where(x => x.ReceiverId == receiverId)
-                .Where(x => x.Status == Status.Pending)
-                .To<T>()
-                .ToListAsync();
-        }
-
-        public async Task<bool> AddRequestFriendAsync(string senderId, string receiverId)
-        {
-            var request = await this.friendRequestRepo
-                .All()
-                .FirstOrDefaultAsync(x => x.SenderId == senderId && x.ReceiverId == receiverId);
-
-            if (request == null)
-            {
-                request = new FriendRequest()
-                {
-                    SenderId = senderId,
-                    ReceiverId = receiverId,
-                    Status = Status.Pending,
-                };
-
-                await this.friendRequestRepo.AddAsync(request);
-            }
-            else
-            {
-                return false;
-            }
-
-            await this.friendRequestRepo.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task<bool> ApproveRequestFriendAsync(int requestId)
-        {
-            var entity = await this.friendRequestRepo.All().FirstOrDefaultAsync(x => x.Id == requestId);
-
-            if (entity == null)
-            {
-                return false;
-            }
-
-            // await this.AddFriend(entity);
-
-            var receiver = await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == entity.ReceiverId);
-            var sender = await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == entity.SenderId);
-
-            receiver.Friends.Add(entity.Sender);
-            sender.Friends.Add(entity.Receiver);
-            await this.userRepo.SaveChangesAsync();
-
-            entity.Status = Status.Approved;
-            await this.friendRequestRepo.SaveChangesAsync();
-
-            return true;
-        }
-
-        public async Task<bool> DeclineRequestFriendAsync(int requestId)
-        {
-            var entity = await this.friendRequestRepo.All().FirstOrDefaultAsync(x => x.Id == requestId);
-
-            if (entity == null)
-            {
-                return false;
-            }
-
-            entity.Status = Status.Decline;
-            await this.friendRequestRepo.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task<bool> CheckFriendStatus(string senderId, string receiverId)
-        {
-            var user = await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == receiverId);
-
-            return user.Friends.Any(x => x.Id == senderId);
-        }
-
-        public bool CheckRequestStatus(string senderId, string receiverId)
-        {
-            return this.friendRequestRepo.All()
-                .Any(x => (x.ReceiverId == receiverId && x.SenderId == senderId) || ((x.ReceiverId == senderId && x.SenderId == receiverId) && x.Status == Status.Pending));
-        }
-
-        public async Task<bool> UpdateUser(EditUserProfileInputModel model, string userId)
-        {
-            var user = await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == userId);
-
-            if (user == null)
-            {
-                return false;
-            }
-
-            if (model.FirstName != user.FirstName)
-            {
-                user.FirstName = model.FirstName;
-            }
-
-            if (model.LastName != user.LastName)
-            {
-                user.LastName = model.LastName;
-            }
-
-            if (model.Description != user.Description)
-            {
-                user.Description = model.Description;
-            }
-
+        public async Task<bool> UpdateUser(EditUserProfileInputModel model, string userId)        {            var user = await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == userId);
+            if (user == null)            {                return false;            }
+            if (model.FirstName != user.FirstName)            {                user.FirstName = model.FirstName;            }
+            if (model.LastName != user.LastName)            {                user.LastName = model.LastName;            }
+            if (model.Description != user.Description)            {                user.Description = model.Description;            }
             if (model.Gender != user.Gender)
             {
                 user.Gender = model.Gender;
@@ -196,10 +88,13 @@
                     };
                 }
             }
-
-            this.userRepo.Update(user);
-            await this.userRepo.SaveChangesAsync();
-            return true;
+            this.userRepo.Update(user);            await this.userRepo.SaveChangesAsync();            return true;        }
+
+        public async Task<string> GetIdByUserName(string username)
+        {
+            var user = await this.userRepo.All().FirstOrDefaultAsync(x => x.UserName == username);
+
+            return user.Id;
         }
     }
 }

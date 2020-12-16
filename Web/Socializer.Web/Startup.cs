@@ -1,7 +1,6 @@
 ﻿namespace Socializer.Web
 {
     using System.Reflection;
-
     using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -18,6 +17,7 @@
     using Socializer.Data.Repositories;
     using Socializer.Data.Seeding;
     using Socializer.Services;
+    using Socializer.Services.Data.Friends;
     using Socializer.Services.Data.Groups;
     using Socializer.Services.Data.Images;
     using Socializer.Services.Data.Posts;
@@ -30,7 +30,7 @@
     using Socializer.Web.Areas.Messenger.Services;
     using Socializer.Web.Hubs;
     using Socializer.Web.ViewModels.Common;
-
+
     public class Startup
     {
         private readonly IConfiguration configuration;
@@ -112,6 +112,7 @@
             services.AddTransient<IGroupService, GroupService>();
             services.AddTransient<IMessengerService, MessengerService>();
             services.AddTransient<IImagesService, ImagesService>();
+            services.AddTransient<IFriendService, FriendService>();
 
             // Dashboard services
             services.AddTransient<IDashboardService, DashboardService>();
