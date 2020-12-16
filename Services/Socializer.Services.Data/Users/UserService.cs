@@ -22,14 +22,12 @@
         private readonly Cloudinary cloudinary;
         private readonly IRepository<ApplicationUser> userRepo;
         private readonly IRepository<FriendRequest> friendRequestRepo;
-        private readonly IRepository<Friend> friendsRepo;
 
-        public UserService(Cloudinary cloudinary, IRepository<ApplicationUser> userRepo, IRepository<FriendRequest> friendRequestRepo, IRepository<Friend> friendsRepo)
+        public UserService(Cloudinary cloudinary, IRepository<ApplicationUser> userRepo, IRepository<FriendRequest> friendRequestRepo)
         {
             this.cloudinary = cloudinary;
             this.userRepo = userRepo;
             this.friendRequestRepo = friendRequestRepo;
-            this.friendsRepo = friendsRepo;
         }
 
         public async Task<T> GetUserByUsernameAsync<T>(string username)
@@ -96,7 +94,15 @@
                 return false;
             }
 
-            await this.AddFriend(entity);
+            // await this.AddFriend(entity);
+
+            var receiver = await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == entity.ReceiverId);
+            var sender = await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == entity.SenderId);
+
+            receiver.Friends.Add(entity.Sender);
+            sender.Friends.Add(entity.Receiver);
+            await this.userRepo.SaveChangesAsync();
+
             entity.Status = Status.Approved;
             await this.friendRequestRepo.SaveChangesAsync();
 
@@ -117,10 +123,11 @@
             return true;
         }
 
-        public bool CheckFriendStatus(string senderId, string receiverId)
+        public async Task<bool> CheckFriendStatus(string senderId, string receiverId)
         {
-            return this.friendsRepo.All()
-                .Any(x => (x.ReceiverId == receiverId && x.SenderId == senderId) || ((x.ReceiverId == senderId && x.SenderId == receiverId) && x.IsFriend));
+            var user = await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == receiverId);
+
+            return user.Friends.Any(x => x.Id == senderId);
         }
 
         public bool CheckRequestStatus(string senderId, string receiverId)
@@ -193,29 +200,6 @@
             this.userRepo.Update(user);
             await this.userRepo.SaveChangesAsync();
             return true;
-        }
-
-        private async Task AddFriend(FriendRequest request)
-        {
-            var entity = await this.friendsRepo.All()
-                .FirstOrDefaultAsync(x => x.ReceiverId == request.ReceiverId && x.SenderId == request.SenderId);
-
-            if (entity == null)
-            {
-                entity = new Friend()
-                {
-                    SenderId = request.SenderId,
-                    ReceiverId = request.ReceiverId,
-                    IsFriend = true,
-                };
-                await this.friendsRepo.AddAsync(entity);
-            }
-            else
-            {
-                entity.IsFriend = false;
-            }
-
-            await this.friendsRepo.SaveChangesAsync();
         }
     }
 }

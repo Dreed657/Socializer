@@ -37,8 +37,6 @@
 
         public DbSet<GroupCreateRequest> GroupCreateRequests { get; set; }
 
-        public DbSet<Friend> Friends { get; set; }
-
         public DbSet<FriendRequest> FriendRequests { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
@@ -70,8 +68,7 @@
             EntityIndexesConfiguration.Configure(builder);
 
             builder.Entity<ApplicationUser>()
-                .HasMany(x => x.Friends)
-                .WithOne(x => x.Receiver);
+                .HasMany(x => x.Friends);
 
             builder.Entity<ApplicationUser>()
                 .HasMany(x => x.Images)

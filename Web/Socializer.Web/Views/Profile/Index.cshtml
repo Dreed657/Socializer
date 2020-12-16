@@ -3,7 +3,7 @@
 @inject UserManager<ApplicationUser> UserManager
 @{
     this.ViewData["Title"] = Model.UserName;
-    var friendStatus = this.UserService.CheckFriendStatus(this.UserManager.GetUserId(this.User), Model.Id);
+    var friendStatus = await this.UserService.CheckFriendStatus(this.UserManager.GetUserId(this.User), Model.Id);
     var requestStatus = this.UserService.CheckRequestStatus(this.UserManager.GetUserId(this.User), Model.Id);
 }
 
@@ -81,14 +81,27 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                Food truck fixie
-                locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit,
-                blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.
-                Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum
-                PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS
-                salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit,
-                sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester
-                stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.
+                <div class="row">
+                    <p>Friends (@Model.FriendsCount)</p>
+                </div>
+                <div class="row-cols-2">
+                    @foreach (var friend in Model.Friends)
+                    {
+                        <div class="col p-4 bg-dark rounded">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img class="align-self-start mr-3 img-thumbnail friend-thumbnail-img" src="@friend.ProfileImageUrl" alt="Generic placeholder image">
+                                </div>
+                                <div class="col text-left">
+                                    <h5 class="my-0 text-white">
+                                        <a class="text-white" asp-controller="Profile" asp-action="Index" asp-route-username="@friend.UserName">@friend.FirstName @friend.LastName</a>
+                                    </h5>
+                                    <sub class="text-white">@@@friend.UserName</sub>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                 Etsy mixtape

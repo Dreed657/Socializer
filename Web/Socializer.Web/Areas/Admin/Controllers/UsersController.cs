@@ -43,7 +43,7 @@
 
         public async Task<IActionResult> AllUsers()
         {
-            var models = await this.userService.GetAllUsersAsync<ShortUserViewModel>();
+            var models = await this.userService.GetAllUsersAsync<VeryShortUserViewModel>();
             return this.View(models);
         }
     }

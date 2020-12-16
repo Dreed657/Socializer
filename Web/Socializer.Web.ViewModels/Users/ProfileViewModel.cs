@@ -30,6 +30,10 @@
 
         public string CoverImageUrl { get; set; }
 
+        public int FriendsCount { get; set; }
+
         public ICollection<PostViewModel> Posts { get; set; }
+
+        public ICollection<ShortUserViewModel> Friends { get; set; }
     }
 }
