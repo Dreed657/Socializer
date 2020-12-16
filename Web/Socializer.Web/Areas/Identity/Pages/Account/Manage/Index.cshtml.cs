@@ -75,7 +75,7 @@
 
             await this.signInManager.RefreshSignInAsync(user);
             this.StatusMessage = "Your profile has been updated";
-            return this.RedirectToPage();
+            return this.RedirectToAction("index", "profile", new { username = user.UserName });
         }
 
         private Task LoadAsync(ApplicationUser user)
