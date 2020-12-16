@@ -23,7 +23,7 @@
         }
 
         [Route("/{postId}")]
-        public async Task<IActionResult> Details(int postId)
+        public async Task<IActionResult> Index(int postId)
         {
             var model = await this.postsService.GetPostByIdAsync<PostViewModel>(postId);
             return this.View(model);
@@ -36,6 +36,19 @@
             await this.postsService.CreateAsync(model, user.Id, groupId);
 
             return this.Redirect(returnUrl);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(PostEditInputModel model, int postId)
+        {
+            var result = await this.postsService.UpdatePost(model, postId);
+
+            if (!result)
+            {
+                return this.Redirect("Error");
+            }
+
+            return this.RedirectToAction(nameof(this.Index), new { postId = postId });
         }
 
         [HttpPost]

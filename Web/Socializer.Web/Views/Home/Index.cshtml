@@ -1,9 +1,17 @@
-﻿@inject UserManager<ApplicationUser> UserManager
-
+﻿@using System.Collections.Specialized
+@model IEnumerable<PostViewModel>
 @{
     this.ViewData["Title"] = "Feed";
 }
 
 <div class="container w-50">
-    <vc:feed user-id="@this.UserManager.GetUserId(this.User)"></vc:feed>
+    @foreach (var post in Model)
+    {
+        <partial name="_PostPartial" model="post" />
+    }
+    <div class="loader mx-auto my-3" id="page-loader"></div>
 </div>
+
+@section Scripts {
+    <script src="~/js/infinite-scroll.js"></script>
+} 

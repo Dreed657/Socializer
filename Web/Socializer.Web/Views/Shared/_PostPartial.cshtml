@@ -35,7 +35,26 @@
                     </div>
                 </div>
                 <div class="row">
-                    <sub>@TimeService.TimeAgo(Model.CreatedOn.ToLocalTime())</sub>
+                    <div class="col-4">
+                        <p class="h6 small">@TimeService.TimeAgo(Model.CreatedOn.ToLocalTime())</p>
+                    </div>
+                    <div class="col text-left h6 small">
+                        @switch (Model.Privacy)
+                        {
+                            case PrivacyStatus.Public:
+                                <i class="fas fa-unlock"></i>
+                                break;
+                            case PrivacyStatus.Private:
+                                <i class="fas fa-lock"></i>
+                                break;
+                            case PrivacyStatus.InProfile:
+                                <i class="fas fa-user-shield"></i>
+                                break;
+                            case PrivacyStatus.InGroup:
+                                <i class="fas fa-users-cog"></i>
+                                break;
+                        }
+                    </div>
                 </div>
             </div>
 
@@ -46,7 +65,7 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="postDropDown">
                         <li class="dropdown-item">
-                            <a asp-controller="Posts" asp-action="Details" asp-route-postId="@Model.Id" class="dropdown-item">Go To Post</a>
+                            <a asp-controller="Posts" asp-action="Index" asp-route-postId="@Model.Id" class="dropdown-item">Go To Post</a>
                         </li>
                         @if (Model.Creator.Id == this.UserManager.GetUserId(this.User))
                         {
@@ -67,11 +86,11 @@
                 <p class="card-text m-2">@Model.Content</p>
             </div>
             @if (Model.Image != null)
-            {
+                            {
                 <div class="row mx-auto p-0">
                     <img class="w-100" src="@Model.Image.Url" alt="@Model.Image.Name" />
                 </div>
-            } 
+            }
         </div>
 
         <div class="row">

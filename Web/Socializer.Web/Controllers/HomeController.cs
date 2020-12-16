@@ -1,22 +1,40 @@
-﻿namespace Socializer.Web.Controllers
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Socializer.Data.Models;
+
+namespace Socializer.Web.Controllers
 {
     using System.Diagnostics;
 
     using Microsoft.AspNetCore.Mvc;
+    using Socializer.Services.Data.Posts;
     using Socializer.Web.ViewModels.Common;
 
     public class HomeController : BaseController
     {
-        public IActionResult Index()
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IPostsService postsService;
+
+        public HomeController(
+            UserManager<ApplicationUser> userManager,
+            IPostsService postsService)
         {
-            return this.View();
+            this.userManager = userManager;
+            this.postsService = postsService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var userId = this.userManager.GetUserId(this.User);
+            var models = await this.postsService.GetFeedByUserIdAsync(userId);
+
+            return this.View(models);
         }
 
         public IActionResult Privacy()
         {
             return this.View();
         }
-
 
         [HttpGet("Friends")]
         public IActionResult Friends()

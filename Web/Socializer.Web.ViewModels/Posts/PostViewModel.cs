@@ -1,4 +1,6 @@
-﻿namespace Socializer.Web.ViewModels.Posts
+﻿using Socializer.Data.Models.Enums;
+
+namespace Socializer.Web.ViewModels.Posts
 {
     using System;
     using System.Collections.Generic;
@@ -28,7 +30,9 @@
 
         public bool InGroup => this.Group != null;
 
-        public int CommentsCount { get; set; }
+        public PrivacyStatus Privacy { get; set; }
+
+        public int CommentsCount => this.Comments.Count;
 
         public ICollection<CommentViewModel> Comments { get; set; }
     }

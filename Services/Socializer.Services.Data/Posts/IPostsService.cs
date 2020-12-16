@@ -9,6 +9,8 @@
 
     public interface IPostsService
     {
+        Task<bool> UpdatePost(PostEditInputModel model, int postId);
+
         Task<int?> CreateAsync(PostInputModel model, string userId, int groupId = 0);
 
         Task<bool> DeleteAsync(int id);
@@ -16,6 +18,8 @@
         Task<T> GetPostByIdAsync<T>(int postId);
 
         Task<IEnumerable<T>> GetAllAsync<T>();
+
+        Task<IEnumerable<PostViewModel>> GetFeedByUserIdAsync(string userId);
 
         Task<int> GetPostsCountAsync();
 

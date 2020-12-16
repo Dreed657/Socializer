@@ -1,0 +1,183 @@
+﻿@using Socializer.Services
+@model PostViewModel
+@inject IPostsService PostService
+@inject TimeService TimeService
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    this.ViewData["Title"] = "Post";
+}
+
+<div class="container w-50">
+    <div class="border bg-light shadow-sm my-3 p-2">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <div class="col-auto">
+                            <h4 class="card-title">
+                                <a asp-controller="Profile" asp-action="Index" asp-route-username="@Model.Creator.UserName">@Model.Creator.FirstName @Model.Creator.LastName</a>
+                                @if (Model.InGroup)
+                                {
+                                    <i class="fas fa-long-arrow-alt-right"></i>
+                                    <a asp-controller="Groups" asp-action="Index" asp-route-groupId="@Model.Group.Id">@Model.Group.Name</a>
+                                }
+                            </h4>
+                        </div>
+                        <div class="col-auto">
+                            @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.Creator.Id), GlobalConstants.VerifiedRoleName))
+                            {
+                                <span class="badge badge-info"><i class="fas fa-check"></i></span>
+                            }
+                            @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.Creator.Id), GlobalConstants.AdministratorRoleName))
+                            {
+                                <span class="badge badge-danger"><i class="fas fa-user-shield"></i></span>
+                            }
+                            @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.Creator.Id), GlobalConstants.DeveloperRoleName))
+                            {
+                                <span class="badge badge-dark"><i class="fab fa-dev"></i></span>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <p class="h6 small">@TimeService.TimeAgo(Model.CreatedOn.ToLocalTime())</p>
+                        </div>
+                        <div class="col text-left h6 small">
+                            @switch (Model.Privacy)
+                            {
+                                case PrivacyStatus.Public:
+                                    <i class="fas fa-unlock"></i>
+                                    break;
+                                case PrivacyStatus.Private:
+                                    <i class="fas fa-lock"></i>
+                                    break;
+                                case PrivacyStatus.InProfile:
+                                    <i class="fas fa-user-shield"></i>
+                                    break;
+                                case PrivacyStatus.InGroup:
+                                    <i class="fas fa-users-cog"></i>
+                                    break;
+                            }
+                        </div>
+                    </div>
+                </div>
+                @if (Model.Creator.Id == this.UserManager.GetUserId(this.User))
+                {
+                    <div class="col">
+                        <div class="dropdown float-right">
+                            <button class="btn btn-dark dropdown-toggle" type="button" id="postDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="postDropDown">
+                                <li class="dropdown-item" data-toggle="modal" data-target="#editPostModal"> Edit </li>
+                                <li class="dropdown-divider"></li>
+                                <li class="dropdown-item"><a asp-controller="Posts" asp-action="Delete" asp-route-postId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value">Delete</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="row">
+                <div class="row">
+                    <p class="card-text m-2">@Model.Content</p>
+                </div>
+                @if (Model.Image != null)
+                {
+                    <div class="row mx-auto p-0">
+                        <img class="w-100" src="@Model.Image.Url" alt="@Model.Image.Name" />
+                    </div>
+                }
+            </div>
+            
+            <div class="row">
+                <div class="col">
+
+                </div>
+                <div class="col">
+
+                </div>
+                <div class="col text-right">
+                    <p class="p-0 m-0">@(Model.CommentsCount == 0 ? Model.Comments.Count : Model.CommentsCount) Comments 0 Shares</p>
+                </div>
+            </div>
+
+            <div class="row text-center mt-2 py-2 border-top border-bottom">
+                <div class="col">
+                    @if (!await this.PostService.IsLikedAsync(Model.Id, this.UserManager.GetUserId(this.User)))
+                    {
+
+                        <a id="like" class="btn btn-outline-success" post-like-id="@Model.Id"><i class="far fa-thumbs-up"></i> Like</a>
+                    }
+                    else
+                    {
+                        <a id="unlike" class="btn btn-outline-danger" post-like-id="@Model.Id"><i class="fas fa-thumbs-up"></i> Like</a>
+                    }
+                </div>
+                <div class="col">
+                    <a class="btn btn-outline-success" id="comment-toggle" post-id="@Model.Id"><i class="far fa-comment-alt"></i> Comment</a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-outline-success"><i class="fas fa-share"></i> Share</a>
+                </div>
+            </div>
+
+            <div id="comments-@Model.Id">
+                <div id="comment-controls-@Model.Id" style="display: none;">
+                    <div class="row">
+                        <form asp-area="" asp-controller="Api" asp-action="AddComment" method="POST" id="add-comment">
+                            <div class="row p-1 m-1">
+                                <div class="col-1 mx-auto">
+                                    <img src="https://image-placeholder.com/images/actual-size/75x75.png" style="width: 40px; height: 40px" />
+                                </div>
+                                <div class="col">
+                                    <input class="form-control" type="text" name="content" />
+                                    <input class="form-control" type="text" name="postId" value="@Model.Id" hidden />
+                                </div>
+                                <div class="col-1">
+                                    <input class="btn btn-outline-success" type="submit" name="name" value="SEND" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="loader mx-auto my-3" id="loader-@Model.Id"></div>
+                <div class="comments-body-@Model.Id">
+                    @foreach (var comment in Model.Comments)
+                    {
+                        <div class="row p-2 my-2 border">
+                            <div class="my-2">
+                                <p class="m-0">@comment.CreatorUserName</p>
+                                <sub>@TimeService.TimeAgo(comment.CreatedOn.ToLocalTime())</sub>
+                            </div>
+                            <p class="px-4">@comment.Content</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-area="" asp-controller="Posts" asp-action="Edit" asp-route-postId="@Model.Id">
+                    <div class="form-group">
+                        <label for="content">Content</label>
+                        <input type="text" id="content" name="content" class="form-control"/>
+                    </div>
+                    <input type="submit" class="text-center mt-3 btn btn-danger"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

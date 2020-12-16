@@ -1,12 +1,14 @@
-﻿namespace Socializer.Services.Data.Posts
+﻿using System.Net.Sockets;
+using AutoMapper.Configuration.Conventions;
+using Socializer.Data.Models.Enums;
+
+namespace Socializer.Services.Data.Posts
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
-    using AutoMapper.Configuration.Conventions;
     using CloudinaryDotNet;
     using Microsoft.EntityFrameworkCore;
     using Socializer.Data.Common.Repositories;
@@ -20,13 +22,20 @@
         private readonly IDeletableEntityRepository<Post> postsRepo;
         private readonly IRepository<PostLike> likeRepo;
         private readonly IDeletableEntityRepository<Comment> commentRepo;
+        private readonly IRepository<ApplicationUser> userRepo;
 
-        public PostsService(Cloudinary cloudinary, IDeletableEntityRepository<Post> postsRepo, IRepository<PostLike> likesRepo, IDeletableEntityRepository<Comment> commentRepo)
+        public PostsService(
+            Cloudinary cloudinary,
+            IDeletableEntityRepository<Post> postsRepo,
+            IRepository<PostLike> likesRepo,
+            IDeletableEntityRepository<Comment> commentRepo,
+            IRepository<ApplicationUser> userRepo)
         {
             this.cloudinary = cloudinary;
             this.postsRepo = postsRepo;
             this.likeRepo = likesRepo;
             this.commentRepo = commentRepo;
+            this.userRepo = userRepo;
         }
 
         public async Task<int?> CreateAsync(PostInputModel model, string userId, int groupId = 0)
@@ -166,6 +175,43 @@
                 .OrderByDescending(x => x.CreatedOn)
                 .To<CommentViewModel>()
                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<PostViewModel>> GetFeedByUserIdAsync(string userId)
+        {
+            var user = await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == userId);
+            var posts = new List<PostViewModel>();
+
+            posts.AddRange(user.Posts.Where(x => x.Privacy != PrivacyStatus.InProfile).AsQueryable().To<PostViewModel>());
+
+            foreach (var friend in user.Friends.Select(x => x.Sender))
+            {
+                posts.AddRange(friend.Posts.Where(x => x.Privacy != PrivacyStatus.InProfile && x.Group == null).AsQueryable().To<PostViewModel>());
+            }
+
+            foreach (var group in user.Groups.Select(x => x.Group))
+            {
+                posts.AddRange(group.Posts.Where(x => x.Privacy != PrivacyStatus.InGroup).AsQueryable().To<PostViewModel>());
+            }
+
+            return posts.OrderByDescending(x => x.CreatedOn).ToList();
+        }
+
+        public async Task<bool> UpdatePost(PostEditInputModel model, int postId)
+        {
+            var post = await this.postsRepo.All().FirstOrDefaultAsync(x => x.Id == postId);
+
+            if (post == null)
+            {
+                return false;
+            }
+
+            post.Content = model.Content;
+
+            this.postsRepo.Update(post);
+            await this.postsRepo.SaveChangesAsync();
+
+            return true;
         }
     }
 }
