@@ -25,10 +25,5 @@
         {
             await this.Clients.All.SendAsync("ReceiveMessage", senderId, message, groupName);
         }
-
-        public async Task ReceiveMessage(string senderId, string message, string groupName)
-        {
-            await this.Clients.User(senderId).SendAsync("SendMessage", senderId, message, groupName);
-        }
     }
 }
