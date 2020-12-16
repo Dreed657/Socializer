@@ -1,0 +1,68 @@
+﻿@page
+@using Socializer.Data.Models.Enums
+@model ExternalLoginModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="main-backgroup">
+    <div class="container">
+        <div class="mx-auto w-25 border rounded p-3">
+            <h1 class="text-white">@ViewData["Title"]</h1>
+            <h4 id="external-login-title" class="text-white">Associate your @Model.ProviderDisplayName account.</h4>
+            <hr />
+
+            <p id="external-login-description" class="text-warning">
+                You've successfully authenticated with <strong>@Model.ProviderDisplayName</strong>.
+                Please enter an email address for this site below and click the Register button to finish
+                logging in.
+            </p>
+
+            <div class="row">
+                <div class="col">
+                    <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <hr />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="row my-3">
+                            <div class="col">
+                                <input asp-for="Input.FirstName" class="form-control" placeholder="First name" />
+                                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <input asp-for="Input.LastName" class="form-control" placeholder="Last name" />
+                                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group my-3">
+                            <input asp-for="Input.Email" class="form-control" placeholder="Email" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group my-3">
+                            <label asp-for="Input.Birthdate"></label>
+                            <input asp-for="Input.Birthdate" class="form-control" />
+                            <span asp-validation-for="Input.Birthdate" class="text-danger"></span>
+                        </div>
+                        <div class="form-check">
+                            <label asp-for="Input.Gender"></label><br />
+                            <input asp-for="Input.Gender" type="radio" value="Male" /> Male<br />
+                            <input asp-for="Input.Gender" type="radio" value="Female" /> Female<br />
+                            <input asp-for="Input.Gender" type="radio" value="Other" /> Other<br />
+                            <span asp-validation-for="Input.Gender" class="text-danger"></span>
+                        </div>
+                        <div class="form-group m-4 mb-0">
+                            <div class="row text-center">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-primary">Register</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

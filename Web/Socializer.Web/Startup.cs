@@ -1,8 +1,7 @@
 ﻿namespace Socializer.Web
 {
-    using System.Reflection;
-
-    using AutoMapper;
+    using System.Reflection;
+
     using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -19,19 +18,20 @@
     using Socializer.Data.Repositories;
     using Socializer.Data.Seeding;
     using Socializer.Services;
-    using Socializer.Services.Data.Common;
     using Socializer.Services.Data.Groups;
     using Socializer.Services.Data.Posts;
-    using Socializer.Services.Data.Profiles;
     using Socializer.Services.Data.Users;
     using Socializer.Services.Mapping;
     using Socializer.Services.Messaging;
-    using Socializer.Web.Areas.Admin.Services;
+    using Socializer.Web.Areas.Admin.Services.Common;
+    using Socializer.Web.Areas.Admin.Services.Groups;
+    using Socializer.Web.Areas.Admin.Services.Users;
     using Socializer.Web.Areas.Messenger.Services;
+    using Socializer.Web.Hubs;
     using Socializer.Web.ViewModels.Common;
-
+
     public class Startup
-    {
+    {
         private readonly IConfiguration configuration;
 
         public Startup(IConfiguration configuration)
@@ -41,6 +41,8 @@
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(this.configuration);
+
             services.AddDbContext<ApplicationDbContext>(
                 options =>
                 {
@@ -49,8 +51,31 @@
                 });
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddRoles<ApplicationRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            // services.AddAuthentication()
+            //    .AddFacebook(facebookOptions =>
+            //    {
+            //        facebookOptions.AppId = this.configuration["ExternalAuth:Facebook:AppId"];
+            //        facebookOptions.AppSecret = this.configuration["ExternalAuth:Facebook:AppSecret"];
+            //    })
+            //    .AddGoogle(googleOptions =>
+            //    {
+            //        googleOptions.ClientId = this.configuration["ExternalAuth:Google:ClientId"];
+            //        googleOptions.ClientSecret = this.configuration["ExternalAuth:Google:ClientSecret"];
+            //    })
+            //    .AddTwitter(twitterOptions =>
+            //    {
+            //        twitterOptions.ConsumerKey = this.configuration["ExternalAuth:Twitter:ApiKey"];
+            //        twitterOptions.ConsumerSecret = this.configuration["ExternalAuth:Twitter:ApiSecretKey"];
+            //        twitterOptions.RetrieveUserDetails = true;
+            //    })
+            //    .AddMicrosoftAccount(microsoftOptions =>
+            //    {
+            //        microsoftOptions.ClientId = this.configuration["ExternalAuth:Microsoft:ClientId"];
+            //        microsoftOptions.ClientSecret = this.configuration["ExternalAuth:Microsoft:ClientSecret"];
+            //    });
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.Configure<CookiePolicyOptions>(
@@ -67,8 +92,6 @@
                     }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
 
-            services.AddSingleton(this.configuration);
-
             var cloudinaryAccount = new CloudinaryDotNet.Account(
                 this.configuration["Cloudinary:CloudName"],
                 this.configuration["Cloudinary:ApiKey"],
@@ -78,17 +101,20 @@
 
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+            services.AddScoped<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
-            services.AddTransient<ITimeService, TimeService>();
-            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
-            services.AddTransient<IDefaultImageService, DefaultImageService>();
+            services.AddTransient<TimeService>();
 
+            // Data services
             services.AddTransient<IPostsService, PostsService>();
-            services.AddTransient<IProfilesService, ProfilesService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IGroupService, GroupService>();
-            services.AddTransient<IDashboardService, DashboardService>();
             services.AddTransient<IMessengerService, MessengerService>();
+
+            // Dashboard services
+            services.AddTransient<IDashboardService, DashboardService>();
+            services.AddTransient<IAdminUsersService, AdminUsersService>();
+            services.AddTransient<IAdminGroupsService, AdminGroupsService>();
 
             services.AddSignalR();
             services.AddApplicationInsightsTelemetry();

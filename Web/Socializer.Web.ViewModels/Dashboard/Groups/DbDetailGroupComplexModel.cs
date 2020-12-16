@@ -3,7 +3,7 @@
     using Socializer.Web.ViewModels.Common;
     using Socializer.Web.ViewModels.Groups.Dashboard;
 
-    public class DbDetailGroupComplexModel : ComplexModel<EditGroupModel, DbGroupViewModel>
+    public class DbDetailGroupComplexModel : ComplexModel<DbEditGroupModel, DbGroupViewModel>
     {
     }
 }

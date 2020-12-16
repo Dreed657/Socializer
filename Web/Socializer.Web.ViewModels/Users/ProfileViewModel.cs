@@ -1,15 +1,14 @@
-﻿using Socializer.Data.Models.Enums;
-
-namespace Socializer.Web.ViewModels.Users
+﻿namespace Socializer.Web.ViewModels.Users
 {
     using System;
     using System.Collections.Generic;
 
     using Socializer.Data.Models;
+    using Socializer.Data.Models.Enums;
     using Socializer.Services.Mapping;
     using Socializer.Web.ViewModels.Posts;
 
-    public class  ProfileViewModel : IMapFrom<ApplicationUser>
+    public class ProfileViewModel : IMapFrom<ApplicationUser>
     {
         public string Id { get; set; }
 
@@ -27,10 +26,14 @@ namespace Socializer.Web.ViewModels.Users
 
         public Gender Gender { get; set; }
 
-        public Image ProfileImage { get; set; }
+        public string ProfileImageUrl { get; set; }
 
-        public Image CoverImage { get; set; }
+        public string CoverImageUrl { get; set; }
+
+        public int FriendsCount { get; set; }
 
         public ICollection<PostViewModel> Posts { get; set; }
+
+        public ICollection<ShortUserViewModel> Friends { get; set; }
     }
 }

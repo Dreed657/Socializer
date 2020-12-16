@@ -19,6 +19,8 @@
         [Required]
         public string Description { get; set; }
 
+        public virtual Image CoverImage { get; set; }
+
         public virtual ICollection<GroupMember> Members { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }

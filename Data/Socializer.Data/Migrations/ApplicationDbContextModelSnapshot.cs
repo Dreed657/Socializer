@@ -172,6 +172,9 @@ namespace Socializer.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("Birthdate")
                         .HasColumnType("datetime2");
 
@@ -259,6 +262,8 @@ namespace Socializer.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.HasIndex("CoverImageId1");
 
                     b.HasIndex("IsDeleted");
@@ -317,39 +322,6 @@ namespace Socializer.Data.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("Socializer.Data.Models.Friend", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsFriend")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ReceiverId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("SenderId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReceiverId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("Friends");
-                });
-
             modelBuilder.Entity("Socializer.Data.Models.FriendRequest", b =>
                 {
                     b.Property<int>("Id")
@@ -390,6 +362,9 @@ namespace Socializer.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<int?>("CoverImageId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -411,6 +386,8 @@ namespace Socializer.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CoverImageId");
 
                     b.HasIndex("IsDeleted");
 
@@ -648,6 +625,10 @@ namespace Socializer.Data.Migrations
 
             modelBuilder.Entity("Socializer.Data.Models.ApplicationUser", b =>
                 {
+                    b.HasOne("Socializer.Data.Models.ApplicationUser", null)
+                        .WithMany("Friends")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("Socializer.Data.Models.Image", "CoverImage")
                         .WithMany()
                         .HasForeignKey("CoverImageId1");
@@ -680,25 +661,6 @@ namespace Socializer.Data.Migrations
                     b.Navigation("Post");
                 });
 
-            modelBuilder.Entity("Socializer.Data.Models.Friend", b =>
-                {
-                    b.HasOne("Socializer.Data.Models.ApplicationUser", "Receiver")
-                        .WithMany("Friends")
-                        .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Socializer.Data.Models.ApplicationUser", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Receiver");
-
-                    b.Navigation("Sender");
-                });
-
             modelBuilder.Entity("Socializer.Data.Models.FriendRequest", b =>
                 {
                     b.HasOne("Socializer.Data.Models.ApplicationUser", "Receiver")
@@ -716,6 +678,15 @@ namespace Socializer.Data.Migrations
                     b.Navigation("Receiver");
 
                     b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("Socializer.Data.Models.Group", b =>
+                {
+                    b.HasOne("Socializer.Data.Models.Image", "CoverImage")
+                        .WithMany()
+                        .HasForeignKey("CoverImageId");
+
+                    b.Navigation("CoverImage");
                 });
 
             modelBuilder.Entity("Socializer.Data.Models.GroupCreateRequest", b =>

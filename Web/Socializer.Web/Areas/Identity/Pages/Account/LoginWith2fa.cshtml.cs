@@ -14,6 +14,7 @@
     using Socializer.Data.Models;
 
     [AllowAnonymous]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1649:File name should match first type name", Justification = "<Pending>")]
     public class LoginWith2faModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> signInManager;
@@ -54,7 +55,7 @@
                 return this.Page();
             }
 
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= this.Url.Content("~/");
 
             var user = await this.signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)

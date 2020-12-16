@@ -22,7 +22,8 @@
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<GroupMember, ShortGroupMemberViewModel>()
-                .ForMember(x => x.ProfileImageUrl,
+                .ForMember(
+                    x => x.ProfileImageUrl,
                     opt =>
                         opt.MapFrom(y => y.Member.ProfileImage.Url));
         }

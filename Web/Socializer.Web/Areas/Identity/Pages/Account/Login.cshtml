@@ -7,52 +7,102 @@
 
 <div class="main-backgroup">
     <div class="form-container">
-        <div class="login-form p-4 my-5 mx-auto rounded border">
-            <div class="form-header mb-5">
-                <h1>Login</h1>
-                <p class="lead">Sing in to your account.</p>
-            </div>
-            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group m-2">
-                    <label asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="form-control" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group m-2">
-                    <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group m-2">
-                    <div class="row">
-                        <div class="col">
-                            <div class="checkbox">
-                                <label asp-for="Input.RememberMe">
-                                    <input asp-for="Input.RememberMe" />
-                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
-                                </label>
+        <div class="row p-4 my-5 mx-auto rounded border">
+            <div class="col">
+                <div class="login-form">
+                    <div class="form-header mb-5">
+                        <h1>Login</h1>
+                        <p class="lead">Sing in to your account.</p>
+                    </div>
+                    <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <hr />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group m-2">
+                            <label asp-for="Input.Email"></label>
+                            <input asp-for="Input.Email" class="form-control" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group m-2">
+                            <label asp-for="Input.Password"></label>
+                            <input asp-for="Input.Password" class="form-control" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group m-2">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="checkbox">
+                                        <label asp-for="Input.RememberMe">
+                                            <input asp-for="Input.RememberMe" />
+                                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col text-right">
+                                    <p>
+                                        <a id="forgot-password" class="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                        <div class="col text-right">
-                            <p>
-                                <a id="forgot-password" class="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                            </p>
+                        <div class="form-group m-4">
+                            <div class="row">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-secondary mx-auto">Log in</button>
+                                </div>
+                                <div class="col">
+                                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-secondary mx-auto">Register</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
-                <div class="form-group m-4">
-                    <div class="row offset-1">
-                        <div class="col">
-                            <button type="submit" class="btn btn-secondary">Log in</button>
-                        </div>
-                        <div class="col offset-2">
-                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-secondary">Register</a>
-                        </div>
+            </div>
+            <div class="col text-center border-left">
+                @if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <p class="text-white">
+                        There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                        for details on setting up this ASP.NET application to support logging in via external services.
+                    </p>
+                }
+                else
+                {
+                    <div class="row p-2">
+                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                            @foreach (var provider in Model.ExternalLogins)
+                            {
+                                if (provider.DisplayName == "Facebook")
+                                {
+                                    <div class="col m-2">
+                                        <button type="submit" class="btn btn-secondary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fab fa-facebook fa-fw"></i> Login with @provider.DisplayName</button>
+                                    </div>
+                                }
+
+                                if (provider.DisplayName == "Google")
+                                {
+                                    <div class="col m-2">
+                                        <button type="submit" class="btn btn-danger" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fab fa-google fa-fw"></i> Login with @provider.DisplayName</button>
+                                    </div>
+                                }
+
+                                if (provider.DisplayName == "Twitter")
+                                {
+                                    <div class="col m-2">
+                                        <button type="submit" class="btn btn-info" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fab fa-twitter fa-fw"></i> Login with @provider.DisplayName</button>
+                                    </div>
+                                }
+
+                                if (provider.DisplayName == "Microsoft")
+                                {
+                                    <div class="col m-2">
+                                        <button type="submit" class="btn btn-warning" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fab fa-twitter fa-fw"></i> Login with @provider.DisplayName</button>
+                                    </div>
+                                }
+                            }
+                        </form>
                     </div>
-                </div>
-            </form>
+                }
+            </div>
         </div>
     </div>
 </div>

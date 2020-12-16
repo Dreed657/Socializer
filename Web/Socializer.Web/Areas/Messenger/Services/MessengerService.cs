@@ -1,12 +1,14 @@
- namespace Socializer.Web.Areas.Messenger.Services
+﻿namespace Socializer.Web.Areas.Messenger.Services
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.SignalR;
     using Microsoft.EntityFrameworkCore;
     using Socializer.Data.Common.Repositories;
     using Socializer.Data.Models;
+    using Socializer.Services.Data.Users;
     using Socializer.Web.Hubs;
 
     public class MessengerService : IMessengerService

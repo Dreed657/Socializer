@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
-using Socializer.Web.ViewModels.Posts;
-
-namespace Socializer.Web.ViewModels.Groups
+﻿namespace Socializer.Web.ViewModels.Groups
 {
     using System;
+    using System.Collections.Generic;
 
+    using AutoMapper;
     using Socializer.Data.Models;
     using Socializer.Services.Mapping;
+    using Socializer.Web.ViewModels.Posts;
 
     public class GroupViewModel : IMapFrom<Group>, IHaveCustomMappings
     {
@@ -21,12 +20,15 @@ namespace Socializer.Web.ViewModels.Groups
 
         public int MembersCount { get; set; }
 
+        public string CoverImageUrl { get; set; }
+
         public ICollection<PostViewModel> Posts { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Group, GroupViewModel>()
-                .ForMember(x => x.MembersCount,
+                .ForMember(
+                    x => x.MembersCount,
                     opt => opt.MapFrom(y => y.Members.Count));
         }
     }

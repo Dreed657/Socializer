@@ -21,21 +21,33 @@
             this.userManger = userManger;
         }
 
-        [HttpGet("/{groupName}/{groupId}")]
-        public async Task<IActionResult> Index(string groupName, int groupId)
+        [Route("group/{id}")]
+        public async Task<IActionResult> Index(int id)
         {
-            var group = await this.groupService.GetByIdAsync<GroupViewModel>(groupId);
-            return this.View(group);
+            var group = await this.groupService.GetByIdAsync<GroupViewModel>(id);
+
+            var model = new GroupIndexComplexModel()
+            {
+                ViewModel = group,
+            };
+
+            return this.View(model);
         }
 
-        [HttpGet("group/{groupId}/Members")]
+        [HttpPost]
+        public async Task<IActionResult> Edit(GroupIndexComplexModel model, int id)
+        {
+            var result = await this.groupService.UpdateGroup(model.InputModel, id, this.userManger.GetUserId(this.User));
+
+            return this.RedirectToAction(nameof(this.Index), new { id });
+        }
+
         public async Task<IActionResult> Members(int groupId)
         {
             var group = await this.groupService.GetByIdAsync<GroupMembersViewModel>(groupId);
             return this.View(group);
         }
 
-        [HttpGet("/groups")]
         public async Task<IActionResult> Discover()
         {
             var groups = await this.groupService.GetAllAsync<GroupShortViewModel>();

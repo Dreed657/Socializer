@@ -39,8 +39,7 @@ namespace Socializer.Web.ViewComponents
 
             posts = posts.OrderByDescending(x => x.CreatedOn).ToList();
 
-            //TODO: ADD AUTO MAPPER
-
+            // TODO: ADD AUTO MAPPER
             var models = posts.Select(x => new PostViewModel()
             {
                 Id = x.Id,

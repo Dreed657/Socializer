@@ -161,7 +161,11 @@
 
         public async Task<IEnumerable<CommentViewModel>> GetAllComments(int postId)
         {
-            return await this.commentRepo.All().Where(x => x.PostId == postId).To<CommentViewModel>().ToListAsync();
+            return await this.commentRepo.All()
+                .Where(x => x.PostId == postId)
+                .OrderByDescending(x => x.CreatedOn)
+                .To<CommentViewModel>()
+                .ToListAsync();
         }
     }
 }

@@ -20,7 +20,7 @@
             this.Posts = new HashSet<Post>();
             this.Comments = new HashSet<Comment>();
             this.Likes = new HashSet<PostLike>();
-            this.Friends = new HashSet<Friend>();
+            this.Friends = new HashSet<ApplicationUser>();
             this.Groups = new HashSet<GroupMember>();
         }
 
@@ -55,7 +55,7 @@
 
         public virtual ICollection<PostLike> Likes { get; set; }
 
-        public virtual ICollection<Friend> Friends { get; set; }
+        public virtual ICollection<ApplicationUser> Friends { get; set; }
 
         public virtual ICollection<GroupMember> Groups { get; set; }
 

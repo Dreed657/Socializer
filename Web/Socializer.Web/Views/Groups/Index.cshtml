@@ -1,32 +1,36 @@
-﻿@model GroupViewModel
+﻿@model GroupIndexComplexModel
 @inject UserManager<ApplicationUser> UserManager
 @inject IGroupService GroupService
 
 @{
-    this.ViewData["Title"] = "Group " + @Model.Name;
+    this.ViewData["Title"] = "Group " + @Model.ViewModel.Name;
+
+    //TODO: Remove this after db reset!
+    var coverUrl = string.IsNullOrEmpty(Model.ViewModel.CoverImageUrl) ? "https://via.placeholder.com/728x90.png" : Model.ViewModel.CoverImageUrl;
 }
 <div class="container">
     <div class="row">
-        @* Cover *@
-        <img class="group-cover" src="https://via.placeholder.com/728x90.png" alt="Alternate Text" />
+        <img class="group-cover" src="@coverUrl" alt="Alternate Text" />
     </div>
     <div class="row p-3">
         @* Info *@
         <div class="col">
-            <h3>@Model.Name</h3>
-            <h6><i class="fas fa-globe-europe"></i> Public Group <i class="fas fa-circle"></i> <a asp-controller="Groups" asp-action="Members" asp-route-groupId="@Model.Id">@Model.MembersCount Members</a></h6>
+            <h3>@Model.ViewModel.Name</h3>
+            <h6><i class="fas fa-globe-europe"></i> Public Group <i class="fas fa-circle"></i> <a asp-controller="Groups" asp-action="Members" asp-route-groupId="@Model.ViewModel.Id">@Model.ViewModel.MembersCount Members</a></h6>
         </div>
         <div class="col-3 my-auto">
-            @if (await this.GroupService.IsMemberInGroup(Model.Id, this.UserManager.GetUserId(this.User)))
+            @if (await this.GroupService.IsMemberInGroup(Model.ViewModel.Id, this.UserManager.GetUserId(this.User)))
             {
-                @if (await this.GroupService.IsMemberAdmin(Model.Id, this.UserManager.GetUserId(this.User)))
+                @if (await this.GroupService.IsMemberAdmin(Model.ViewModel.Id, this.UserManager.GetUserId(this.User)))
                 {
-                    <button type="button" class="btn btn-outline-warning float-right">Edit Group</button>
+                    <button type="button" class="btn btn-outline-warning float-right" data-toggle="modal" data-target="#exampleModalCenter">
+                        Edit Group
+                    </button>
                 }
             }
             else
             {
-                <form asp-controller="Groups" asp-action="JoinGroup" asp-route-groupId="@Model.Id" method="post">
+                <form asp-controller="Groups" asp-action="JoinGroup" asp-route-groupId="@Model.ViewModel.Id" method="post">
                     <input type="submit" value="Join Group" class="btn btn-outline-secondary float-right" />
                 </form>
             }
@@ -34,7 +38,7 @@
     </div>
     <div class="row">
         <div class="col-8">
-            @if (await this.GroupService.IsMemberInGroup(Model.Id, this.UserManager.GetUserId(this.User)))
+            @if (await this.GroupService.IsMemberInGroup(Model.ViewModel.Id, this.UserManager.GetUserId(this.User)))
             {
                 <div class="py-4">
                     <form asp-controller="Posts" asp-action="Create" method="post" enctype="multipart/form-data">
@@ -51,15 +55,15 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="text" name="groupId" value="@Model.Id" hidden/>
+                        <input type="text" name="groupId" value="@Model.ViewModel.Id" hidden/>
                         <input type="text" name="returnUrl" value="@this.Context.Request.Path.Value" hidden/>
                     </form>
                 </div>
             }
 
-            @if (Model.Posts.Any())
+            @if (Model.ViewModel.Posts.Any())
             {
-                @foreach (var post in Model.Posts.OrderByDescending(x => x.CreatedOn))
+                @foreach (var post in Model.ViewModel.Posts.OrderByDescending(x => x.CreatedOn))
                 {
                     <partial name="_PostPartial" model="post" />
                 }
@@ -76,7 +80,7 @@
                         <h3>About</h3>
                     </div>
                     <div class="">
-                        <p>@Model.Description</p>
+                        <p>@Model.ViewModel.Description</p>
                     </div>
                 </div>
                 <div class="row my-3 mx-2">
@@ -105,6 +109,46 @@
                         <p class="mb-0">Sofia, Bulgaria</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit group @($"({@Model.ViewModel.Name})")</h5>
+                <button type="button" data-dismiss="modal" class="btn btn-primary close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-area="" asp-controller="Groups" asp-action="Edit" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="InputModel.Name"></label>
+                        <input class="form-control" asp-for="InputModel.Name" value="@Model.ViewModel.Name">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="InputModel.Description"></label>
+                        <textarea id="InputModel_Description" name="InputModel.Description" class="form-control" style="height: 75px">@Model.ViewModel.Description</textarea>
+
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="InputModel.Status"></label>
+                        <select class="form-control" asp-for="InputModel.Status" asp-items="Html.GetEnumSelectList<PrivacyStatus>()"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="InputModel.CoverImage"></label>
+                        <input class="form-control" asp-for="InputModel.CoverImage">
+                    </div>
+                    <div class="form-group mt-4 text-center">
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                    <input name="id" value="@Model.ViewModel.Id" hidden />
+                </form>
             </div>
         </div>
     </div>

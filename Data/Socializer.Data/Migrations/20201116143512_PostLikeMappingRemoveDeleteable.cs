@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Socializer.Data.Migrations
+﻿namespace Socializer.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class PostLikeMappingRemoveDeleteable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

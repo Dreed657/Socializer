@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace Socializer.Web.Controllers
+﻿namespace Socializer.Web.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize]

@@ -57,7 +57,7 @@
                 throw new InvalidOperationException($"Unable to load two-factor authentication user.");
             }
 
-            var recoveryCode = Input.RecoveryCode.Replace(" ", string.Empty);
+            var recoveryCode = this.Input.RecoveryCode.Replace(" ", string.Empty);
 
             var result = await this.signInManager.TwoFactorRecoveryCodeSignInAsync(recoveryCode);
 
