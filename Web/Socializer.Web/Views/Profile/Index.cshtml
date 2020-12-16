@@ -61,13 +61,34 @@
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="mx-2 text-center">
-                            Raw denim you
-                            probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master
-                            cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro
-                            keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip
-                            placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi
-                            qui.
+                        <div class="p-3 bg-light shodow-lg rounded m-2">
+                            <div class="row text-left">
+                                <p class="h3 bold">Intro</p>
+                            </div>
+                            <div class="row">
+                                <p><i class="fas fa-genderless"></i> @Model.ViewModel.Gender.ToString()</p>
+                            </div>
+                            <div class="row">
+                                <p><i class="far fa-clock"></i> Joined in @Model.ViewModel.CreatedOn.ToString("M")</p>
+                            </div>
+                            <div class="row">
+                                <p><i class="fas fa-birthday-cake"></i> Born on @Model.ViewModel.Birthdate.ToShortDateString()</p>
+                            </div>
+                            <div class="row-cols-auto my-2">
+                                <p class="text-left bold h4">Roles:</p>
+                                @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.ViewModel.Id), GlobalConstants.AdministratorRoleName))
+                                {
+                                    <span class="badge badge-danger" alt="Administrator"><i class="fas fa-user-shield"></i> Administrator</span>
+                                }
+                                @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.ViewModel.Id), GlobalConstants.VerifiedRoleName))
+                                {
+                                    <span class="badge badge-info" alt="Verified"><i class="fas fa-check"></i> Verified</span>
+                                }
+                                @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.ViewModel.Id), GlobalConstants.DeveloperRoleName))
+                                {
+                                    <span class="badge badge-dark" alt="Developer"><i class="fab fa-dev"></i> Developer</span>
+                                }
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-8">
