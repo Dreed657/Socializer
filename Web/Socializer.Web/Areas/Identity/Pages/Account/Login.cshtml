@@ -67,40 +67,38 @@
                 }
                 else
                 {
-                    <div class="row p-2">
-                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                            @foreach (var provider in Model.ExternalLogins)
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        @foreach (var provider in Model.ExternalLogins)
+                        {
+                            if (provider.DisplayName == "Facebook")
                             {
-                                if (provider.DisplayName == "Facebook")
-                                {
-                                    <div class="col m-2">
-                                        <button type="submit" class="btn btn-secondary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fab fa-facebook fa-fw"></i> Login with @provider.DisplayName</button>
-                                    </div>
-                                }
-
-                                if (provider.DisplayName == "Google")
-                                {
-                                    <div class="col m-2">
-                                        <button type="submit" class="btn btn-danger" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fab fa-google fa-fw"></i> Login with @provider.DisplayName</button>
-                                    </div>
-                                }
-
-                                if (provider.DisplayName == "Twitter")
-                                {
-                                    <div class="col m-2">
-                                        <button type="submit" class="btn btn-info" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fab fa-twitter fa-fw"></i> Login with @provider.DisplayName</button>
-                                    </div>
-                                }
-
-                                if (provider.DisplayName == "Microsoft")
-                                {
-                                    <div class="col m-2">
-                                        <button type="submit" class="btn btn-warning" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fab fa-twitter fa-fw"></i> Login with @provider.DisplayName</button>
-                                    </div>
-                                }
+                                <div class="col m-2">
+                                    <button type="submit" class="btn btn-secondary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fab fa-facebook fa-fw"></i> Login with @provider.DisplayName</button>
+                                </div>
                             }
-                        </form>
-                    </div>
+
+                            if (provider.DisplayName == "Google")
+                            {
+                                <div class="col m-2">
+                                    <button type="submit" class="btn btn-danger" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fab fa-google fa-fw"></i> Login with @provider.DisplayName</button>
+                                </div>
+                            }
+
+                            if (provider.DisplayName == "Twitter")
+                            {
+                                <div class="col m-2">
+                                    <button type="submit" class="btn btn-info" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fab fa-twitter fa-fw"></i> Login with @provider.DisplayName</button>
+                                </div>
+                            }
+
+                            if (provider.DisplayName == "Microsoft")
+                            {
+                                <div class="col m-2">
+                                    <button type="submit" class="btn btn-warning" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fab fa-twitter fa-fw"></i> Login with @provider.DisplayName</button>
+                                </div>
+                            }
+                        }
+                    </form>
                 }
             </div>
         </div>

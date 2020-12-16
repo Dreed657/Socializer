@@ -6,6 +6,7 @@
     using Socializer.Data.Models;
     using Socializer.Data.Models.Enums;
     using Socializer.Services.Mapping;
+    using Socializer.Web.ViewModels.Images;
     using Socializer.Web.ViewModels.Posts;
 
     public class ProfileViewModel : IMapFrom<ApplicationUser>
@@ -32,8 +33,12 @@
 
         public int FriendsCount { get; set; }
 
+        public int ImagesCount { get; set; }
+
         public ICollection<PostViewModel> Posts { get; set; }
 
         public ICollection<ShortUserViewModel> Friends { get; set; }
+
+        public ICollection<ImageViewModel> Images { get; set; }
     }
 }

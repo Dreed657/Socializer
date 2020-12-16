@@ -8,6 +8,12 @@
   <PropertyGroup>
     <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Common\**" />
+    <EmbeddedResource Remove="Common\**" />
+    <None Remove="Common\**" />
+  </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
@@ -26,10 +32,6 @@
     <ProjectReference Include="..\..\Web\Socializer.Web.ViewModels\Socializer.Web.ViewModels.csproj" />
     <ProjectReference Include="..\Socializer.Services.Mapping\Socializer.Services.Mapping.csproj" />
     <ProjectReference Include="..\Socializer.Services\Socializer.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Common\" />
   </ItemGroup>
 
 </Project>

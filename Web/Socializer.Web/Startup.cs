@@ -19,6 +19,7 @@
     using Socializer.Data.Seeding;
     using Socializer.Services;
     using Socializer.Services.Data.Groups;
+    using Socializer.Services.Data.Images;
     using Socializer.Services.Data.Posts;
     using Socializer.Services.Data.Users;
     using Socializer.Services.Mapping;
@@ -55,27 +56,27 @@
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             // services.AddAuthentication()
-            //    .AddFacebook(facebookOptions =>
-            //    {
-            //        facebookOptions.AppId = this.configuration["ExternalAuth:Facebook:AppId"];
-            //        facebookOptions.AppSecret = this.configuration["ExternalAuth:Facebook:AppSecret"];
-            //    })
-            //    .AddGoogle(googleOptions =>
-            //    {
-            //        googleOptions.ClientId = this.configuration["ExternalAuth:Google:ClientId"];
-            //        googleOptions.ClientSecret = this.configuration["ExternalAuth:Google:ClientSecret"];
-            //    })
-            //    .AddTwitter(twitterOptions =>
-            //    {
-            //        twitterOptions.ConsumerKey = this.configuration["ExternalAuth:Twitter:ApiKey"];
-            //        twitterOptions.ConsumerSecret = this.configuration["ExternalAuth:Twitter:ApiSecretKey"];
-            //        twitterOptions.RetrieveUserDetails = true;
-            //    })
-            //    .AddMicrosoftAccount(microsoftOptions =>
-            //    {
-            //        microsoftOptions.ClientId = this.configuration["ExternalAuth:Microsoft:ClientId"];
-            //        microsoftOptions.ClientSecret = this.configuration["ExternalAuth:Microsoft:ClientSecret"];
-            //    });
+            //   .AddFacebook(facebookOptions =>
+            //   {
+            //       facebookOptions.AppId = this.configuration["ExternalAuth:Facebook:AppId"];
+            //       facebookOptions.AppSecret = this.configuration["ExternalAuth:Facebook:AppSecret"];
+            //   })
+            //   .AddGoogle(googleOptions =>
+            //   {
+            //       googleOptions.ClientId = this.configuration["ExternalAuth:Google:ClientId"];
+            //       googleOptions.ClientSecret = this.configuration["ExternalAuth:Google:ClientSecret"];
+            //   })
+            //   .AddTwitter(twitterOptions =>
+            //   {
+            //       twitterOptions.ConsumerKey = this.configuration["ExternalAuth:Twitter:ApiKey"];
+            //       twitterOptions.ConsumerSecret = this.configuration["ExternalAuth:Twitter:ApiSecretKey"];
+            //       twitterOptions.RetrieveUserDetails = true;
+            //   })
+            //   .AddMicrosoftAccount(microsoftOptions =>
+            //   {
+            //       microsoftOptions.ClientId = this.configuration["ExternalAuth:Microsoft:ClientId"];
+            //       microsoftOptions.ClientSecret = this.configuration["ExternalAuth:Microsoft:ClientSecret"];
+            //   });
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.Configure<CookiePolicyOptions>(
@@ -110,6 +111,7 @@
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IGroupService, GroupService>();
             services.AddTransient<IMessengerService, MessengerService>();
+            services.AddTransient<IImagesService, ImagesService>();
 
             // Dashboard services
             services.AddTransient<IDashboardService, DashboardService>();
