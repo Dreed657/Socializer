@@ -16,7 +16,7 @@
                             @if (Model.InGroup)
                             {
                                 <i class="fas fa-long-arrow-alt-right"></i>
-                                <a asp-area="" asp-controller="Groups" asp-action="Index" asp-route-groupId="@Model.Group.Id" asp-route-groupName="@Model.Group.Name">@Model.Group.Name</a>
+                                <a asp-area="" asp-controller="Groups" asp-action="Index" asp-route-id="@Model.Group.Id">@Model.Group.Name</a>
                             }
                         </h4>
                     </div>

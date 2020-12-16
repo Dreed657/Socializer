@@ -21,6 +21,7 @@
             this.userManger = userManger;
         }
 
+        [Route("group/{id}")]
         public async Task<IActionResult> Index(int id)
         {
             var group = await this.groupService.GetByIdAsync<GroupViewModel>(id);
@@ -31,6 +32,14 @@
             };
 
             return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(GroupIndexComplexModel model, int id)
+        {
+            var result = await this.groupService.EditGroup(model.InputModel, id, this.userManger.GetUserId(this.User));
+
+            return this.RedirectToAction(nameof(this.Index), new { id });
         }
 
         public async Task<IActionResult> Members(int groupId)

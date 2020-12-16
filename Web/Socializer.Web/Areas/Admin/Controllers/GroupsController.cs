@@ -38,7 +38,7 @@
                 this.ModelState.AddModelError("123", "Model is not valid!");
             }
 
-            if (!await this.groupService.UpdateGroup(model.InputModel, groupId))
+            if (!await this.groupService.DbUpdateGroup(model.InputModel, groupId))
             {
                 this.TempData["Error"] = "Something went wrong with the request!";
             }

@@ -2,6 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using Microsoft.AspNetCore.Http;
     using Socializer.Data.Models.Enums;
 
     public class GroupInputModel
@@ -18,6 +19,6 @@
         [Display(Name = "Privacy level")]
         public PrivacyStatus Status { get; set; }
 
-        public string Visibility { get; set; }
+        public IFormFile CoverImage { get; set; }
     }
 }

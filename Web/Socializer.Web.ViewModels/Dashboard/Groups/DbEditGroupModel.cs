@@ -1,8 +1,8 @@
-﻿namespace Socializer.Web.ViewModels.Common
+﻿namespace Socializer.Web.ViewModels.Dashboard.Groups
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class EditGroupModel
+    public class DbEditGroupModel
     {
         [Required]
         [MinLength(3)]

@@ -4,22 +4,24 @@
     using System.Threading.Tasks;
 
     using Socializer.Data.Models;
-    using Socializer.Web.ViewModels.Common;
+    using Socializer.Web.ViewModels.Dashboard.Groups;
     using Socializer.Web.ViewModels.Groups;
 
     public interface IGroupService
     {
+        Task<IEnumerable<T>> GetAllAsync<T>();
+
         Task<T> GetByIdAsync<T>(int id);
 
-        Task<bool> UpdateGroup(EditGroupModel model, int groupId);
+        Task<bool> EditGroup(GroupInputModel model, int groupId, string userId);
+
+        Task<bool> DbUpdateGroup(DbEditGroupModel model, int groupId);
 
         Task<bool> IsMemberInGroup(int groupId, string userId);
 
         Task<bool> IsMemberAdmin(int groupId, string userId);
 
         Task<string> AddMemberToGroupAsync(int groupId, string userId);
-
-        Task<IEnumerable<T>> GetAllAsync<T>();
 
         Task<bool> CreateGroupRequestAsync(GroupRequestInputModel model, ApplicationUser creator);
 

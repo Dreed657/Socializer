@@ -1,6 +1,8 @@
-﻿namespace Socializer.Services.Data.Groups
+﻿using System;
+using CloudinaryDotNet;
+
+namespace Socializer.Services.Data.Groups
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -10,18 +12,22 @@
     using Socializer.Data.Models;
     using Socializer.Data.Models.Enums;
     using Socializer.Services.Mapping;
-    using Socializer.Web.ViewModels.Common;
+    using Socializer.Web.ViewModels.Dashboard.Groups;
     using Socializer.Web.ViewModels.Groups;
 
     public class GroupService : IGroupService
     {
+        private readonly Cloudinary cloudinary;
         private readonly IRepository<Group> groupRepository;
         private readonly IRepository<GroupCreateRequest> groupCreateRepository;
+        private readonly IRepository<Image> imageRepo;
 
-        public GroupService(IRepository<Group> groupRepository, IRepository<GroupCreateRequest> groupCreteRepository)
+        public GroupService(Cloudinary cloudinary, IRepository<Group> groupRepository, IRepository<GroupCreateRequest> groupCreteRepository, IRepository<Image> imageRepo)
         {
+            this.cloudinary = cloudinary;
             this.groupRepository = groupRepository;
             this.groupCreateRepository = groupCreteRepository;
+            this.imageRepo = imageRepo;
         }
 
         public async Task<T> GetByIdAsync<T>(int id)
@@ -31,7 +37,7 @@
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<bool> UpdateGroup(EditGroupModel model, int groupId)
+        public async Task<bool> DbUpdateGroup(DbEditGroupModel model, int groupId)
         {
             var entity = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Id == groupId);
 
@@ -138,6 +144,7 @@
             {
                 Name = request.Name,
                 Description = request.Description,
+                CoverImage = await this.imageRepo.All().FirstOrDefaultAsync(x => x.Name == "Default_Group_Cover"),
             };
 
             group.Members.Add(new GroupMember() { MemberId = request.Creator.Id, Group = group, Role = GroupRole.Admin });
@@ -174,6 +181,40 @@
                 .FirstOrDefaultAsync(x => x.Id == groupId);
 
             return group.Members.Any(x => x.MemberId == userId && x.GroupId == groupId);
+        }
+
+        public async Task<bool> EditGroup(GroupInputModel model, int groupId, string userId)
+        {
+            var group = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Id == groupId);
+
+            if (group == null)
+            {
+                return false;
+            }
+
+            group.Name = model.Name;
+            group.Description = model.Description;
+
+            if (model.CoverImage != null)
+            {
+                var imageName = Guid.NewGuid().ToString();
+                var imageUrl = await ApplicationCloudinary.UploadImage(this.cloudinary, model.CoverImage, imageName);
+
+                if (!string.IsNullOrEmpty(imageUrl))
+                {
+                    group.CoverImage = new Image()
+                    {
+                        Url = imageUrl,
+                        Name = imageName,
+                        CreatorId = userId,
+                    };
+                }
+            }
+
+            this.groupRepository.Update(group);
+            await this.groupRepository.SaveChangesAsync();
+
+            return true;
         }
     }
 }

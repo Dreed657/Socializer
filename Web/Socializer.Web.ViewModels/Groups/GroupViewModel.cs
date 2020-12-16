@@ -20,6 +20,8 @@
 
         public int MembersCount { get; set; }
 
+        public string CoverImageUrl { get; set; }
+
         public ICollection<PostViewModel> Posts { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
