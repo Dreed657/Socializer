@@ -88,6 +88,7 @@
                 Description = user.Description,
                 BirthDate = user.Birthdate,
                 Gender = user.Gender,
+                Email = user.Email,
             };
 
             return Task.CompletedTask;

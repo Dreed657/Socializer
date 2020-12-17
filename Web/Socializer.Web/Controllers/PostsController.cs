@@ -22,7 +22,7 @@
             this.postsService = postsService;
         }
 
-        [Route("/{postId}")]
+        [Route("post/{postId}")]
         public async Task<IActionResult> Index(int postId)
         {
             var model = await this.postsService.GetPostByIdAsync<PostViewModel>(postId);

@@ -1,14 +1,14 @@
 ﻿$(document).ready(function () {
+    updateScrollToBottom();
     var connection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
 
     connection.start().then(function () {
-        var senderId = document.getElementById("senderId").textContent;
-        var groupName = "random5";
+        var senderId = $("#loggedInUser").text();
+        var groupName = $("#groupName").text();
 
         connection.invoke("JoinChannel", groupName, senderId)
             .then(function () {
                 console.log(`added to the group: ${groupName} senderId: ${senderId}`);
-                updateScrollToBottom();
             })
             .catch(function (err) {
                 return console.error(err.toString());
@@ -17,13 +17,13 @@
         return console.error(err.toString());
     });
 
-    connection.on("MemberJoined", function (senderId, message, group) {
-        $("#messageInbox").append(`<p class="border p-2 text-primary text-center">${message} in ${group}</p>`);
-        updateScrollToBottom();
-    });
+    //connection.on("MemberJoined", function (message, group) {
+    //    $("#messageInbox").append(`<p class="border p-2 text-primary text-center">${message} in ${group}</p>`);
+    //    updateScrollToBottom();
+    //});
 
-    connection.on("ReceiveMessage", function (senderId, message, group) {
-        var loggedUserId = document.getElementById("senderId").textContent;
+    connection.on("ReceiveMessage", function (senderId, message) {
+        var loggedUserId = $("#loggedInUser").text();
 
         var currentTime = moment().local().format('L LT');
 
@@ -49,13 +49,13 @@
     });
 
     document.getElementById("msg_send").addEventListener("click", function (event) {
-        var group = "random5";
-        var senderId = document.getElementById("senderId").textContent;
-        var message = document.getElementById("messageInput").value;
+        var groupName = $("#groupName").text();
+        var senderId = $("#loggedInUser").text();
+        var message = $("#messageInput").val();
 
-        connection.invoke("SendMessage", senderId, message, group)
+        connection.invoke("SendMessage", senderId, message, groupName)
             .then(function () {
-                console.log(`message send: ${group} senderId: ${senderId} message: ${message}`);
+                console.log(`message send: ${groupName} senderId: ${senderId} message: ${message}`);
             })
             .catch(function (err) {
                 return console.error(err.toString());

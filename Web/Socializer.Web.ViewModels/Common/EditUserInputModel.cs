@@ -24,6 +24,11 @@
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
+        [Required]
+        [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
         [Display(Name = "Gender")]
         public Gender Gender { get; set; }
 

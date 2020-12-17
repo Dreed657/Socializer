@@ -74,21 +74,24 @@
                             <div class="row">
                                 <p><i class="fas fa-birthday-cake"></i> Born on @Model.ViewModel.Birthdate.ToShortDateString()</p>
                             </div>
-                            <div class="row-cols-auto my-2">
-                                <p class="text-left bold h4">Roles:</p>
-                                @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.ViewModel.Id), GlobalConstants.AdministratorRoleName))
-                                {
-                                    <span class="badge badge-danger" alt="Administrator"><i class="fas fa-user-shield"></i> Administrator</span>
-                                }
-                                @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.ViewModel.Id), GlobalConstants.VerifiedRoleName))
-                                {
-                                    <span class="badge badge-info" alt="Verified"><i class="fas fa-check"></i> Verified</span>
-                                }
-                                @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.ViewModel.Id), GlobalConstants.DeveloperRoleName))
-                                {
-                                    <span class="badge badge-dark" alt="Developer"><i class="fab fa-dev"></i> Developer</span>
-                                }
-                            </div>
+                            @if (this.UserManager.GetRolesAsync(await this.UserManager.GetUserAsync(this.User)).GetAwaiter().GetResult().Any())
+                            {
+                                <div class="row-cols-auto my-2">
+                                    <p class="text-left bold h4">Roles:</p>
+                                    @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.ViewModel.Id), GlobalConstants.AdministratorRoleName))
+                                    {
+                                        <span class="badge badge-danger" alt="Administrator"><i class="fas fa-user-shield"></i> Administrator</span>
+                                    }
+                                    @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.ViewModel.Id), GlobalConstants.VerifiedRoleName))
+                                    {
+                                        <span class="badge badge-info" alt="Verified"><i class="fas fa-check"></i> Verified</span>
+                                    }
+                                    @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.ViewModel.Id), GlobalConstants.DeveloperRoleName))
+                                    {
+                                        <span class="badge badge-dark" alt="Developer"><i class="fab fa-dev"></i> Developer</span>
+                                    }
+                                </div>
+                            }
                         </div>
                     </div>
                     <div class="col-md-8">

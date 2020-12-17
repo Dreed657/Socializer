@@ -45,8 +45,6 @@
 
         public DbSet<ChatGroup> ChatGroups { get; set; }
 
-        public DbSet<UserChatGroup> UserChatGroups { get; set; }
-
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

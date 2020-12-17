@@ -1,11 +1,9 @@
-﻿using Socializer.Services.Data.Friends;
-
-namespace Socializer.Web.Infrastructure.ViewComponents
+﻿namespace Socializer.Web.Infrastructure.ViewComponents
 {
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-
+    using Socializer.Services.Data.Friends;
     using Socializer.Services.Data.Users;
     using Socializer.Web.ViewModels.Users;
 
