@@ -5,46 +5,98 @@
     this.ViewData["Title"] = "Group Name";
 }
 
-<div>
-    <p id="senderId">@UserManger.GetUserId(this.User)</p>
+<div id="data">
+    <p id="senderId" class="d-none">@UserManger.GetUserId(this.User)</p>
 </div>
 
-<div class="container border p-2 mt-2">
-    <div id="chatPanel">
-        <!--Heading-->
-        <div>
-            <div class="row">
-                <div class="col-md-6">
-                    <h3 style="float: left" id="toUser">Group name</h3>
+<div class="container">
+    <h3 class=" text-center">Messaging</h3>
+    <div class="messaging">
+        <div class="inbox_msg">
+            <div class="mesgs">
+                <div class="msg_history" id="messageInbox">
+                    <div class="incoming_msg">
+                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                        <div class="received_msg">
+                            <div class="received_withd_msg">
+                                <p>
+                                    Test which is a new approach to have all
+                                    solutions
+                                </p>
+                                <span class="time_date"> 11:01 AM    |    June 9</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="outgoing_msg">
+                        <div class="sent_msg">
+                            <p>
+                                Test which is a new approach to have all
+                                solutions
+                            </p>
+                            <span class="time_date"> 11:01 AM    |    June 9</span>
+                        </div>
+                    </div>
+                    <div class="incoming_msg">
+                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                        <div class="received_msg">
+                            <div class="received_withd_msg">
+                                <p>Test, which is a new approach to have</p>
+                                <span class="time_date"> 11:01 AM    |    Yesterday</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="outgoing_msg">
+                        <div class="sent_msg">
+                            <p>Apollo University, Delhi, India Test</p>
+                            <span class="time_date"> 11:01 AM    |    Today</span>
+                        </div>
+                    </div>
+                    <div class="incoming_msg">
+                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                        <div class="received_msg">
+                            <div class="received_withd_msg">
+                                <p>Test, which is a new approach to have</p>
+                                <span class="time_date"> 11:01 AM    |    Yesterday</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="outgoing_msg">
+                        <div class="sent_msg">
+                            <p>Apollo University, Delhi, India Test</p>
+                            <span class="time_date"> 11:01 AM    |    Today</span>
+                        </div>
+                    </div>
+                    <div class="incoming_msg">
+                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                        <div class="received_msg">
+                            <div class="received_withd_msg">
+                                <p>
+                                    We work directly with our designers and suppliers,
+                                    and sell direct to you, which means quality, exclusive
+                                    products, at a price anyone can afford.
+                                </p>
+                                <span class="time_date"> 11:01 AM    |    Today</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div>
-            <div id="demo-chat-body" class="nano-content pad-all" tabindex="0">
-                <ul class="list-unstyled media-block" id="messagesList">
-                </ul>
-            </div>
-            <div>
-                <div style="height: 141px; transform: translate(0px, 0px);"></div>
-            </div>
-        </div>
-
-        <!--Widget footer-->
-        <div>
-            <div class="row mx-auto">
-                <div class="col-md-10">
-                    <input type="text" class="form-control" id="messageInput" />
-                </div>
-                <div class="col-md-2">
-                    <button class="btn btn-info btn-block" type="submit" id="sendButton">Send</button>
+                <div class="type_msg">
+                    <div class="input_msg_write">
+                        <input type="text" class="write_msg" id="messageInput" placeholder="Type a message" />
+                        <button class="msg_send_btn" id="msg_send" type="button"><i class="fas fa-paper-plane"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
+@section Styles {
+    <link href="~/messenger/css/chat-style.css" rel="stylesheet" />
+}
+
 @section Scripts {
+    <script src="~/lib/moment/moment.js"></script>
     <script src="~/lib/signalr/dist/browser/signalr.js"></script>
     <script src="~/messenger/js/messanger.js"></script>
 }
