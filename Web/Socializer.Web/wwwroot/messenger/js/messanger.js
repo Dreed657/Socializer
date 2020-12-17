@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    updateScrollToBottom();
     var connection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
 
     connection.start().then(function () {
@@ -8,6 +7,7 @@
 
         connection.invoke("JoinChannel", groupName, senderId)
             .then(function () {
+                updateScrollToBottom();
                 console.log(`added to the group: ${groupName} senderId: ${senderId}`);
             })
             .catch(function (err) {
@@ -66,6 +66,6 @@
     });
 
     function updateScrollToBottom() {
-        $("#messageInbox").scrollTop($("#messageInbox").height());
+        $("#messageInbox").scrollTop($("#messageInbox").prop("scrollHeight"));
     }
 });
