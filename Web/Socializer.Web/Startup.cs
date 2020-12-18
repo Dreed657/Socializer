@@ -32,8 +32,7 @@
     using Socializer.Web.ViewModels.Common;
 
     public class Startup
-    {
-        private readonly IConfiguration configuration;
+    {        private readonly IConfiguration configuration;
 
         public Startup(IConfiguration configuration)
         {
@@ -120,7 +119,6 @@
             services.AddTransient<IAdminGroupsService, AdminGroupsService>();
 
             services.AddSignalR();
-            services.AddApplicationInsightsTelemetry();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -157,11 +155,11 @@
             app.UseEndpoints(
                 endpoints =>
                     {
+                        endpoints.MapHub<MessengerHub>("/chat");
+                        
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 
-                        endpoints.MapHub<MessengerHub>("/chat");
-                        
                         endpoints.MapRazorPages();
                     });
         }

@@ -12,7 +12,9 @@
 
         Task<T> GetUserByIdAsync<T>(string userId);
 
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         Task<string?> GetIdByUserName(string username);
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
 
         Task<IEnumerable<T>> GetAllUsersAsync<T>();
     }

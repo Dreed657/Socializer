@@ -27,6 +27,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="5.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="5.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.1">
       <PrivateAssets>all</PrivateAssets>
@@ -74,5 +75,9 @@
     <Content Update="wwwroot\js\dashboard-custom.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\ServiceDependencies\" />
   </ItemGroup>
 </Project>

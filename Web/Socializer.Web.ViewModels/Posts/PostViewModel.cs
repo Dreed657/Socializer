@@ -1,11 +1,10 @@
-﻿using Socializer.Data.Models.Enums;
-
-namespace Socializer.Web.ViewModels.Posts
+﻿namespace Socializer.Web.ViewModels.Posts
 {
     using System;
     using System.Collections.Generic;
 
     using Socializer.Data.Models;
+    using Socializer.Data.Models.Enums;
     using Socializer.Services.Mapping;
     using Socializer.Web.ViewModels.Users;
 

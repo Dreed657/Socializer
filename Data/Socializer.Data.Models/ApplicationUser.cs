@@ -62,7 +62,7 @@
         public virtual ICollection<ChatGroup> ChatGroups { get; set; }
 
         public virtual ICollection<ChatMessage> ChatMessages { get; set; }
-        
+
         // Audit info
         public DateTime CreatedOn { get; set; }
 

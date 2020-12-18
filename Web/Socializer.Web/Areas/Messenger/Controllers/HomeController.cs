@@ -1,15 +1,14 @@
-﻿using System.Threading;
-using Microsoft.AspNetCore.Identity;
-using Socializer.Data.Models;
-using Socializer.Web.Areas.Messenger.Services;
-
-namespace Socializer.Web.Areas.Messenger.Controllers
+﻿namespace Socializer.Web.Areas.Messenger.Controllers
 {
+    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Socializer.Data.Models;
     using Socializer.Services.Data.Users;
+    using Socializer.Web.Areas.Messenger.Services;
     using Socializer.Web.ViewModels.Users;
 
     [Authorize]
@@ -41,12 +40,12 @@ namespace Socializer.Web.Areas.Messenger.Controllers
             var loggedInUserId = this.userManager.GetUserId(this.User);
             var groupId = await this.chatService.IsUsersAlreadyInARoom(userId, loggedInUserId);
 
-            return this.RedirectToAction(nameof(this.Chat), new { gId = groupId });
+            return this.RedirectToAction(nameof(this.Chat), new { groupId = groupId });
         }
 
-        public async Task<IActionResult> Chat(int gId)
+        public async Task<IActionResult> Chat(int groupId)
         {
-            var model = await this.chatService.GetChatGroupDetails(gId);
+            var model = await this.chatService.GetChatGroupDetails(groupId);
             return this.View(model);
         }
     }

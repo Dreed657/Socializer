@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Socializer.Web.Areas.Messenger.Services
+﻿namespace Socializer.Web.Areas.Messenger.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
