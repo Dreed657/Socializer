@@ -1,18 +1,17 @@
-﻿using System.Net.Sockets;
-using AutoMapper.Configuration.Conventions;
-using Socializer.Data.Models.Enums;
-
-namespace Socializer.Services.Data.Posts
+﻿namespace Socializer.Services.Data.Posts
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net.Sockets;
     using System.Threading.Tasks;
 
+    using AutoMapper.Configuration.Conventions;
     using CloudinaryDotNet;
     using Microsoft.EntityFrameworkCore;
     using Socializer.Data.Common.Repositories;
     using Socializer.Data.Models;
+    using Socializer.Data.Models.Enums;
     using Socializer.Services.Mapping;
     using Socializer.Web.ViewModels.Posts;
 

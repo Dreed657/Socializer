@@ -21,7 +21,11 @@
         private readonly IRepository<GroupCreateRequest> groupCreateRepository;
         private readonly IRepository<Image> imageRepo;
 
-        public GroupService(Cloudinary cloudinary, IRepository<Group> groupRepository, IRepository<GroupCreateRequest> groupCreteRepository, IRepository<Image> imageRepo)
+        public GroupService(
+            Cloudinary cloudinary,
+            IRepository<Group> groupRepository,
+            IRepository<GroupCreateRequest> groupCreteRepository,
+            IRepository<Image> imageRepo)
         {
             this.cloudinary = cloudinary;
             this.groupRepository = groupRepository;

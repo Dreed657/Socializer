@@ -49,13 +49,7 @@
 
         public async Task<bool> UpdateUser(EditUserProfileInputModel model, string userId)        {            var user = await this.userRepo.All().FirstOrDefaultAsync(x => x.Id == userId);
             if (user == null)            {                return false;            }
-            if (model.FirstName != user.FirstName)            {                user.FirstName = model.FirstName;            }
-            if (model.LastName != user.LastName)            {                user.LastName = model.LastName;            }
-            if (model.Description != user.Description)            {                user.Description = model.Description;            }
-            if (model.Gender != user.Gender)
-            {
-                user.Gender = model.Gender;
-            }
+            user.FirstName = model.FirstName;            user.LastName = model.LastName;            user.Description = model.Description;            user.Gender = model.Gender;
 
             if (model.ProfileImage != null)
             {
@@ -90,11 +84,11 @@
             }
             this.userRepo.Update(user);            await this.userRepo.SaveChangesAsync();            return true;        }
 
-        public async Task<string> GetIdByUserName(string username)
+        public async Task<string?> GetIdByUserName(string username)
         {
             var user = await this.userRepo.All().FirstOrDefaultAsync(x => x.UserName == username);
 
-            return user.Id;
+            return user?.Id;
         }
     }
 }

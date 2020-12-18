@@ -12,7 +12,7 @@
 
         Task<T> GetUserByIdAsync<T>(string userId);
 
-        Task<string> GetIdByUserName(string username);
+        Task<string?> GetIdByUserName(string username);
 
         Task<IEnumerable<T>> GetAllUsersAsync<T>();
     }
