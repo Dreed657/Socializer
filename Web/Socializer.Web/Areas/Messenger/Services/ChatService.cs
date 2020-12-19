@@ -102,6 +102,7 @@
             });
 
             await this.chatGroupRepo.SaveChangesAsync();
+            await this.messengerHub.Clients.Group(groupName).SendAsync("ReceiveMessage", userId, message);
             return true;
         }
     }

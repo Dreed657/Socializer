@@ -132,19 +132,10 @@
                 <div class="row-cols-auto">
                     @foreach (var image in Model.Images.OrderByDescending(x => x.CreatedOn))
                     {
-                        <a id="single_image" href="@image.Url"><img src="@image.Url" alt="@image.Name" class="profile-imgs-index m-2 rounded-2" /></a>
+                        <img src="@image.Url" alt="@image.Name" class="profile-imgs-index m-2 rounded-2" />
                     }
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-@section Styles {
-    <link href="~/lib/fancybox/dist/css/jquery.fancybox.css" rel="stylesheet" />
-}
-
-@section Scripts {
-    <script src="~/lib/fancybox/dist/js/jquery.fancybox.js"></script>
-    <script src="~/js/infinite-scroll.js"></script>
-}

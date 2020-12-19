@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-auto text-left">
                             <p class="h6 small">@TimeService.TimeAgo(Model.CreatedOn.ToLocalTime())</p>
                         </div>
                         <div class="col text-left h6 small">
@@ -164,7 +164,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>
                 <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -173,9 +173,13 @@
                 <form asp-area="" asp-controller="Posts" asp-action="Edit" asp-route-postId="@Model.Id">
                     <div class="form-group">
                         <label for="content">Content</label>
-                        <input type="text" id="content" name="content" class="form-control"/>
+                        <input type="text" id="content" name="content" class="form-control"  value="@Model.Content"/>
                     </div>
-                    <input type="submit" class="text-center mt-3 btn btn-danger"/>
+                    <div class="form-group">
+                        <label for="Privacy">Privacy</label>
+                        <select class="form-control" id="Privacy" name="Status" asp-items="Html.GetEnumSelectList<PrivacyStatus>()"></select>
+                    </div>
+                    <input type="submit" class="text-center mt-3 btn btn-danger" />
                 </form>
             </div>
         </div>

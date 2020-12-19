@@ -111,6 +111,7 @@
                 .AnyAsync(x => ((x.ReceiverId == receiverId && x.SenderId == senderId) || (x.ReceiverId == senderId && x.SenderId == receiverId)) && x.Status == Status.Pending);
         }
 
+        // TODO: MAY BE A PROBABLE CAUSE FOR FRIENDS BUG
         public async Task<IEnumerable<T>> GetAllFriendsByUserIdAsync<T>(string userId)
         {
             var temp = await this.userRepo

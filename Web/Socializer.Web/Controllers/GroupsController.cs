@@ -68,7 +68,7 @@
             var userId = this.userManger.GetUserId(this.User);
             var groupName = await this.groupService.AddMemberToGroupAsync(groupId, userId);
 
-            return this.RedirectToAction(nameof(this.Index), new { groupName = groupName, groupId = groupId });
+            return this.RedirectToAction(nameof(this.Index), new { Id = groupId });
         }
     }
 }

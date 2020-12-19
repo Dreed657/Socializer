@@ -206,6 +206,7 @@
             }
 
             post.Content = model.Content;
+            post.Privacy = model.Status;
 
             this.postsRepo.Update(post);
             await this.postsRepo.SaveChangesAsync();
