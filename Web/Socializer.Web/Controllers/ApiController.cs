@@ -37,18 +37,18 @@
             return this.Ok(data);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddComment(int postId, string content)
-        {
-            var result = await this.postsService.AddComment(content, postId, this.userManager.GetUserId(this.User));
+        //[HttpPost]
+        //public async Task<IActionResult> AddComment(int postId, string content)
+        //{
+        //    var result = await this.postsService.AddComment(content, postId, this.userManager.GetUserId(this.User));
 
-            if (!result)
-            {
-                return this.NoContent();
-            }
+        //    if (!result)
+        //    {
+        //        return this.NoContent();
+        //    }
 
-            return this.Ok(postId);
-        }
+        //    return this.Ok(postId);
+        //}
 
         public async Task<IActionResult> Like(int postId)
         {
