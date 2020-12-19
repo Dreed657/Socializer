@@ -16,7 +16,10 @@
         private readonly IRepository<Friend> friendRepo;
         private readonly IRepository<ApplicationUser> userRepo;
 
-        public FriendService(IRepository<FriendRequest> friendRequestRepo, IRepository<Friend> friendRepo, IRepository<ApplicationUser> userRepo)
+        public FriendService(
+            IRepository<FriendRequest> friendRequestRepo,
+            IRepository<Friend> friendRepo,
+            IRepository<ApplicationUser> userRepo)
         {
             this.friendRequestRepo = friendRequestRepo;
             this.friendRepo = friendRepo;
@@ -111,6 +114,7 @@
                 .AnyAsync(x => ((x.ReceiverId == receiverId && x.SenderId == senderId) || (x.ReceiverId == senderId && x.SenderId == receiverId)) && x.Status == Status.Pending);
         }
 
+        // TODO: MAY BE A PROBABLE CAUSE FOR FRIENDS BUG
         public async Task<IEnumerable<T>> GetAllFriendsByUserIdAsync<T>(string userId)
         {
             var temp = await this.userRepo

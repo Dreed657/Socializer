@@ -32,8 +32,6 @@
     ReloadComments($('#add-comment input[name=postId]').val());
 });
 
-
-
 $("a#like").click(function () {
     var postId = $(this).attr("post-like-id");
     $.ajax({

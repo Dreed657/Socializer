@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Socializer.Web.Areas.Messenger.Services
+﻿namespace Socializer.Web.Areas.Messenger.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -103,6 +102,7 @@ namespace Socializer.Web.Areas.Messenger.Services
             });
 
             await this.chatGroupRepo.SaveChangesAsync();
+            await this.messengerHub.Clients.Group(groupName).SendAsync("ReceiveMessage", userId, message);
             return true;
         }
     }

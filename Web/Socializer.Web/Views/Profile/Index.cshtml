@@ -1,7 +1,8 @@
 ﻿@model ProfileIndexModel
 @inject IFriendService friendService
 @inject UserManager<ApplicationUser> UserManager
-@{
+
+@{ 
     this.ViewData["Title"] = Model.ViewModel.UserName;
     var friendStatus = await this.friendService.CheckFriendStatus(this.UserManager.GetUserId(this.User), Model.ViewModel.Id);
     var requestStatus = await this.friendService.CheckRequestStatus(this.UserManager.GetUserId(this.User), Model.ViewModel.Id);
@@ -9,7 +10,7 @@
 
 <div class="container">
     <div class="row">
-        <img width="75" height="75" class="rounded-circle img-thumbnail p-1 profileImage" src="@Model.ViewModel.ProfileImageUrl" alt="profile-images"/>
+        <img width="75" height="75" class="rounded-circle img-thumbnail p-1 profileImage" src="@Model.ViewModel.ProfileImageUrl" alt="profile-images" />
         <img class="cover-image" src="@Model.ViewModel.CoverImageUrl" alt="cover-images" />
     </div>
     <div class="row text-center mt-2">
@@ -40,18 +41,15 @@
             <div class="col text-right">
                 @if (friendStatus)
                 {
-                    <a class="btn btn-outline-warning my-2">Message</a>
-                }
+                    <a asp-area="Messenger" asp-controller="Home" asp-action="StartChat" asp-route-userId="@Model.ViewModel.Id" class="btn btn-outline-warning my-2">Message</a> }
                 else
                 {
-                    if (!requestStatus)
-                    {
-                        <a class="btn btn-outline-info my-2" asp-controller="Profile" asp-action="AddFriend" asp-route-userId="@Model.ViewModel.Id" asp-route-returnUrl="@this.Context.Request.Path.Value">Add Friend</a>
-                    }
-                    else
-                    {
-                        <a class="btn btn-outline-light text-black-50 my-2 disabled">Request Pending</a>
-                    }
+                if (!requestStatus)
+                {
+                    <a class="btn btn-outline-info my-2" asp-controller="Profile" asp-action="AddFriend" asp-route-userId="@Model.ViewModel.Id" asp-route-returnUrl="@this.Context.Request.Path.Value">Add Friend</a> }
+                else
+                {
+                    <a class="btn btn-outline-light text-black-50 my-2 disabled">Request Pending</a>}
                 }
             </div>
         }
@@ -66,13 +64,19 @@
                                 <p class="h3 bold">Intro</p>
                             </div>
                             <div class="row">
-                                <p><i class="fas fa-genderless"></i> @Model.ViewModel.Gender.ToString()</p>
+                                <p>
+                                    <i class="fas fa-genderless"></i> @Model.ViewModel.Gender.ToString()
+                                </p>
                             </div>
                             <div class="row">
-                                <p><i class="far fa-clock"></i> Joined in @Model.ViewModel.CreatedOn.ToString("M")</p>
+                                <p>
+                                    <i class="far fa-clock"></i> Joined in @Model.ViewModel.CreatedOn.ToString("M")
+                                </p>
                             </div>
                             <div class="row">
-                                <p><i class="fas fa-birthday-cake"></i> Born on @Model.ViewModel.Birthdate.ToShortDateString()</p>
+                                <p>
+                                    <i class="fas fa-birthday-cake"></i> Born on @Model.ViewModel.Birthdate.ToShortDateString()
+                                </p>
                             </div>
                             @if (this.UserManager.GetRolesAsync(await this.UserManager.GetUserAsync(this.User)).GetAwaiter().GetResult().Any())
                             {
@@ -128,67 +132,10 @@
                 <div class="row-cols-auto">
                     @foreach (var image in Model.Images.OrderByDescending(x => x.CreatedOn))
                     {
-                        <img src="@image.Url" alt="@image.Name" class="profile-imgs-index m-2 rounded-2"/>
+                        <img src="@image.Url" alt="@image.Name" class="profile-imgs-index m-2 rounded-2" />
                     }
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-@*<div class="text-center col-2 mx-2 border-left border-right">
-        <div class="row">
-            <img width="75" height="75" class="rounded-circle img-thumbnail mx-auto p-1" src="@Model.ProfileImageUrl" alt="profile-images"/>
-        </div>
-        <div class="row my-2">
-            <h3>@Model.FirstName @Model.LastName</h3>
-        </div>
-    </div>*@
-
-@*<div class="row-cols-auto my-2">
-        @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.Id), GlobalConstants.AdministratorRoleName))
-        {
-            <span class="badge badge-danger" alt="Administrator"><i class="fas fa-user-shield"></i> Administrator</span>
-        }
-        @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.Id), GlobalConstants.VerifiedRoleName))
-        {
-            <span class="badge badge-info" alt="Verified"><i class="fas fa-check"></i> Verified</span>
-        }
-        @if (await this.UserManager.IsInRoleAsync(await this.UserManager.FindByIdAsync(Model.Id), GlobalConstants.DeveloperRoleName))
-        {
-            <span class="badge badge-dark" alt="Developer"><i class="fab fa-dev"></i> Developer</span>
-        }
-    </div>
-
-    @if (this.UserManager.GetUserId(this.User) != Model.Id)
-    {
-        <div class="row">
-            <div class="col">
-                @if (friendStatus)
-                {
-                    <a class="btn btn-outline-warning my-2">Message</a>
-                }
-                else
-                {
-                    if (!requestStatus)
-                    {
-                        <a class="btn btn-outline-info my-2" asp-controller="Profile" asp-action="AddFriend" asp-route-userId="@Model.Id" asp-route-returnUrl="@this.Context.Request.Path.Value">Add Friend</a>
-                    }
-                    else
-                    {
-                        <a class="btn btn-outline-light text-black-50 my-2 disabled">Request Pending</a>
-                    }
-                }
-            </div>
-        </div>
-    }
-    @if (!string.IsNullOrEmpty(Model.Description))
-    {
-        <p>@Model.Description</p>
-    }
-    <div class="row">
-        <p><i class="fas fa-genderless"></i> @Model.Gender.ToString()</p>
-        <p><i class="far fa-clock"></i> Joined in @Model.CreatedOn.ToString("M")</p>
-        <p><i class="fas fa-birthday-cake"></i> Born on @Model.Birthdate.ToShortDateString()</p>
-    </div>*@

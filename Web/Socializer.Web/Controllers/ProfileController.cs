@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using Socializer.Web.ViewModels.Images;
-
-namespace Socializer.Web.Controllers
+﻿namespace Socializer.Web.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
@@ -11,6 +9,7 @@ namespace Socializer.Web.Controllers
     using Socializer.Services.Data.Friends;
     using Socializer.Services.Data.Images;
     using Socializer.Services.Data.Users;
+    using Socializer.Web.ViewModels.Images;
     using Socializer.Web.ViewModels.Users;
 
     public class ProfileController : BaseController

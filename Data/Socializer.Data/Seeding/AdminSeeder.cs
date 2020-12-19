@@ -1,6 +1,7 @@
 ﻿namespace Socializer.Data.Seeding
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
@@ -42,7 +43,7 @@
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-            if (await dbContext.Users.AnyAsync())
+            if (!dbContext.Users.Any())
             {
                 await SeedAdminAsync(dbContext, userManager);
             }

@@ -1,12 +1,11 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Socializer.Data.Models;
-
-namespace Socializer.Web.Controllers
+﻿namespace Socializer.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Socializer.Data.Models;
     using Socializer.Services.Data.Posts;
     using Socializer.Web.ViewModels.Common;
 

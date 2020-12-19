@@ -16,7 +16,7 @@
 
         public int MembersCount { get; set; }
 
-        public Status Status { get; set; }
+        public string CoverImageUrl { get; set; }
 
         public DateTime CreatedOn { get; set; }
     }

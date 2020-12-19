@@ -1,4 +1,6 @@
-﻿@model ChatGroupViewModel
+﻿@using Socializer.Services
+@model ChatGroupViewModel
+@inject TimeService timeService
 @inject UserManager<ApplicationUser> UserManger
 @{
     this.ViewData["Title"] = "Group Name";
@@ -23,7 +25,7 @@
                             <div class="outgoing_msg">
                                 <div class="sent_msg">
                                     <p>@msg.Content</p>
-                                    <span class="time_date"> @msg.CreatedOn | Today </span>
+                                    <span class="time_date"> @msg.CreatedOn | @(msg.CreatedOn.Day == DateTime.UtcNow.Day ? "Today" : msg.CreatedOn.ToLocalTime().ToString("M")) </span>
                                 </div>
                             </div>
                         }
@@ -34,7 +36,7 @@
                                 <div class="received_msg">
                                     <div class="received_withd_msg">
                                         <p>@msg.Content</p>
-                                        <span class="time_date"> @msg.CreatedOn | Today </span>
+                                        <span class="time_date"> @msg.CreatedOn | @(msg.CreatedOn.Day == DateTime.UtcNow.Day ? "Today" : msg.CreatedOn.ToLocalTime().ToString("M"))  </span>
                                     </div>
                                 </div>
                             </div>

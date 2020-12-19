@@ -1,16 +1,15 @@
-﻿using Socializer.Data.Models.Enums;
-using Socializer.Web.ViewModels.Users;
-
-namespace Socializer.Services.Data.Tests.Users
+﻿namespace Socializer.Services.Data.Tests.Users
 {
     using System.Linq;
     using System.Threading.Tasks;
 
     using Socializer.Data.Models;
+    using Socializer.Data.Models.Enums;
     using Socializer.Data.Repositories;
     using Socializer.Services.Data.Tests.Common;
     using Socializer.Services.Data.Users;
     using Socializer.Services.Mapping;
+    using Socializer.Web.ViewModels.Users;
     using Xunit;
 
     public class UserServiceTests : TestBase
@@ -158,7 +157,7 @@ namespace Socializer.Services.Data.Tests.Users
         public async Task UpdateUserShouldChangeFirstName()
         {
             var db = GetDatabase();
-            await db.Users.AddAsync(new ApplicationUser() { Id = "1", UserName = "Random113513", FirstName = "Test"});
+            await db.Users.AddAsync(new ApplicationUser() { Id = "1", UserName = "Random113513", FirstName = "Test" });
             await db.SaveChangesAsync();
 
             var userRepo = new EfRepository<ApplicationUser>(db);

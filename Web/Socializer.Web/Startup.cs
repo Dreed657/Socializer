@@ -32,8 +32,7 @@
     using Socializer.Web.ViewModels.Common;
 
     public class Startup
-    {
-        private readonly IConfiguration configuration;
+    {        private readonly IConfiguration configuration;
 
         public Startup(IConfiguration configuration)
         {
@@ -43,6 +42,7 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(this.configuration);
+            services.AddApplicationInsightsTelemetry();
 
             services.AddDbContext<ApplicationDbContext>(
                 options =>
@@ -55,28 +55,28 @@
                 .AddRoles<ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddAuthentication()
-              .AddFacebook(facebookOptions =>
-              {
-                  facebookOptions.AppId = this.configuration["ExternalAuth:Facebook:AppId"];
-                  facebookOptions.AppSecret = this.configuration["ExternalAuth:Facebook:AppSecret"];
-              })
-              .AddGoogle(googleOptions =>
-              {
-                  googleOptions.ClientId = this.configuration["ExternalAuth:Google:ClientId"];
-                  googleOptions.ClientSecret = this.configuration["ExternalAuth:Google:ClientSecret"];
-              })
-              .AddTwitter(twitterOptions =>
-              {
-                  twitterOptions.ConsumerKey = this.configuration["ExternalAuth:Twitter:ApiKey"];
-                  twitterOptions.ConsumerSecret = this.configuration["ExternalAuth:Twitter:ApiSecretKey"];
-                  twitterOptions.RetrieveUserDetails = true;
-              })
-              .AddMicrosoftAccount(microsoftOptions =>
-              {
-                  microsoftOptions.ClientId = this.configuration["ExternalAuth:Microsoft:ClientId"];
-                  microsoftOptions.ClientSecret = this.configuration["ExternalAuth:Microsoft:ClientSecret"];
-              });
+            // services.AddAuthentication()
+            //  .AddFacebook(facebookOptions =>
+            //  {
+            //      facebookOptions.AppId = this.configuration["ExternalAuth:Facebook:AppId"];
+            //      facebookOptions.AppSecret = this.configuration["ExternalAuth:Facebook:AppSecret"];
+            //  })
+            //  .AddGoogle(googleOptions =>
+            //  {
+            //      googleOptions.ClientId = this.configuration["ExternalAuth:Google:ClientId"];
+            //      googleOptions.ClientSecret = this.configuration["ExternalAuth:Google:ClientSecret"];
+            //  })
+            //  .AddTwitter(twitterOptions =>
+            //  {
+            //      twitterOptions.ConsumerKey = this.configuration["ExternalAuth:Twitter:ApiKey"];
+            //      twitterOptions.ConsumerSecret = this.configuration["ExternalAuth:Twitter:ApiSecretKey"];
+            //      twitterOptions.RetrieveUserDetails = true;
+            //  })
+            //  .AddMicrosoftAccount(microsoftOptions =>
+            //  {
+            //      microsoftOptions.ClientId = this.configuration["ExternalAuth:Microsoft:ClientId"];
+            //      microsoftOptions.ClientSecret = this.configuration["ExternalAuth:Microsoft:ClientSecret"];
+            //  });
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.Configure<CookiePolicyOptions>(
@@ -120,7 +120,6 @@
             services.AddTransient<IAdminGroupsService, AdminGroupsService>();
 
             services.AddSignalR();
-            services.AddApplicationInsightsTelemetry();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -157,11 +156,11 @@
             app.UseEndpoints(
                 endpoints =>
                     {
+                        endpoints.MapHub<MessengerHub>("/chat");
+
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 
-                        endpoints.MapHub<MessengerHub>("/chat");
-                        
                         endpoints.MapRazorPages();
                     });
         }

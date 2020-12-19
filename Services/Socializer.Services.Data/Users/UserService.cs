@@ -84,7 +84,9 @@
             }
             this.userRepo.Update(user);            await this.userRepo.SaveChangesAsync();            return true;        }
 
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         public async Task<string?> GetIdByUserName(string username)
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         {
             var user = await this.userRepo.All().FirstOrDefaultAsync(x => x.UserName == username);
 

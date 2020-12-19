@@ -25,7 +25,6 @@
         public async Task SendMessage(string senderId, string message, string groupName)
         {
             await this.charService.SendMessageToGroup(message, senderId, groupName);
-            await this.Clients.Group(groupName).SendAsync("ReceiveMessage", senderId, message);
         }
     }
 }
