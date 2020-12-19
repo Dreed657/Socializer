@@ -16,7 +16,10 @@
         private readonly IRepository<Friend> friendRepo;
         private readonly IRepository<ApplicationUser> userRepo;
 
-        public FriendService(IRepository<FriendRequest> friendRequestRepo, IRepository<Friend> friendRepo, IRepository<ApplicationUser> userRepo)
+        public FriendService(
+            IRepository<FriendRequest> friendRequestRepo,
+            IRepository<Friend> friendRepo,
+            IRepository<ApplicationUser> userRepo)
         {
             this.friendRequestRepo = friendRequestRepo;
             this.friendRepo = friendRepo;
