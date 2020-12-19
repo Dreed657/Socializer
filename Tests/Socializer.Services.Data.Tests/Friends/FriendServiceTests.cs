@@ -1,6 +1,4 @@
-﻿using Socializer.Data.Models.Enums;
-
-namespace Socializer.Services.Data.Tests.Friends
+﻿namespace Socializer.Services.Data.Tests.Friends
 {
     using System;
     using System.Collections.Generic;
@@ -9,6 +7,7 @@ namespace Socializer.Services.Data.Tests.Friends
     using System.Threading.Tasks;
 
     using Socializer.Data.Models;
+    using Socializer.Data.Models.Enums;
     using Socializer.Data.Repositories;
     using Socializer.Services.Data.Friends;
     using Socializer.Services.Data.Tests.Common;

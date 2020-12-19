@@ -30,6 +30,19 @@
         }
 
         [HttpPost]
+        public async Task<IActionResult> AddComment(int postId, string content, string returnUrl)
+        {
+            var result = await this.postsService.AddComment(content, postId, this.userManager.GetUserId(this.User));
+
+            if (!result)
+            {
+                return this.NoContent();
+            }
+
+            return this.Redirect(returnUrl);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Create(PostInputModel model, string returnUrl, int groupId)
         {
             var user = await this.userManager.GetUserAsync(this.User);
