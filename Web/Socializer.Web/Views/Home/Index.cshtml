@@ -5,9 +5,16 @@
 }
 
 <div class="container w-50">
-    @foreach (var post in Model)
+    @if (!Model.Any())
     {
-        <partial name="_PostPartial" model="post" />
+        <h1 class="text-center">You don't have any relations go make some friends! :)</h1>
+    }
+    else
+    {
+        @foreach (var post in Model)
+        {
+            <partial name="_PostPartial" model="post" />
+        }
     }
     <div class="loader mx-auto my-3" id="page-loader"></div>
 </div>
