@@ -41,6 +41,12 @@ To an SPA application ASP.NET 5.0 REST API + Angular
 ### Profile Page
 ![Profile](https://i.imgur.com/V6oKJPB.png)
 
+### Messanger Rooms
+![MessangerRooms](https://i.imgur.com/Yla6BV3.png)
+
+### Private Chat Page
+![PrivateChat](https://i.imgur.com/Yla6BV3.png)
+
 ### Group Page
 ![Group](https://i.imgur.com/IFe8Iy2.png)
 
