@@ -30,6 +30,23 @@ To an SPA application ASP.NET 5.0 REST API + Angular
 - SVG
 - FontAwesome
 
+## Preview:
+
+### Database schema
+![Database](https://i.imgur.com/2QRLC46.png)
+
+### Feed Page
+![Feed](https://i.imgur.com/fBBtsBk.png)
+
+### Profile Page
+![Profile](https://i.imgur.com/V6oKJPB.png)
+
+### Group Page
+![Group](https://i.imgur.com/IFe8Iy2.png)
+
+### Admin Dashboard Main Page
+![Dashboard-Home](https://i.imgur.com/0CLn2uw.png)
+
 <!-- LICENSE -->
 ## License
 
