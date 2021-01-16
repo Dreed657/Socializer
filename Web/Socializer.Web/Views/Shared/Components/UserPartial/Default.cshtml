@@ -3,15 +3,15 @@
 @model UserPartialViewModel
 
 <div class="row">
-    <div class="col-auto offset-2">
+    <div class="col-auto offset-3">
         <img src="@Model.ProfileImageUrl" class="user-partial-img rounded-circle img-thumbnail"/>
     </div>
-    <div class="col my-auto text-center">
+    <div class="col my-auto">
         <a class="text-dark h5 px-2 py-2 border-0" asp-area="" asp-controller="Profile" asp-action="Index" asp-route-username="@this.UserManager.GetUserName(this.User)" title="Manage">
             @Model.FirstName
         </a>
     </div>
-    <div class=col>
+    <div class="col">
         <ul class="navbar-nav float-right mt-2">
             @if (this.SignInManager.IsSignedIn(this.User))
             {
