@@ -13,6 +13,7 @@ To an SPA application ASP.NET 5.0 REST API + Angular
 - [.NET Core 5.0](https://devblogs.microsoft.com/dotnet/announcing-net-5-0/ ".NET 5.0 Changes")
 - ASP.NET [CORE 5.0](https://dotnet.microsoft.com/download/dotnet/5.0 "CORE 5.0") MVC
 - [EF Core 5.0](https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-5.0/breaking-changes "EF CORE 5.0") 
+- AutoMapper
 - SignalR
 - xUnit
 - Moq
