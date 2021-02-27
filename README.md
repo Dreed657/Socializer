@@ -5,10 +5,6 @@
 # :pencil2: Socializer
 Just another social media project
 
-# ⚒️ Currenly project is beening ported
-To an SPA application ASP.NET 5.0 REST API + Angular 
-[LINK](# "BLANK")
-
 ## :hammer: Built With
 - [.NET Core 5.0](https://devblogs.microsoft.com/dotnet/announcing-net-5-0/ ".NET 5.0 Changes")
 - ASP.NET [CORE 5.0](https://dotnet.microsoft.com/download/dotnet/5.0 "CORE 5.0") MVC
